@@ -1,6 +1,6 @@
 # LaborCoin
 
-**LaborCoin (LABR)** is an open-source project building tools for working-class empowerment through crypto, collective governance, and economic self-determination.
+**LaborCoin (LABR)** is an open-source project creating a crypto-powered system for working-class empowerment through collective governance, transparent economics, and digital mutual aid.
 
 We’re developing a decentralized ecosystem that enables workers to organize, build community wealth, and challenge exploitative systems using transparent blockchain technology.
 
@@ -8,9 +8,9 @@ We’re developing a decentralized ecosystem that enables workers to organize, b
 
 LaborCoin is:
 - A **token** (LABR) with taxes and hardcoded limits on buying, selling, and wallet size
-- A **DAO** (Decentralized Autonomous Organization) where workers self register upon max-income and ID verifications to vote on how to use the funds collected from token sales taxes
-- A **bonding curve exchange** that funds worker-driven initiatives through collective economics and enables the token limits
-- A **platform** for redistributing value back to labor through digital dividends and shared governance
+- A **DAO** (Decentralized Autonomous Organization) where verified workers — based on ID and income checks — can register to vote on how to use treasury funds collected from token sales
+- A **bonding curve exchange**  that adjusts LABR’s price based on demand — with every purchase and sale helping fund worker-led initiatives, as a portion of each sale flows directly into the DAO treasury
+- A **platform** for building and sending mutual aid through digital dividends and shared governance
 
 The goal: to create a crypto-native infrastructure that serves the working class instead of extracting from it.
 
@@ -18,13 +18,12 @@ The goal: to create a crypto-native infrastructure that serves the working class
 
 This repository will include:
 
-/contracts - Smart contracts (LABR token, DAO logic, bonding curve)
-/frontend - Web interface for interacting with LaborCoin
-/scripts - Deployment scripts, DAO setup, configuration
-/docs - Redpaper, FAQs, contribution guidelines
-README.md - Project overview (this file)
-LICENSE - Open-source MIT License
-
+`/contracts` – Smart contracts (LABR token, DAO logic, bonding curve)  
+`/frontend` – Web interface for interacting with LaborCoin  
+`/scripts` – Deployment scripts, DAO setup, configuration  
+`/docs` – Redpaper, FAQs, contribution guidelines  
+`README.md` – Project overview (this file)  
+`LICENSE` – Open-source MIT License
 
 > Code and documentation will be added as development progresses. Stay tuned!
 
@@ -35,16 +34,16 @@ For a deeper dive into the project’s purpose, economics, governance design, an
 ##  Technology Stack
 
 (Currently in development - subject to change):
-- Solidity / Hardhat for smart contracts
-- React / Next.js for frontend
-- Aragon or other DAO framework
+- Solidity + Hardhat for smart contracts
+- React / Next.js for the frontend
+- Aragon framework for DAO governance
 - IPFS or Fleek for decentralized hosting
 
 ##  Contributing
 
 LaborCoin is a people-powered project. Once code is uploaded, we welcome contributions from developers, designers, organizers, and aligned communities.
 
-Planned contributor guidelines will include:
+Contributor guidelines will include:
 - How to run and test the code
 - How to submit pull requests
 - Code of conduct
@@ -52,9 +51,13 @@ Planned contributor guidelines will include:
 
 ##  Stay Involved
 
-- Website: [https://laborcoin.tech](https://laborcoin.tech)
+Want to help? Watch this repo and join early discussions in the issues tab and see our funding link.
+
+- Website: [laborcoin.tech](https://laborcoin.tech)
 - Redpaper: Coming soon
-- Contact: [laborcoincreator@proton.me]
+- Whitepaper: Coming soon
+- Contact: [laborcoincreator@proton.me](mailto:laborcoincreator@proton.me)
+- Follow on [X (Twitter)](https://x.com/laborcoincre8r)
 
 ##  License
 
@@ -66,3 +69,5 @@ This project is open-source under the [MIT License](LICENSE).
 LaborCoin is a start.
 
 — _The LaborCoin Creator_
+
+
