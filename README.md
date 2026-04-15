@@ -1,10 +1,10 @@
 # LaborCoin
 
-On-chain governance for coordinated action.
+Decentralized governance for collective decision-making and resource allocation.
 
 ```mermaid
 flowchart LR
-    Users --> DAO --> Execution
+    Users -->|Vote| DAO -->|Execute| Executors --> Contracts
 ```
 
 ## What This Is
