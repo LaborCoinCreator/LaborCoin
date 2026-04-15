@@ -4,7 +4,7 @@ Decentralized governance for collective decision-making and resource allocation.
 
 ```mermaid
 flowchart LR
-    Users -->|Vote| DAO -->|Execute| Executors --> Contracts --> Funds Paid
+    Users --> LABRV --> DAO --> Executors --> System --> "Funds Paid Out"
 ```
 
 ## What This Is
