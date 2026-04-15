@@ -1,15 +1,13 @@
-## System Diagram
-
 ```mermaid
 flowchart TD
 
-    A[Users] --> B[Registration Contract (future)]
+    A[Users] --> B["Registration Contract - future"]
 
     B --> C[LABRV Voting Token]
 
-    C --> D[LABR Solidarity Proposals (LSP)]
+    C --> D["LABR Solidarity Proposals - LSP"]
 
-    D --> E[DAO (Aragon)]
+    D --> E["DAO - Aragon"]
 
     E --> F1[PauseExecutor]
     E --> F2[TreasuryExecutor]
@@ -19,25 +17,20 @@ flowchart TD
     F2 --> G2[Treasury Funds]
     F3 --> C
 ```
-
----
-
-## Layered View
-
 ```mermaid
 flowchart TD
 
-    subgraph Decision Layer
-        DAO[DAO (Aragon)]
+    subgraph Decision_Layer
+        DAO["DAO - Aragon"]
     end
 
-    subgraph Control Layer
+    subgraph Control_Layer
         Pause[PauseExecutor]
         Treasury[TreasuryExecutor]
         Mint[MintExecutor]
     end
 
-    subgraph State Layer
+    subgraph State_Layer
         LABR[LABR Token]
         Funds[Treasury]
         LABRV[LABRV Token]
