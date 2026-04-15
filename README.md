@@ -1,88 +1,81 @@
 # LaborCoin
 
-LaborCoin is a DAO-driven system designed to support the working class through transparent, on-chain coordination, funding, and governance.
+LaborCoin is a decentralized governance system designed to enable the working class to coordinate, allocate resources, and make collective decisions on-chain.
 
-This project combines a token system, decentralized governance, and controlled execution mechanisms to enable collective decision-making and resource allocation.
-
----
-
-## Overview
-
-LaborCoin consists of two primary tokens and a governance system:
-
-* **LABR** — the primary token
-* **LABRV** — a non-transferable voting token (1 per participant)
-* **LaborCoin DAO** — governance layer built on Aragon
-* **Executor Contracts** — controlled interfaces for all on-chain actions
+It combines a voting token, DAO governance, and controlled execution to create a transparent and accountable decision-making framework.
 
 ---
 
-## Governance Model
+## What This Is
 
-Governance is conducted through **LABR Solidarity Proposals (LSP)**.
+LaborCoin is not a speculative token or passive investment.
 
-Each proposal must meet the following conditions:
+It is a system for:
 
+* Collective funding decisions
+* Democratic resource allocation
+* Coordinated action through shared governance
+
+---
+
+## How It Works
+
+1. Participants receive a voting token (LABRV)
+2. Proposals are submitted through LABR Solidarity Proposals (LSP)
+3. Participants vote (one person, one vote)
+4. If thresholds are met, the DAO executes the decision
+
+---
+
+## Governance Rules
+
+* **1 LABRV per participant**
+* **Non-transferable voting power**
 * **75% participation required**
 * **75% approval required**
 
-Voting power is determined by LABRV holdings:
-
-* Each registered participant holds **1 LABRV**
-* LABRV is **non-transferable**
-* Governance is **one person, one vote**
+This ensures decisions reflect broad consensus.
 
 ---
 
-## Architecture
+## System Architecture
 
-The system follows a controlled execution model:
+LaborCoin separates decision-making from execution:
 
 ```
-DAO (decision layer)
-  ↓
-Executors (control layer)
-  ↓
-Contracts (state changes)
+DAO → Executors → Contracts
 ```
 
-### Executors
+* The DAO decides
+* Executors enforce limits
+* Contracts perform actions
 
-All actions are routed through dedicated executor contracts:
-
-* **PauseExecutor**
-
-  * Pauses / unpauses the LABR token
-
-* **TreasuryExecutor**
-
-  * Sends funds from the DAO treasury
-
-* **LaborVoteMintExecutor**
-
-  * Mints LABRV voting tokens (to be controlled by registration system)
-
-This design prevents arbitrary contract calls and limits governance to predefined, safe actions.
+This prevents arbitrary control and reduces risk.
 
 ---
 
-## Contracts
+## Core Components
 
-### Core
+### LABR
 
-* **LaborVoteV5 (LABRV)**
+Primary token
 
-  * ERC20Votes-based
-  * Non-transferable (soulbound)
-  * 1 token per registered participant
+### LABRV (v5)
+
+Voting token
+
+* Non-transferable
+* One per participant
+
+### DAO (Aragon)
+
+Handles proposals, voting, and execution
 
 ### Executors
 
-* PauseExecutor
-* TreasuryExecutor
-* LaborVoteMintExecutor
-
-All executor contracts are restricted to calls from the DAO only.
+* PauseExecutor → controls token state
+* TreasuryExecutor → distributes funds
+* MintExecutor → mints voting tokens
 
 ---
 
@@ -101,40 +94,40 @@ MintExecutor:      0xA361cB84422452BDef5A04a447492ad176B09C0B
 
 ## Current Status
 
-* DAO deployed and operational
-* Voting system live and tested
+* Governance system live and tested
+* Voting token deployed (LABRV v5)
 * Executor architecture implemented
-* Governance thresholds enforced
+* First proposal successfully created and passed
 
 **In progress:**
 
-* Registration system (automated LABRV distribution)
+* Registration system (automated onboarding)
 * Permission lockdown (removal of unrestricted execution)
 
 ---
 
 ## Design Principles
 
-* **One person, one vote**
-* **Transparent governance**
-* **Controlled execution**
-* **Minimal trusted surface**
-* **Upgradeable through governance, not admins**
+* One person, one vote
+* Transparent governance
+* Controlled execution
+* Minimal attack surface
+* Upgrade through governance, not admin control
 
 ---
 
 ## Roadmap
 
-* Finalize registration contract
-* Restrict DAO permissions to executor-only actions
-* Launch public participation
-* Expand treasury governance capabilities
+* Finalize registration system
+* Restrict DAO to executor-only actions
+* Enable public participation
+* Expand treasury governance
 
 ---
 
 ## Disclaimer
 
-LaborCoin is an experimental governance system. It is not a traditional investment vehicle. Participation involves interacting with smart contracts and decentralized systems, which carry inherent risks.
+LaborCoin is an experimental governance system. It is not a traditional investment. Participation involves interacting with smart contracts and decentralized systems, which carry inherent risks.
 
 ---
 
