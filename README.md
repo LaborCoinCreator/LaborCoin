@@ -1,10 +1,24 @@
 # LaborCoin
 
+A governance system for coordinating labor, allocating resources, and executing collective decisions on-chain.
+
 ```mermaid
 flowchart LR
-    Users --> LABRV --> DAO --> Executors --> System
-    System --> Funds["Funds Paid Out"]
+    Users --> LABRV
+    LABRV --> LSP
+    LSP --> DAO
+    DAO --> Executors
+    Executors --> Treasury
+    Treasury --> Funds["Funds Paid Out"]
 ```
+
+LaborCoin is a decentralized governance system designed to enable the working class to coordinate, allocate resources, and make collective decisions on-chain. It was built to support striking workers.
+
+It combines a voting token, DAO governance, and controlled execution to create a transparent and accountable decision-making framework. 
+
+Its goal is to enable sustained collective action by overcoming the economic retaliation of wage slavery.
+
+---
 
 ## What This Is
 
@@ -82,8 +96,7 @@ Handles proposals, voting, and execution
 ## Deployment (Polygon)
 
 ```
-LaborCoin (LABR): 0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
-LaborCoin DAO: 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
+DAO: 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
 LABRV (v5): 0x3586B123191be1944DBDa623079cED5b6c8d03fE
 
 PauseExecutor:     0x5a0C3d5F6A814Dda121Fe174FFD963451E9fCa4f
