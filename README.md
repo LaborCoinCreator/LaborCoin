@@ -1,15 +1,10 @@
 # LaborCoin
-Decentralized governance for collective decision-making and resource allocation.
+A governance system for coordinating labor, allocating resources, and executing collective decisions on-chain.
 
 ```mermaid
 flowchart LR
-    Users -->|Vote| DAO -->|Execute| Executors --> Contracts
+    Users --> LABRV --> DAO --> Executors --> System
 ```
-LaborCoin is a decentralized governance system designed to enable the working class to coordinate, allocate resources, and make collective decisions on-chain. It is built to fund striking workers.
-
-It combines a voting token, DAO governance, and controlled execution to create a transparent and accountable decision-making framework for the purpose of funding striking workers in solidarity to overcome the economic retaliation of wage slavery.
-
----
 
 ## What This Is
 
