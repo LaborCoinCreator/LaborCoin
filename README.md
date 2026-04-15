@@ -1,9 +1,10 @@
 # LaborCoin
-A governance system for coordinating labor, allocating resources, and executing collective decisions on-chain.
+
+On-chain governance for coordinated action.
 
 ```mermaid
 flowchart LR
-    Users --> LABRV --> DAO --> Executors --> System
+    Users --> DAO --> Execution
 ```
 
 ## What This Is
