@@ -1,4 +1,4 @@
-#System Diagram
+System Diagram
 ```mermaid
 flowchart TD
 
@@ -18,7 +18,7 @@ flowchart TD
     F2 --> G2[Treasury Funds]
     F3 --> C
 ```
-#Layered View
+Layered View
 ```mermaid
 flowchart TD
 
