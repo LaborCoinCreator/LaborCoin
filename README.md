@@ -1,8 +1,8 @@
 # LaborCoin
 
-LaborCoin is a decentralized governance system designed to enable the working class to coordinate, allocate resources, and make collective decisions on-chain.
+LaborCoin is a decentralized governance system designed to enable the working class to coordinate, allocate resources, and make collective decisions on-chain. It is built to fund striking workers.
 
-It combines a voting token, DAO governance, and controlled execution to create a transparent and accountable decision-making framework.
+It combines a voting token, DAO governance, and controlled execution to create a transparent and accountable decision-making framework for the purpose of funding striking workers in solidarity to overcome the economic retaliation of wage slavery.
 
 ---
 
