@@ -1,73 +1,143 @@
 # LaborCoin
 
-**LaborCoin (LABR)** is an open-source project creating a crypto-powered system for working-class empowerment through collective governance, transparent economics, and digital mutual aid.
+LaborCoin is a DAO-driven system designed to support the working class through transparent, on-chain coordination, funding, and governance.
 
-We’re developing a decentralized ecosystem that enables workers to organize, build community wealth, and challenge exploitative systems using transparent blockchain technology.
-
-##  Project Overview
-
-LaborCoin is:
-- A **token** (LABR) with taxes and hardcoded limits on buying, selling, and wallet size
-- A **DAO** (Decentralized Autonomous Organization) where verified workers — based on ID and income checks — can register to vote on how to use treasury funds collected from token sales
-- A **bonding curve exchange**  that adjusts LABR’s price based on demand — with every purchase and sale helping fund worker-led initiatives, as a portion of each sale flows directly into the DAO treasury
-- A **platform** for building and sending mutual aid through digital dividends and shared governance
-
-The goal: to create a crypto-native infrastructure that serves the working class instead of extracting from it.
-
-##  Repository Structure
-
-This repository will include:
-
-`/contracts` – Smart contracts (LABR token, DAO logic, bonding curve)  
-`/frontend` – Web interface for interacting with LaborCoin  
-`/scripts` – Deployment scripts, DAO setup, configuration  
-`/docs` – Redpaper, FAQs, contribution guidelines  
-`README.md` – Project overview (this file)  
-`LICENSE` – Open-source MIT License
-
-> Code and documentation will be added as development progresses. Stay tuned!
-
-##  Redpaper
-
-For a deeper dive into the project’s purpose, economics, governance design, and roadmap, see the [LaborCoin Redpaper](#) _(link coming soon)_.
-
-##  Technology Stack
-
-(Currently in development - subject to change):
-- Solidity + Hardhat for smart contracts
-- React / Next.js for the frontend
-- Aragon framework for DAO governance
-- IPFS or Fleek for decentralized hosting
-
-##  Contributing
-
-LaborCoin is a people-powered project. Once code is uploaded, we welcome contributions from developers, designers, organizers, and aligned communities.
-
-Contributor guidelines will include:
-- How to run and test the code
-- How to submit pull requests
-- Code of conduct
-- DAO voting and decision-making process
-
-##  Stay Involved
-
-Want to help? Watch this repo and join early discussions in the issues tab and see our funding link.
-
-- Website: [laborcoin.tech](https://laborcoin.tech)
-- Redpaper: Coming soon
-- Whitepaper: Coming soon
-- Contact: [laborcoincreator@proton.me](mailto:laborcoincreator@proton.me)
-- Follow on [X (Twitter)](https://x.com/laborcoincre8r)
-
-##  License
-
-This project is open-source under the [MIT License](LICENSE).
+This project combines a token system, decentralized governance, and controlled execution mechanisms to enable collective decision-making and resource allocation.
 
 ---
 
-**The working class deserves tools of its own.**  
-LaborCoin is a start.
+## Overview
 
-— _The LaborCoin Creator_
+LaborCoin consists of two primary tokens and a governance system:
 
+* **LABR** — the primary token
+* **LABRV** — a non-transferable voting token (1 per participant)
+* **LaborCoin DAO** — governance layer built on Aragon
+* **Executor Contracts** — controlled interfaces for all on-chain actions
 
+---
+
+## Governance Model
+
+Governance is conducted through **LABR Solidarity Proposals (LSP)**.
+
+Each proposal must meet the following conditions:
+
+* **75% participation required**
+* **75% approval required**
+
+Voting power is determined by LABRV holdings:
+
+* Each registered participant holds **1 LABRV**
+* LABRV is **non-transferable**
+* Governance is **one person, one vote**
+
+---
+
+## Architecture
+
+The system follows a controlled execution model:
+
+```
+DAO (decision layer)
+  ↓
+Executors (control layer)
+  ↓
+Contracts (state changes)
+```
+
+### Executors
+
+All actions are routed through dedicated executor contracts:
+
+* **PauseExecutor**
+
+  * Pauses / unpauses the LABR token
+
+* **TreasuryExecutor**
+
+  * Sends funds from the DAO treasury
+
+* **LaborVoteMintExecutor**
+
+  * Mints LABRV voting tokens (to be controlled by registration system)
+
+This design prevents arbitrary contract calls and limits governance to predefined, safe actions.
+
+---
+
+## Contracts
+
+### Core
+
+* **LaborVoteV5 (LABRV)**
+
+  * ERC20Votes-based
+  * Non-transferable (soulbound)
+  * 1 token per registered participant
+
+### Executors
+
+* PauseExecutor
+* TreasuryExecutor
+* LaborVoteMintExecutor
+
+All executor contracts are restricted to calls from the DAO only.
+
+---
+
+## Deployment (Polygon)
+
+```
+DAO: 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
+LABRV (v5): 0x3586B123191be1944DBDa623079cED5b6c8d03fE
+
+PauseExecutor:     0x5a0C3d5F6A814Dda121Fe174FFD963451E9fCa4f
+TreasuryExecutor:  0x440A756e16D4b42a015eC61258759037A454Ec79
+MintExecutor:      0xA361cB84422452BDef5A04a447492ad176B09C0B
+```
+
+---
+
+## Current Status
+
+* DAO deployed and operational
+* Voting system live and tested
+* Executor architecture implemented
+* Governance thresholds enforced
+
+**In progress:**
+
+* Registration system (automated LABRV distribution)
+* Permission lockdown (removal of unrestricted execution)
+
+---
+
+## Design Principles
+
+* **One person, one vote**
+* **Transparent governance**
+* **Controlled execution**
+* **Minimal trusted surface**
+* **Upgradeable through governance, not admins**
+
+---
+
+## Roadmap
+
+* Finalize registration contract
+* Restrict DAO permissions to executor-only actions
+* Launch public participation
+* Expand treasury governance capabilities
+
+---
+
+## Disclaimer
+
+LaborCoin is an experimental governance system. It is not a traditional investment vehicle. Participation involves interacting with smart contracts and decentralized systems, which carry inherent risks.
+
+---
+
+## License
+
+MIT
