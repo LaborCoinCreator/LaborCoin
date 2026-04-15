@@ -7,12 +7,12 @@ flowchart TD
 
     C -->|Receives 1 LABRV| D[User Gains Voting Power]
 
-    D -->|Submits or votes on proposal| E["LABR Solidarity Proposals"]
+    D -->|Submits or votes| E["LABR Solidarity Proposals"]
 
-    E -->|Proposal passes (75/75)| F["DAO Executes Decision"]
+    E -->|Proposal passes 75 percent| F["DAO Executes Decision"]
 
     F --> G1[Funds Distributed]
-    F --> G2[Token Paused/Unpaused]
+    F --> G2[Token Paused or Unpaused]
     F --> G3[System Actions Executed]
 
     %% Styling
