@@ -1,10 +1,9 @@
 # LaborCoin
 
-Decentralized governance for collective decision-making and resource allocation.
-
 ```mermaid
 flowchart LR
-    Users --> LABRV --> DAO --> Executors --> System --> "Funds Paid Out"
+    Users --> LABRV --> DAO --> Executors --> System
+    System --> Funds["Funds Paid Out"]
 ```
 
 ## What This Is
