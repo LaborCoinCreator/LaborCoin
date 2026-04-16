@@ -72,12 +72,6 @@ Individually, we lack capital. Collectively, we hold immense power.
 
 ---
 
-LaborCoin.tech
-LaborCoin DAO
-LaborCoin Discord
-
----
-
 Please Note: Once completed, ownership of the token and exchange will be transferred to the DAO executor contracts. The DAO will be governed by the community and I will be removed as an admin. I will not be able to exercise any control. The funds and voting will be community controlled. This project hinges on integrity and has been built accordingly.
 
 ---
