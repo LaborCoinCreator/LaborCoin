@@ -16,7 +16,7 @@ LaborCoin is a decentralized governance system designed to enable the working cl
 
 It combines a voting token, DAO governance, and controlled execution to create a transparent and accountable decision-making framework. 
 
-Its goal is to enable sustained collective action by overcoming the economic retaliation of wage slavery.
+The goal: to enable sustained collective action by overcoming the economic retaliation of wage slavery with working-class oragnizing and financial solidarity.
 
 ---
 
@@ -96,7 +96,8 @@ Handles proposals, voting, and execution
 ## Deployment (Polygon)
 
 ```
-DAO: 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
+LaborCoin (LABR): 0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
+LaborCoin DAO: 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
 LABRV (v5): 0x3586B123191be1944DBDa623079cED5b6c8d03fE
 
 PauseExecutor:     0x5a0C3d5F6A814Dda121Fe174FFD963451E9fCa4f
