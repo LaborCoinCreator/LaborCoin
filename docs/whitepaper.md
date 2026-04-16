@@ -152,7 +152,9 @@ DAO → Executor → Target Contract
 ### Core
 
 ```
-DAO:
+LaborCoin (LABR): 0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
+
+LaborCoin DAO:
 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
 
 LABRV (v5):
