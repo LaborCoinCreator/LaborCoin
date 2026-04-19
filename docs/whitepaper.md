@@ -1,256 +1,136 @@
 # LaborCoin Whitepaper
 
 ## Abstract
-
-LaborCoin is a decentralized governance system designed to enable collective decision-making and resource allocation for the working class. It combines a non-transferable voting token, DAO-based governance, and controlled execution through dedicated smart contracts to create a transparent, accountable, and scalable coordination mechanism.
-
-The system enforces a one-person, one-vote model and restricts execution to predefined actions, minimizing attack surface while preserving flexibility through governance.
+LaborCoin is a decentralized governance system designed to enable collective decision-making and resource allocation for the working class. It combines a non-transferable voting token, DAO governance, and controlled execution.
 
 ---
 
 ## 1. Introduction
+Modern systems concentrate power. LaborCoin provides a governance-first alternative.
 
-Modern economic systems concentrate decision-making power in centralized institutions, limiting the ability of workers to coordinate and act collectively.
-
-LaborCoin provides:
-
-* A governance-first architecture
-* Equalized voting power
-* Transparent, on-chain execution
-* Controlled and auditable action pathways
-
-This is not a speculative asset system. It is a coordination system.
+- Equal voting
+- Transparent execution
+- Auditable governance
 
 ---
 
 ## 2. System Overview
+- LABR
+- LABRV
+- DAO
+- Executors
 
-LaborCoin consists of four primary components:
-
-* LABR (primary token)
-* LABRV (voting token)
-* DAO governance (Aragon)
-* Executor contracts (controlled execution layer)
-
-The system separates decision-making from execution:
-
-```
-DAO → Executors → Contracts
-```
+**DAO → Executors → Contracts**
 
 ---
 
 ## 3. Governance Model
 
-### 3.1 LABR Solidarity Proposals (LSP)
+### 3.1 Proposals
+Submit, vote, approve/reject.
 
-Governance actions are executed through LABR Solidarity Proposals.
+### 3.2 Voting
+- 1 token per participant
+- Non-transferable
 
-Participants can:
-
-* Submit proposals
-* Vote on proposals
-* Approve or reject funding and system actions
-
----
-
-### 3.2 Voting Mechanism
-
-Voting power is derived from LABRV:
-
-* 1 LABRV per participant
-* Non-transferable (soulbound)
-* Equal voting weight
-
-This enforces a one-person, one-vote structure.
-
----
-
-### 3.3 Proposal Requirements
-
-* **75% participation required**
-* **75% approval required**
-
----
-
-### 3.4 Proposal Lifecycle
-
-1. Proposal submission
-2. Voting period
-3. Threshold validation
-4. Execution via DAO
+### 3.3 Thresholds
+- 75% participation
+- 75% approval
 
 ---
 
 ## 4. Token Design
 
 ### 4.1 LABR
+- Total: 1,000,000,000
+- Initial: 100,000,000
+- Tranches: 50,000,000
 
-Primary system token.
-
----
-
-### 4.2 LABRV (v5)
-
-Governance token with the following properties:
-
-* ERC20Votes-based
-* Non-transferable
-* One token per participant
-* Minted upon registration
+Release:
+- 1:1 → 1:0.8
 
 ---
 
-### 4.3 Anti-Concentration Design
+### 4.2 Mechanics
 
-* No transfers
-* One token per wallet
-* Equal voting power
+**Transaction Limits**
+- Token: 0.05%
+- Exchange: 0.005%
 
----
+**Wallet Caps**
+- Token: 0.1%
+- Exchange: 0.01%
 
-## 5. Execution Architecture
-
-### 5.1 Design Principle
-
-The DAO does not directly execute arbitrary actions.
-
-Instead:
-
-```
-DAO → Executor → Target Contract
-```
+**Cooldown**
+- 12 hours
 
 ---
 
-### 5.2 Executor Contracts
+### 4.3 Bonding Curve
 
-**PauseExecutor**
+- Deterministic pricing
+- Continuous liquidity
+- Treasury-backed
 
-* Controls pause/unpause of LABR
-
-**TreasuryExecutor**
-
-* Sends funds from treasury
-
-**LaborVoteMintExecutor**
-
-* Mints LABRV
-
----
-
-### 5.3 Security Model
-
-* No arbitrary contract calls
-* Restricted execution pathways
-* Predictable behavior
+Flow:
+1. Submit tx
+2. Validate constraints
+3. Price calculated
+4. Treasury updated
+5. Tokens issued/burned
 
 ---
 
-## 6. Deployment (Polygon)
-
-### Core
-
-```
-LaborCoin (LABR): 0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
-
-LaborCoin DAO:
-0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
-
-LABRV (v5):
-0x3586B123191be1944DBDa623079cED5b6c8d03fE
-```
+### 4.4 LABRV
+- Non-transferable
+- One per wallet
 
 ---
 
-### Executors
-
-```
-PauseExecutor:
-0x5a0C3d5F6A814Dda121Fe174FFD963451E9fCa4f
-
-TreasuryExecutor:
-0x440A756e16D4b42a015eC61258759037A454Ec79
-
-LaborVoteMintExecutor:
-0xA361cB84422452BDef5A04a447492ad176B09C0B
-```
+## 5. Execution
+DAO → Executor → Contract
 
 ---
 
-## 7. Current Status
-
-* DAO deployed and operational
-* Voting system live
-* Executors deployed
-* Proposal lifecycle tested
-
-**Current condition:**
-
-* DAO temporarily has unrestricted execution (bootstrap phase)
+## 6. Deployment
+Polygon
 
 ---
 
-## 8. Planned Upgrades
-
-### Permission Lockdown
-
-* Remove unrestricted execution
-* Restrict to executor-only actions
+## 7. State
+Bootstrap phase
 
 ---
 
-### Registration System
-
-* Verify participants
-* Mint LABRV automatically
-* Gate governance access
-
----
-
-### Decentralization
-
-* Remove bootstrap privileges
-* Full governance control via DAO
+## 8. Upgrades
+- Executor-only
+- Registration
+- Decentralization
 
 ---
 
-## 9. Security Considerations
-
-LaborCoin minimizes risk through structure:
-
-* Non-transferable voting power
-* High voting thresholds
-* Restricted execution
-* Transparent on-chain actions
+## 9. Security
+Restricted execution model
 
 ---
 
 ## 10. Use Cases
-
-* Strike funding
-* Resource allocation
-* Collective decision-making
-* Worker coordination
+- Strike funding
+- Coordination
+- Resource distribution
 
 ---
 
 ## 11. Limitations
-
-* Early-stage system
-* Registration system pending
-* UX dependent on external interfaces
+- Early-stage
+- UX dependency
 
 ---
 
 ## 12. Conclusion
-
-LaborCoin is a governance-first system designed for coordination rather than speculation.
-
-It combines equal voting power, controlled execution, and transparent decision-making to enable scalable collective action.
+LaborCoin enables scalable collective governance.
 
 ---
 
 ## Disclaimer
-
-LaborCoin is an experimental governance system. Participation involves interacting with smart contracts and decentralized infrastructure, which carry inherent risks.
+Experimental system. Use at your own risk.
