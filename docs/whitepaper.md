@@ -1,136 +1,227 @@
 # LaborCoin Whitepaper
 
 ## Abstract
-LaborCoin is a decentralized governance system designed to enable collective decision-making and resource allocation for the working class. It combines a non-transferable voting token, DAO governance, and controlled execution.
+LaborCoin is a decentralized governance system designed to enable collective decision-making and resource allocation for the working class. It combines a non-transferable voting token, DAO-based governance, and controlled execution through dedicated smart contracts to create a transparent, accountable, and scalable coordination mechanism.
+
+The system enforces a one-person, one-vote model and restricts execution to predefined actions, minimizing attack surface while preserving flexibility through governance.
 
 ---
 
 ## 1. Introduction
-Modern systems concentrate power. LaborCoin provides a governance-first alternative.
+Modern economic systems concentrate decision-making power in centralized institutions, limiting the ability of workers to coordinate and act collectively. While blockchain technology enables decentralized coordination, many implementations prioritize speculation over governance.
 
-- Equal voting
-- Transparent execution
-- Auditable governance
+LaborCoin addresses this gap by providing:
+
+- A governance-first architecture  
+- Equalized voting power  
+- Transparent, on-chain decision execution  
+- Controlled and auditable action pathways  
+
+The goal is not to create a speculative asset, but a functional coordination system.
 
 ---
 
 ## 2. System Overview
-- LABR
-- LABRV
-- DAO
-- Executors
+LaborCoin consists of four primary components:
+
+- LABR (primary token)  
+- LABRV (voting token)  
+- DAO governance (Aragon)  
+- Executor contracts (controlled execution layer)  
+
+The system separates decision-making from execution:
 
 **DAO → Executors → Contracts**
+
+This ensures governance decisions are enforced through constrained and auditable mechanisms.
 
 ---
 
 ## 3. Governance Model
 
-### 3.1 Proposals
-Submit, vote, approve/reject.
+### 3.1 LABR Solidarity Proposals (LSP)
+Governance actions are executed through LABR Solidarity Proposals. Participants may submit proposals, vote on proposals, and approve or reject system actions.
 
-### 3.2 Voting
-- 1 token per participant
-- Non-transferable
+### 3.2 Voting Mechanism
+- 1 LABRV per participant  
+- Non-transferable (soulbound)  
+- Equal voting weight  
 
-### 3.3 Thresholds
-- 75% participation
-- 75% approval
+This enforces a one-person, one-vote structure.
+
+### 3.3 Proposal Requirements
+- 75% participation threshold  
+- 75% approval threshold  
+
+### 3.4 Proposal Lifecycle
+1. Proposal submission  
+2. Voting period  
+3. Threshold validation  
+4. Execution via DAO  
 
 ---
 
 ## 4. Token Design
 
 ### 4.1 LABR
-- Total: 1,000,000,000
-- Initial: 100,000,000
-- Tranches: 50,000,000
+**Contract Address:** 0x460DD873A1D2a41e77410B125cD3027C5FEd2f78  
 
-Release:
-- 1:1 → 1:0.8
+Total Supply: 1,000,000,000 LABR (pre-minted)  
+Initial Circulating Supply: 100,000,000 LABR (10%)  
+Remaining supply is held in the bonding curve treasury  
 
----
+Token release is governed by a staged mechanism:
 
-### 4.2 Mechanics
+- 50,000,000 LABR sold per tranche  
+- 1:1 release ratio up to 50% of total supply  
+- 1:0.8 release ratio beyond the 50% threshold  
 
-**Transaction Limits**
-- Token: 0.05%
-- Exchange: 0.005%
-
-**Wallet Caps**
-- Token: 0.1%
-- Exchange: 0.01%
-
-**Cooldown**
-- 12 hours
+This introduces controlled scarcity and reduces emission rate as adoption increases.
 
 ---
 
-### 4.3 Bonding Curve
+### 4.2 Token Mechanics and Constraints
 
-- Deterministic pricing
-- Continuous liquidity
-- Treasury-backed
+**Transaction Limits**  
+- Token-level: 0.05% (500,000 LABR)  
+- Exchange-level: 0.005% (50,000 LABR)  
 
-Flow:
-1. Submit tx
-2. Validate constraints
-3. Price calculated
-4. Treasury updated
-5. Tokens issued/burned
+**Wallet Limits**  
+- Token-level: 0.1% (1,000,000 LABR)  
+- Exchange-level: 0.01% (100,000 LABR)  
 
----
+**Cooldown Mechanism**  
+- 12-hour cooldown between transactions per wallet  
+- Applies to both buy and sell actions  
 
-### 4.4 LABRV
-- Non-transferable
-- One per wallet
+These constraints reduce volatility, limit extractive behavior, and encourage broad participation.
 
 ---
 
-## 5. Execution
-DAO → Executor → Contract
+### 4.3 Bonding Curve and Pricing Mechanism
+
+LaborCoin utilizes a bonding curve to provide continuous liquidity and deterministic pricing.
+
+**Pricing Model**
+- Price increases as tokens are purchased  
+- Price decreases as tokens are sold  
+- Pricing is fully algorithmic and on-chain  
+
+**Treasury Interaction**
+- Buyers deposit base asset (POL) into the treasury  
+- Sellers withdraw from the treasury  
+- No reliance on external liquidity pools  
+
+**Emission Integration**
+- The bonding curve operates alongside staged token release  
+- Supply expansion is controlled and decreases over time  
+
+**Interaction Flow**
+1. User submits transaction  
+2. Protocol constraints are validated  
+3. Bonding curve calculates price  
+4. Treasury balances are updated  
+5. Tokens are issued or burned  
+
+---
+
+### 4.4 LABRV (Voting Token)
+
+- ERC20Votes-based  
+- Non-transferable (soulbound)  
+- One token per participant  
+- Minted upon registration  
+
+This enforces equal voting power and prevents accumulation of governance control.
+
+---
+
+## 5. Execution Architecture
+
+The DAO does not directly execute arbitrary actions.
+
+Instead:
+
+**DAO → Executor → Target Contract**
+
+Executor Contracts:
+- PauseExecutor  
+- TreasuryExecutor  
+- LaborVoteMintExecutor  
+
+This architecture limits attack surface and ensures predictable execution paths.
 
 ---
 
 ## 6. Deployment
-Polygon
+
+**Network:** Polygon (Mainnet)
+
+**Core Contracts:**
+- LABR: 0x460DD873A1D2a41e77410B125cD3027C5FEd2f78  
+- DAO: 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4  
+- LABRV: 0x3586B123191be1944DBDa623079cED5b6c8d03fE  
 
 ---
 
-## 7. State
-Bootstrap phase
+## 7. Current System State
+
+- Governance is active  
+- Voting is functional  
+- Executors are deployed  
+- System is in bootstrap phase  
+
+**Temporary condition:**  
+DAO currently has unrestricted execution ("Any Action")
 
 ---
 
-## 8. Upgrades
-- Executor-only
-- Registration
-- Decentralization
+## 8. Planned Upgrades
+
+- Executor-only execution permissions  
+- Registration system for LABRV minting  
+- Full decentralization of control  
 
 ---
 
-## 9. Security
-Restricted execution model
+## 9. Security Model
+
+LaborCoin prioritizes structural security through:
+
+- Restricted execution pathways  
+- Non-transferable voting power  
+- High participation thresholds  
+- Transparent on-chain actions  
+
+Risk is reduced by limiting what governance can execute rather than relying on trust.
 
 ---
 
 ## 10. Use Cases
-- Strike funding
-- Coordination
-- Resource distribution
+
+- Strike funding and support  
+- Collective bargaining coordination  
+- Resource distribution  
+- Community-led initiatives  
 
 ---
 
 ## 11. Limitations
-- Early-stage
-- UX dependency
+
+- Early-stage system  
+- Registration system not yet deployed  
+- User experience dependent on external interfaces  
 
 ---
 
 ## 12. Conclusion
-LaborCoin enables scalable collective governance.
+
+LaborCoin represents a shift from speculative crypto systems toward functional governance infrastructure.
+
+By combining equalized voting, controlled execution, and transparent coordination, it provides a foundation for scalable collective action.
 
 ---
 
 ## Disclaimer
-Experimental system. Use at your own risk.
+
+LaborCoin is an experimental governance system. Participation involves interacting with smart contracts and decentralized infrastructure, which carry inherent risks.
