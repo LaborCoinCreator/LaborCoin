@@ -28,194 +28,246 @@ The goal is not to create a speculative asset, but a functional coordination sys
 
 ## 2. System Overview
 
-LaborCoin consists of five primary components:
-
 - LABR (primary token)  
 - LABRV (voting token)  
 - DAO governance (Aragon)  
-- Executor contracts (controlled execution layer)  
-- Bonding curve exchange contract  
+- Executor contracts  
+- Bonding curve exchange  
 
-System flow:
+**Participants → LABR → LABRV → Proposals → DAO → Executors → Treasury → Worker Support**
 
-Participants → LABR → LABRV → Proposals → DAO → Executors → Treasury → Worker Support
-
-This architecture ensures that governance decisions are enforced through constrained and auditable mechanisms while maintaining economic backing through the bonding curve.
+This architecture ensures decisions are enforced through constrained execution while maintaining economic backing through the bonding curve.
 
 ---
 
 ## 3. Governance Model
 
-### 3.1 LABR Solidarity Proposals (LSP)
-
-Governance actions are executed through LABR Solidarity Proposals. Participants may submit proposals, vote on proposals, and approve or reject system actions.
-
-### 3.2 Voting Mechanism
+### Voting Mechanism
 
 - 1 LABRV per participant  
 - Non-transferable (soulbound)  
 - Equal voting weight  
 
-Reasoning:
-
 Prevents capital-based governance capture and ensures democratic participation.
 
-### 3.3 Proposal Requirements
+### Thresholds
 
-- 75% participation threshold  
-- 75% approval threshold  
+- 75% participation  
+- 75% approval  
 
-Reasoning:
-
-High thresholds ensure legitimacy and prevent small groups from controlling outcomes.
-
-### 3.4 Proposal Lifecycle
-
-1. Proposal submission  
-2. Voting period  
-3. Threshold validation  
-4. Execution via DAO  
+High thresholds ensure legitimacy and prevent minority control.
 
 ---
 
 ## 4. Token Design
 
-### 4.1 LABR
+**Contract Address:**  
+`0x460DD873A1D2a41e77410B125cD3027C5FEd2f78`
 
-Contract Address: 0x460DD873A1D2a41e77410B125cD3027C5FEd2f78  
-Total Supply: 1,000,000,000 LABR (pre-minted)  
-Initial Circulating Supply: 100,000,000 LABR  
+**Total Supply:** 1,000,000,000  
+**Initial Supply:** 100,000,000  
 
-Remaining supply is held in the bonding curve treasury.
+### Emission Model
 
----
-
-### 4.2 Emission Model
-
-- 50,000,000 LABR per tranche  
-- 1:1 release ratio up to 50% of supply  
+- 50,000,000 LABR released per tranche  
+- 1:1 release ratio up to 50% of total supply  
 - 1:0.8 release ratio beyond 50%  
 
-Reasoning:
+This structure encourages early participation while gradually introducing scarcity.
 
-- Early phase encourages participation  
-- Later phase slows inflation  
-- Introduces increasing scarcity  
+### Constraints
 
----
+- Transaction Limit: 5,000 LABR per transaction  
+- Wallet Limit: 10,000 LABR per wallet  
+- Cooldown: 12 hours between transactions  
 
-### 4.3 Constraints
-
-Transaction Limits:
-
-- Token-level: 0.05%  
-- Exchange-level: 0.005%  
-
-Wallet Limits:
-
-- Token-level: 0.1%  
-- Exchange-level: 0.01%  
-
-Cooldown:
-
-- 12 hours between transactions  
-
-Reasoning:
-
-- Prevents whale accumulation  
-- Reduces volatility  
-- Encourages distributed ownership  
+These constraints are enforced at the contract level to prevent accumulation of disproportionate influence and reduce volatility.
 
 ---
 
 ## 5. Bonding Curve Exchange
 
-Exchange Contract: 0xED8C432FdFBa629387eeD06C1DC5cA6087c1C09b  
+**Exchange Contract:**  
+`0xED8C432FdFBa629387eeD06C1DC5cA6087c1C09b`
 
-The bonding curve provides continuous liquidity and deterministic pricing.
+### Pricing Model
 
-### 5.1 Pricing Model
+- Sigmoid-based pricing curve  
+- Price increases as total tokens sold increases  
+- Approximate range: $1 → ~$15  
 
-- Smooth sigmoid curve  
-- Approximate range: $1 to ~$15  
-- Price increases with adoption  
+### Economic Behavior
 
-Reasoning:
+- Early participants enter at lower prices, incentivizing initial adoption  
+- Price increases smoothly as participation grows  
+- Discourages speculation-driven spikes  
 
-- Early accessibility  
-- Long-term sustainability  
-- Prevents extreme speculation spikes  
+### Treasury Model
 
----
+- All purchases deposit POL into the contract treasury  
+- Sales withdraw from treasury liquidity  
+- 10% of each purchase is routed to the DAO treasury  
 
-### 5.2 Treasury Model
-
-- Purchases deposit POL into treasury  
-- Sales withdraw from treasury  
-- 10% buy fee routed to DAO  
-
-Reasoning:
-
-- Builds real funds for worker support  
-- Aligns participation with funding  
-
----
-
-### 5.3 Safety Mechanisms
-
-- Oracle-based pricing (POL/USD)  
-- Slippage protection  
-- Circuit breaker (auto pause)  
-- Reentrancy protection  
-- Treasury balance enforcement  
-
-Reasoning:
-
-- Protects users  
-- Prevents exploits  
-- Ensures solvency  
+This creates a direct link between participation and available support funds.
 
 ---
 
 ## 6. Execution Architecture
 
-DAO → Executor → Contract  
+**DAO → Executor → Contract**
 
-Executors:
+### Executors
 
-- PauseExecutor  
-- TreasuryExecutor  
-- MintExecutor  
+- PauseExecutor → controls trading state  
+- TreasuryExecutor → distributes funds  
+- MintExecutor → mints voting tokens  
 
-Reasoning:
-
-- Prevents arbitrary execution  
-- Limits attack surface  
-- Enforces predictable actions  
+Execution is constrained to prevent arbitrary control and reduce attack surface.
 
 ---
 
 ## 7. Deployment
 
-Network: Polygon  
+**Network:** Polygon
 
-LABR: 0x460DD873A1D2a41e77410B125cD3027C5FEd2f78  
-Exchange: 0xED8C432FdFBa629387eeD06C1DC5cA6087c1C09b  
-DAO: 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4  
-LABRV: 0x3586B123191be1944DBDa623079cED5b6c8d03fE  
+**LaborCoin (LABR):**  
+`0x460DD873A1D2a41e77410B125cD3027C5FEd2f78`
+
+**LaborCoin Exchange:**  
+`0xED8C432FdFBa629387eeD06C1DC5cA6087c1C09b`
+
+**LaborCoin DAO:**  
+`0x0C2e5679153593b82a84eAB5CA90895BB291Cec4`
+
+**LaborVote (LABRV v5):**  
+`0x3586B123191be1944DBDa623079cED5b6c8d03fE`
+
+**Pause Executor:**  
+`0x5a0C3d5F6A814Dda121Fe174FFD963451E9fCa4f`
+
+**Treasury Executor:**  
+`0x440A756e16D4b42a015eC61258759037A454Ec79`
+
+**Mint Executor:**  
+`0xA361cB84422452BDef5A04a447492ad176B09C0B`
 
 ---
 
 ## 8. Security Model
 
 - Restricted execution pathways  
+- Immutable economic parameters  
 - Non-transferable governance  
 - High consensus thresholds  
-- Immutable economic parameters  
+
+### Additional Protections
+
+- Oracle-based pricing validation  
+- Slippage protection  
+- Circuit breaker (pause mechanism)  
+- Reentrancy protection  
 
 ---
 
-## 9. Use Cases
+## 9. System Invariants
+
+The following conditions are designed to always hold:
+
+- No participant can obtain more than one voting token  
+- Governance decisions cannot execute arbitrary contract logic  
+- Treasury withdrawals cannot exceed available balance  
+- Token supply cannot exceed maximum defined limits  
+- Pricing remains deterministic and independent of external markets  
+
+These invariants define the core guarantees of the system.
+
+---
+
+## 10. Threat Model
+
+LaborCoin assumes adversarial behavior as a baseline condition.
+
+### Adversarial Actors
+
+- Wealthy participants attempting to accumulate influence  
+- Coordinated voting blocs attempting governance capture  
+- Smart contract exploiters targeting liquidity  
+- External actors manipulating price inputs  
+
+### Attack Surfaces
+
+- Bonding curve pricing  
+- Treasury liquidity  
+- DAO participation thresholds  
+- Executor permissions  
+- Oracle feeds  
+
+---
+
+## 11. Economic Attack Vectors
+
+### Whale Accumulation
+
+Mitigation: Wallet caps, transaction limits, and non-transferable voting tokens.
+
+### Liquidity Drain Attacks
+
+Mitigation: Increasing price curve, cooldown enforcement, treasury constraints.
+
+### Speculative Volatility
+
+Mitigation: Deterministic pricing independent of external markets.
+
+---
+
+## 12. Governance Risks
+
+### Low Participation
+
+Mitigation: High quorum requirements.
+
+### Coordination Attacks
+
+Mitigation: 75% approval threshold.
+
+### Voter Apathy
+
+Acknowledged as a social limitation inherent to democratic systems.
+
+---
+
+## 13. Failure Scenarios
+
+### Oracle Failure
+
+If price oracle data becomes invalid, transactions relying on price inputs may fail or pause.
+
+### Treasury Depletion
+
+If treasury liquidity is insufficient, sell transactions may fail until replenished.
+
+### Low Participation
+
+Governance may stall if participation thresholds are not met.
+
+### Contract Pause
+
+The system may enter a paused state under emergency conditions to prevent further damage.
+
+---
+
+## 14. System Assumptions
+
+- Participants engage in governance  
+- Worker solidarity can be coordinated  
+- Blockchain infrastructure remains secure  
+- Oracle pricing remains reliable  
+
+LaborCoin minimizes trust in individuals but depends on collective participation.
+
+---
+
+## 15. Use Cases
 
 - Strike funding  
 - Mutual aid  
@@ -224,6 +276,6 @@ LABRV: 0x3586B123191be1944DBDa623079cED5b6c8d03fE
 
 ---
 
-## 10. Conclusion
+## 16. Conclusion
 
 LaborCoin shifts blockchain systems from speculation to coordination infrastructure. It combines governance, economics, and execution into a unified system capable of supporting real-world collective action.
