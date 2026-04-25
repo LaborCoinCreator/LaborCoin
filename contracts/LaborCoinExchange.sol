@@ -1,23 +1,31 @@
-```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
 /*
-LaborCoin Bonding Curve Exchange
+LaborCoin Exchange Contract (LABR)
 
 Deployed on Polygon:
-0xd9210DE64a369C0b89B82949A84eFe170801F79D
+0xED8C432FdFBa629387eeD06C1DC5cA6087c1C09b
 
 Description:
-- Bonding curve token distribution (1B supply)
-- Smooth pricing curve ($1 → $15)
-- DAO-funded via buy fee
+This contract implements a bonding curve exchange with:
+- Deterministic pricing (sigmoid curve)
 - Slippage protection
 - Cooldown + anti-whale limits
+- Oracle-based USD pricing (POL/USD)
+- Circuit breaker for abnormal volatility
+- DAO-controlled pause/unpause only (no mutable parameters)
+
+Architecture:
+Users → Contract → Treasury (DAO)
+Governance → Executor → pause/unpause
+
+All economic parameters are immutable after deployment.
 */
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 interface AggregatorV3Interface {
     function latestRoundData()
@@ -32,10 +40,10 @@ interface AggregatorV3Interface {
         );
 }
 
-contract LaborCoinExchange is ERC20, Ownable {
+contract LaborCoinExchange is ERC20, Ownable, ReentrancyGuard {
 
     // -----------------------------
-    // CONSTANTS
+    // IMMUTABLE PARAMETERS (LOCKED)
     // -----------------------------
 
     uint256 public constant MAX_SUPPLY = 1_000_000_000 * 1e18;
@@ -45,11 +53,12 @@ contract LaborCoinExchange is ERC20, Ownable {
     uint256 public constant WALLET_LIMIT = 10_000 * 1e18;
 
     uint256 public constant COOLDOWN = 12 hours;
-    uint256 public constant BUY_FEE = 10; // %
+    uint256 public constant BUY_FEE = 10;
 
     uint256 public constant TRANCHE_SIZE = 50_000_000 * 1e18;
-
     uint256 public constant ORACLE_TIMEOUT = 1 hours;
+
+    uint256 public constant CIRCUIT_BREAK_THRESHOLD = 80; // %
 
     // -----------------------------
     // STATE
@@ -63,6 +72,17 @@ contract LaborCoinExchange is ERC20, Ownable {
     AggregatorV3Interface public priceFeed;
 
     mapping(address => uint256) public lastTxTime;
+
+    bool public paused;
+    uint256 public lastPrice;
+
+    // -----------------------------
+    // EVENTS
+    // -----------------------------
+
+    event Buy(address indexed user, uint256 polIn, uint256 tokensOut);
+    event Sell(address indexed user, uint256 tokensIn, uint256 polOut);
+    event Paused(bool state);
 
     // -----------------------------
     // CONSTRUCTOR
@@ -84,7 +104,25 @@ contract LaborCoinExchange is ERC20, Ownable {
     }
 
     // -----------------------------
-    // ORACLE (SAFE)
+    // MODIFIERS
+    // -----------------------------
+
+    modifier notPaused() {
+        require(!paused, "Paused");
+        _;
+    }
+
+    modifier cooldownCheck() {
+        require(
+            block.timestamp >= lastTxTime[msg.sender] + COOLDOWN,
+            "Cooldown active"
+        );
+        _;
+        lastTxTime[msg.sender] = block.timestamp;
+    }
+
+    // -----------------------------
+    // ORACLE
     // -----------------------------
 
     function getPOLPriceUSD() public view returns (uint256) {
@@ -93,18 +131,39 @@ contract LaborCoinExchange is ERC20, Ownable {
         require(price > 0, "Invalid price");
         require(block.timestamp - updatedAt < ORACLE_TIMEOUT, "Stale oracle");
 
-        return uint256(price) * 1e10; // normalize to 1e18
+        return uint256(price) * 1e10;
     }
 
     // -----------------------------
-    // SMOOTH PRICING CURVE ($1 → $15)
+    // CIRCUIT BREAKER
+    // -----------------------------
+
+    function checkCircuit(uint256 price) internal {
+        if (lastPrice == 0) {
+            lastPrice = price;
+            return;
+        }
+
+        uint256 change = price > lastPrice
+            ? price - lastPrice
+            : lastPrice - price;
+
+        if ((change * 100) / lastPrice > CIRCUIT_BREAK_THRESHOLD) {
+            paused = true;
+            emit Paused(true);
+        }
+
+        lastPrice = price;
+    }
+
+    // -----------------------------
+    // PRICING
     // -----------------------------
 
     function getPriceUSD(uint256 sold) public pure returns (uint256) {
         uint256 x = sold / 1e18;
 
         uint256 t = (x * 1e18) / 1_000_000_000;
-
         uint256 t2 = (t * t) / 1e18;
         uint256 t3 = (t2 * t) / 1e18;
 
@@ -120,7 +179,7 @@ contract LaborCoinExchange is ERC20, Ownable {
     }
 
     // -----------------------------
-    // TRANCHE RELEASE
+    // TRANCHE
     // -----------------------------
 
     function updateTranche() internal {
@@ -142,34 +201,29 @@ contract LaborCoinExchange is ERC20, Ownable {
     }
 
     // -----------------------------
-    // COOLDOWN
+    // BUY
     // -----------------------------
 
-    modifier cooldownCheck() {
-        require(
-            block.timestamp >= lastTxTime[msg.sender] + COOLDOWN,
-            "Cooldown active"
-        );
-        _;
-        lastTxTime[msg.sender] = block.timestamp;
-    }
-
-    // -----------------------------
-    // BUY (SLIPPAGE PROTECTED)
-    // -----------------------------
-
-    function buy(uint256 minTokensOut) external payable cooldownCheck {
+    function buy(uint256 minTokensOut)
+        external
+        payable
+        cooldownCheck
+        nonReentrant
+        notPaused
+    {
         require(msg.value > 0, "No POL sent");
+
+        uint256 price = getPricePOL(totalSold);
+        checkCircuit(price);
 
         uint256 fee = (msg.value * BUY_FEE) / 100;
         uint256 net = msg.value - fee;
 
-        uint256 price = getPricePOL(totalSold);
         uint256 tokens = (net * 1e18) / price;
 
         require(tokens >= minTokensOut, "Slippage exceeded");
         require(tokens <= TX_LIMIT, "Tx limit exceeded");
-        require(balanceOf(msg.sender) + tokens <= WALLET_LIMIT, "Wallet cap exceeded");
+        require(balanceOf(msg.sender) + tokens <= WALLET_LIMIT, "Wallet cap");
 
         updateTranche();
         require(totalSold + tokens <= unlockedSupply, "Supply locked");
@@ -181,21 +235,31 @@ contract LaborCoinExchange is ERC20, Ownable {
 
         (bool success, ) = payable(daoTreasury).call{value: fee}("");
         require(success, "DAO transfer failed");
+
+        emit Buy(msg.sender, msg.value, tokens);
     }
 
     // -----------------------------
-    // SELL (SLIPPAGE PROTECTED)
+    // SELL
     // -----------------------------
 
-    function sell(uint256 amount, uint256 minPOLOut) external cooldownCheck {
+    function sell(uint256 amount, uint256 minPOLOut)
+        external
+        cooldownCheck
+        nonReentrant
+        notPaused
+    {
         require(amount <= TX_LIMIT, "Tx limit exceeded");
         require(balanceOf(msg.sender) >= amount, "Insufficient balance");
 
         uint256 price = getPricePOL(totalSold);
+        checkCircuit(price);
+
         uint256 payout = (amount * price) / 1e18;
 
         require(payout >= minPOLOut, "Slippage exceeded");
         require(address(this).balance >= payout, "Insufficient liquidity");
+        require(treasuryBalance >= payout, "Treasury underflow");
 
         totalSold -= amount;
         treasuryBalance -= payout;
@@ -204,14 +268,29 @@ contract LaborCoinExchange is ERC20, Ownable {
 
         (bool success, ) = payable(msg.sender).call{value: payout}("");
         require(success, "Payout failed");
+
+        emit Sell(msg.sender, amount, payout);
     }
 
     // -----------------------------
-    // RECEIVE PROTECTION
+    // CONTROL (EXECUTOR ONLY)
+    // -----------------------------
+
+    function pause() external onlyOwner {
+        paused = true;
+        emit Paused(true);
+    }
+
+    function unpause() external onlyOwner {
+        paused = false;
+        emit Paused(false);
+    }
+
+    // -----------------------------
+    // RECEIVE
     // -----------------------------
 
     receive() external payable {
         revert("Use buy()");
     }
 }
-```
