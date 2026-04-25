@@ -2,6 +2,17 @@
 
 A governance system for coordinating labor, allocating resources, and executing collective decisions on-chain.
 
+~~~mermaid
+flowchart LR
+    U[Participants] --> R[Registration]
+    R --> V[LABRV Voting Token]
+    V --> P[Proposals (LSP)]
+    P --> D[DAO Governance]
+    D --> E[Executors]
+    E --> T[Treasury]
+    T --> W[Worker Support / Strike Funds]
+~~~
+
 LaborCoin is a decentralized governance system designed to enable the working class to coordinate, allocate resources, and make collective decisions on-chain. It is built to support striking workers.
 
 It combines a voting token, DAO governance, and controlled execution to create a transparent and accountable decision-making framework.
@@ -27,7 +38,7 @@ It is a system for:
 1. Participants register and receive a voting token (LABRV)  
 2. Proposals are submitted through LaborCoin Solidarity Proposals (LSP)  
 3. Participants vote (one person, one vote)  
-4. If thresholds are met, the DAO executes the decision through executors  
+4. If thresholds are met, the DAO executes decisions through executors  
 
 ---
 
@@ -38,7 +49,7 @@ It is a system for:
 - **75% participation required**
 - **75% approval required**
 
-This ensures decisions reflect broad consensus.
+These constraints ensure decisions reflect broad consensus.
 
 ---
 
@@ -49,10 +60,10 @@ LaborCoin separates decision-making from execution:
 DAO → Executors → Contracts → Treasury → Distribution
 
 - The DAO decides  
-- Executors enforce limits  
+- Executors enforce constraints  
 - Contracts perform actions  
 
-This prevents arbitrary control and reduces risk.
+This structure minimizes centralized control and reduces risk.
 
 ---
 
@@ -70,12 +81,13 @@ Voting token
 
 - Non-transferable  
 - One per participant  
+- Enables one-person, one-vote governance  
 
 ---
 
 ### DAO (Aragon)
 
-Handles proposals, voting, and execution.
+Handles proposals, voting, and execution logic.
 
 ---
 
@@ -87,12 +99,14 @@ Restricted execution layer between governance and contracts.
 - TreasuryExecutor → distributes funds  
 - MintExecutor → mints voting tokens  
 
+Executors enforce boundaries on what governance can do.
+
 ---
 
 ## Exchange Contract (LABR)
 
-Network: Polygon  
-Address:  
+**Network:** Polygon  
+**Address:**  
 0xED8C432FdFBa629387eeD06C1DC5cA6087c1C09b
 
 The LaborCoin exchange contract implements a bonding curve token system designed to fund worker solidarity.
@@ -166,7 +180,7 @@ MintExecutor:      0xA361cB84422452BDef5A04a447492ad176B09C0B
 In progress:
 
 - Registration system (automated onboarding)  
-- Permission lockdown (removal of unrestricted execution)  
+- Final permission lockdown  
 
 ---
 
