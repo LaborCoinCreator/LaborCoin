@@ -140,7 +140,7 @@ Execution is constrained to prevent arbitrary control and reduce attack surface.
 `0x0C2e5679153593b82a84eAB5CA90895BB291Cec4`
 
 **LaborCoin DAO Registration:**
-'0x4fD4fC509e83f011A509f0B3406d35652169B8FF'
+`0x4fD4fC509e83f011A509f0B3406d35652169B8FF`
 
 **LaborVote (LABRV v5):**  
 `0x3586B123191be1944DBDa623079cED5b6c8d03fE`
