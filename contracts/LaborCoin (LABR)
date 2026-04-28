@@ -1,0 +1,41 @@
+# LaborCoin (LABR)
+
+**Network:** Polygon  
+**Address:** `0x460DD873A1D2a41e77410B125cD3027C5FEd2f78`
+
+## Overview
+
+LABR is the core economic token of the LaborCoin system.
+
+- Fixed supply: **1,000,000,000 LABR**
+- Used for:
+  - Exchange participation
+  - Registration gating (≥ 1 LABR)
+  - Dividend distribution
+
+## Token Mechanics
+
+### Supply
+- Fully pre-minted
+- No further minting
+
+### Taxes (on sell only)
+- **10% total**
+  - 5% → DAO Treasury
+  - 5% → Holder dividends
+
+### Transfer Rules (intended)
+- Buy → no tax  
+- Sell → tax applies  
+- Transfer → no tax  
+
+## Role in System
+
+- Economic layer
+- Gatekeeper for DAO access
+- Revenue source for treasury
+
+## Notes
+
+- Exchange contract must hold inventory
+- Taxes are enforced at token level (not exchange)
