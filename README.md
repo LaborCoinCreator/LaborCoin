@@ -96,7 +96,7 @@ Executors enforce boundaries on what governance can do.
 
 **Network:** Polygon  
 **Address:**  
-0xED8C432FdFBa629387eeD06C1DC5cA6087c1C09b
+0xD0692ec758bb852421B702B187b6439f74f8Bf3b
 
 The LaborCoin exchange contract implements a bonding curve token system designed to fund worker solidarity.
 
