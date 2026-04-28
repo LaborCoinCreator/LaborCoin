@@ -55,13 +55,13 @@ Treasury / Actions
 ## 🪙 System Summary
 
 - **LABR**  
-  Fixed supply token used for exchange and access
+  Fixed supply token with built-in: wallet, buy/sell and cooldown limits, as well as a 10% sell tax, used for exchange and DAO access
 
 - **LABRV**  
   Non-transferable voting token (1 per wallet)
 
 - **Registration**  
-  Requires ≥1 LABR → mints LABRV
+  Requires ≥1 LABR → Verify Uniquenss → Verify ID → Sign Attestation → mints LABRV
 
 - **Exchange**  
   Bonding curve (quadratic) using pre-minted supply  
@@ -81,8 +81,8 @@ Treasury / Actions
 ## 🔐 Notes
 
 - Registration is one-time (LABR not continuously checked)
-- No on-chain Sybil resistance yet
-- Ownership should be transferred to DAO after testing
+- No on-chain Sybil resistance yet (coming soon before launch!)
+- Ownership will be transferred to DAO executor contracts after testing
 
 ---
 
