@@ -88,11 +88,11 @@ These constraints are enforced at the contract level to prevent accumulation of 
 ## 5. Bonding Curve Exchange
 
 **Exchange Contract:**  
-`0xED8C432FdFBa629387eeD06C1DC5cA6087c1C09b`
+`0xD0692ec758bb852421B702B187b6439f74f8Bf3b`
 
 ### Pricing Model
 
-- Sigmoid-based pricing curve  
+- Quadratic bonding curve with smooth price progression  
 - Price increases as total tokens sold increases  
 - Approximate range: $1 → ~$15  
 
@@ -133,8 +133,8 @@ Execution is constrained to prevent arbitrary control and reduce attack surface.
 **LaborCoin (LABR):**  
 `0x460DD873A1D2a41e77410B125cD3027C5FEd2f78`
 
-**LaborCoin Exchange:**  
-`0xED8C432FdFBa629387eeD06C1DC5cA6087c1C09b`
+**LaborCoin Exchange v2:**  
+`0xD0692ec758bb852421B702B187b6439f74f8Bf3b`
 
 **LaborCoin DAO:**  
 `0x0C2e5679153593b82a84eAB5CA90895BB291Cec4`
