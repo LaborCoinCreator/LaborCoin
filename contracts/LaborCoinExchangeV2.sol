@@ -327,4 +327,6 @@ contract LaborCoinExchangeV2 is ReentrancyGuard {
     receive() external payable {}
 }
 
-License: MIT
+## 📜 License
+
+MIT
