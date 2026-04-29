@@ -52,8 +52,8 @@ Prevents capital-based governance capture and ensures democratic participation.
 
 ### Thresholds
 
-- 75% participation  
-- 75% approval  
+- 25% participation  
+- 67% approval  
 
 High thresholds ensure legitimacy and prevent minority control.
 
