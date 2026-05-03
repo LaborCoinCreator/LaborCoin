@@ -151,9 +151,6 @@ Execution is constrained to prevent arbitrary control and reduce attack surface.
 **Treasury Executor:**  
 `0x440A756e16D4b42a015eC61258759037A454Ec79`
 
-**Mint Executor:**  
-`0xA361cB84422452BDef5A04a447492ad176B09C0B`
-
 ---
 
 ## 8. Security Model
