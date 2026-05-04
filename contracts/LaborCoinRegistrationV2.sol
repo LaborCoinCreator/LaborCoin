@@ -1,3 +1,10 @@
+# LaborCoin DAO Registration V2
+
+**Network:** Polygon  
+**Contract Address:** `0xFFc3499A71b806C3919f4B54D236b151cFdCB453`
+
+---
+
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
