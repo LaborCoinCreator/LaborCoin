@@ -7,6 +7,7 @@ Core contracts for the LaborCoin system:
 - Token (LABR)
 - Governance (LABRV + DAO)
 - Registration
+- Governance
 - Executors
 - Exchange
 
@@ -21,6 +22,8 @@ Core contracts for the LaborCoin system:
 | DAO | `0x0C2e5679153593b82a84eAB5CA90895BB291Cec4` |
 | Registration (V2) | `0xFFc3499A71b806C3919f4B54D236b151cFdCB453` |
 | LABRV (Voting) | `0x113579220515cd59b884Ea2379b4C369025246e2` |
+| DAO Governance | `0x1C01BD6ccC2C9aCfb59f37f7877A7a2718167aBe` |
+
 
 ---
 
