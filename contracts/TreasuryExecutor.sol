@@ -1,20 +1,82 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
-contract TreasuryExecutor {
-address public dao;
-modifier onlyDAO() {
-require(msg.sender == dao, "Only DAO");
-_;
-}
-constructor(address _dao) {
-require(_dao != address(0), "Invalid DAO");
-dao = _dao;
-}
-function sendETH(address payable to, uint256 amount) external onlyDAO {
-require(to != address(0), "Invalid address");
-require(address(this).balance >= amount, "Insufficient balance");
-(bool success, ) = to.call{value: amount}("");
-require(success, "Transfer failed");
-}
-receive() external payable {}
+
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract TreasuryExecutor is Ownable {
+
+    address public governance;
+
+    constructor()
+        Ownable(msg.sender)
+    {}
+
+    modifier onlyGovernance() {
+
+        require(
+            msg.sender == governance,
+            "Only governance"
+        );
+
+        _;
+    }
+
+    // ===== ONE-TIME GOVERNANCE SET =====
+    function setGovernance(
+        address _governance
+    )
+        external
+        onlyOwner
+    {
+
+        require(
+            governance == address(0),
+            "Governance already set"
+        );
+
+        require(
+            _governance != address(0),
+            "Invalid governance"
+        );
+
+        governance = _governance;
+    }
+
+    // ===== RECEIVE POL =====
+    receive() external payable {}
+
+    // ===== TREASURY TRANSFER =====
+    function sendPOL(
+        address payable recipient,
+        uint256 amount
+    )
+        external
+        onlyGovernance
+    {
+
+        require(
+            recipient != address(0),
+            "Invalid recipient"
+        );
+
+        require(
+            amount > 0,
+            "Invalid amount"
+        );
+
+        require(
+            address(this).balance >= amount,
+            "Insufficient treasury"
+        );
+
+        (bool success,) =
+            recipient.call{
+                value: amount
+            }("");
+
+        require(
+            success,
+            "Transfer failed"
+        );
+    }
 }
