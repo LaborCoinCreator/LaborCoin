@@ -155,7 +155,7 @@ It cannot:
 | Governance          | `0x3edfa4BE01e7a244357198260f2432094690aB65` |
 | LABRV (v6)          | `0x113579220515cd59b884Ea2379b4C369025246e2` |
 | PauseExecutor       | `0xe2a791FD057bBA5AEa0efcfb8b97f9de74cC7c06` |
-| TreasuryExecutor    | `0x99F90E3DA7b40988fE808E77b0Aec51dAfdFF1CC` |
+| TreasuryExecutor    | `0x260e5c1dA01a51A3059FDb2163914AC9ff83c0F7` |
 
 ---
 
