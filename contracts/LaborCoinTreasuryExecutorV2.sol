@@ -1,18 +1,68 @@
-Address: 0xf80D9Ea4c9bbB393D390B5568f04C81931a8f599
+Address: 0x99F90E3DA7b40988fE808E77b0Aec51dAfdFF1CC
 
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 
+// ===== ARAGON ACTION =====
+struct Action {
+
+    address to;
+
+    uint256 value;
+
+    bytes data;
+}
+
+// ===== ARAGON DAO INTERFACE =====
+interface IDAO {
+
+    function execute(
+        bytes32 _callId,
+        Action[] memory _actions,
+        uint256 _allowFailureMap
+    )
+        external
+        returns (
+            bytes[] memory,
+            uint256
+        );
+}
+
 contract TreasuryExecutor is Ownable {
 
+    // ===== STATE =====
     address public governance;
 
-    constructor()
-        Ownable(msg.sender)
-    {}
+    IDAO public dao;
 
+    // ===== EVENTS =====
+    event GovernanceSet(
+        address governance
+    );
+
+    event TreasuryTransferExecuted(
+        address recipient,
+        uint256 amount
+    );
+
+    // ===== CONSTRUCTOR =====
+    constructor(
+        address _dao
+    )
+        Ownable(msg.sender)
+    {
+
+        require(
+            _dao != address(0),
+            "Invalid DAO"
+        );
+
+        dao = IDAO(_dao);
+    }
+
+    // ===== GOVERNANCE ONLY =====
     modifier onlyGovernance() {
 
         require(
@@ -42,12 +92,13 @@ contract TreasuryExecutor is Ownable {
         );
 
         governance = _governance;
+
+        emit GovernanceSet(
+            _governance
+        );
     }
 
-    // ===== RECEIVE POL =====
-    receive() external payable {}
-
-    // ===== TREASURY TRANSFER =====
+    // ===== SEND POL =====
     function sendPOL(
         address payable recipient,
         uint256 amount
@@ -66,19 +117,41 @@ contract TreasuryExecutor is Ownable {
             "Invalid amount"
         );
 
-        require(
-            address(this).balance >= amount,
-            "Insufficient treasury"
+        // ===== BUILD ACTION =====
+        Action[]
+            memory actions =
+                new Action[](1);
+
+        actions[0] = Action({
+
+            to:
+                recipient,
+
+            value:
+                amount,
+
+            data:
+                ""
+        });
+
+        // ===== EXECUTE VIA DAO =====
+        dao.execute(
+
+            keccak256(
+                abi.encode(
+                    recipient,
+                    amount
+                )
+            ),
+
+            actions,
+
+            0 // no failures allowed
         );
 
-        (bool success,) =
-            recipient.call{
-                value: amount
-            }("");
-
-        require(
-            success,
-            "Transfer failed"
+        emit TreasuryTransferExecuted(
+            recipient,
+            amount
         );
     }
 }
