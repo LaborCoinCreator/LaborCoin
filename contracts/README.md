@@ -32,7 +32,7 @@ Core contracts for the LaborCoin system:
 | Contract | Address |
 |---------|--------|
 | PauseExecutor (V2) | `0xe2a791FD057bBA5AEa0efcfb8b97f9de74cC7c06` |
-| TreasuryExecutor (V3) | `0x99F90E3DA7b40988fE808E77b0Aec51dAfdFF1CC` |
+| TreasuryExecutor (V3) | `0x260e5c1dA01a51A3059FDb2163914AC9ff83c0F7` |
 
 ---
 
