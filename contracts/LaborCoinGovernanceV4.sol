@@ -1,7 +1,7 @@
 # LaborCoin Governance Contract
 
 **Network:** Polygon  
-**Contract Address:** `0x428F21D77C2774bADf14Cd13bfA4fc18d62184B2`
+**Contract Address:** `0x9310f6EcA828FDFF05C16220cbB21EEcA0D6F77D`
 
 ---
 
@@ -80,10 +80,10 @@ interface IAdminPlugin {
 }
 
 // =====================================================
-// GOVERNANCE V3
+// GOVERNANCE V4
 // =====================================================
 
-contract LaborCoinGovernanceV3 is Ownable {
+contract LaborCoinGovernanceV4 is Ownable {
 
     using ECDSA for bytes32;
     using MessageHashUtils for bytes32;
@@ -170,6 +170,13 @@ contract LaborCoinGovernanceV3 is Ownable {
         public voted;
 
     // =====================================================
+    // TRACK ARAGON PROPOSALS
+    // =====================================================
+
+    mapping(uint256 => uint256)
+        public aragonProposalIds;
+
+    // =====================================================
     // EVENTS
     // =====================================================
 
@@ -179,9 +186,20 @@ contract LaborCoinGovernanceV3 is Ownable {
         address indexed creator
     );
 
+    event VoteCast(
+        uint256 indexed proposalId,
+        address indexed voter,
+        bool support,
+        uint256 weight
+    );
+
     event ProposalExecuted(
         uint256 indexed id,
         uint256 adminProposalId
+    );
+
+    event VerifierUpdated(
+        address indexed verifier
     );
 
     // =====================================================
@@ -249,6 +267,10 @@ contract LaborCoinGovernanceV3 is Ownable {
         );
 
         verifier = _verifier;
+
+        emit VerifierUpdated(
+            _verifier
+        );
     }
 
     // =====================================================
@@ -275,6 +297,11 @@ contract LaborCoinGovernanceV3 is Ownable {
     {
 
         require(
+            uint8(proposalType) <= 2,
+            "Invalid proposal type"
+        );
+
+        require(
             block.timestamp <= expiry,
             "Signature expired"
         );
@@ -296,8 +323,6 @@ contract LaborCoinGovernanceV3 is Ownable {
             ),
             "Invalid signature"
         );
-
-        nonces[msg.sender]++;
 
         require(
             LABRV.balanceOf(msg.sender) > 0,
@@ -323,6 +348,8 @@ contract LaborCoinGovernanceV3 is Ownable {
                 "Invalid amount"
             );
         }
+
+        nonces[msg.sender]++;
 
         proposalCount++;
 
@@ -382,6 +409,12 @@ contract LaborCoinGovernanceV3 is Ownable {
 
     ) external {
 
+        require(
+            id > 0 &&
+            id <= proposalCount,
+            "Invalid proposal"
+        );
+
         Proposal storage p =
             proposals[id];
 
@@ -418,8 +451,6 @@ contract LaborCoinGovernanceV3 is Ownable {
             "Invalid signature"
         );
 
-        nonces[msg.sender]++;
-
         uint256 weight =
             LABRV.balanceOf(msg.sender);
 
@@ -427,6 +458,8 @@ contract LaborCoinGovernanceV3 is Ownable {
             weight > 0,
             "No voting power"
         );
+
+        nonces[msg.sender]++;
 
         voted[id][msg.sender] = true;
 
@@ -438,6 +471,13 @@ contract LaborCoinGovernanceV3 is Ownable {
 
             p.no += weight;
         }
+
+        emit VoteCast(
+            id,
+            msg.sender,
+            support,
+            weight
+        );
     }
 
     // =====================================================
@@ -447,6 +487,12 @@ contract LaborCoinGovernanceV3 is Ownable {
     function execute(
         uint256 id
     ) external {
+
+        require(
+            id > 0 &&
+            id <= proposalCount,
+            "Invalid proposal"
+        );
 
         Proposal storage p =
             proposals[id];
@@ -472,6 +518,11 @@ contract LaborCoinGovernanceV3 is Ownable {
 
         uint256 supply =
             LABRV.totalSupply();
+
+        require(
+            supply > 0,
+            "No supply"
+        );
 
         // =================================================
         // PRECISION QUORUM
@@ -600,6 +651,9 @@ contract LaborCoinGovernanceV3 is Ownable {
 
                 ""
             );
+
+        aragonProposalIds[id] =
+            adminProposalId;
 
         emit ProposalExecuted(
             id,
