@@ -1,7 +1,7 @@
 # LaborCoin Governance Contract
 
 **Network:** Polygon  
-**Contract Address:** `0xDBdd4040442965Cf6498eEdC0dF140A5fAc275a7`
+**Contract Address:** `0x3edfa4BE01e7a244357198260f2432094690aB65`
 
 ---
 
