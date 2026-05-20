@@ -152,7 +152,7 @@ It cannot:
 | Exchange Contract   | `0xD0692ec758bb852421B702B187b6439f74f8Bf3b` |
 | LaborCoin DAO       | `0x0C2e5679153593b82a84eAB5CA90895BB291Cec4` |
 | Registration (v2)   | `0xFFc3499A71b806C3919f4B54D236b151cFdCB453` |
-| Governance          | `0x858212375299ba9Ed198cDc5Ab525dc45E08593b` |
+| Governance          | `0x69b3317D3D742AFa6cd770F7cA29Eeeacdda073D` |
 | LABRV (v6)          | `0x113579220515cd59b884Ea2379b4C369025246e2` |
 | PauseExecutor       | `0x94c83d82Bd04947C3eC426b99C316d49dA977af2` |
 
