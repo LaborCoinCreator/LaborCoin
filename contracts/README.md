@@ -31,7 +31,7 @@ Core contracts for the LaborCoin system:
 
 | Contract | Address |
 |---------|--------|
-| PauseExecutor (V2) | `0xc481b181Efe184f06aEf999C928921859fc7f483` |
+| PauseExecutor (V2) | `0x94c83d82Bd04947C3eC426b99C316d49dA977af2` |
 
 ---
 
