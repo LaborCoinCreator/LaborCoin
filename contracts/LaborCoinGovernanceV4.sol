@@ -203,6 +203,14 @@ contract LaborCoinGovernanceV4 is Ownable {
     );
 
     // =====================================================
+    // DEBUG
+    // =====================================================
+
+    event DebugHash(
+        bytes32 hash
+    );
+
+    // =====================================================
     // CONSTRUCTOR
     // =====================================================
 
@@ -271,6 +279,21 @@ contract LaborCoinGovernanceV4 is Ownable {
         emit VerifierUpdated(
             _verifier
         );
+    }
+
+    // =====================================================
+    // DEBUG NONCE
+    // =====================================================
+
+    function debugNonce(
+        address user
+    )
+        external
+        view
+        returns (uint256)
+    {
+
+        return nonces[user];
     }
 
     // =====================================================
@@ -524,10 +547,6 @@ contract LaborCoinGovernanceV4 is Ownable {
             "No supply"
         );
 
-        // =================================================
-        // PRECISION QUORUM
-        // =================================================
-
         uint256 participation =
             (totalVotes * 10000)
             / supply;
@@ -537,10 +556,6 @@ contract LaborCoinGovernanceV4 is Ownable {
             QUORUM_PERCENT * 100,
             "Quorum not met"
         );
-
-        // =================================================
-        // PRECISION APPROVAL
-        // =================================================
 
         uint256 approval =
             (p.yes * 10000)
@@ -554,17 +569,9 @@ contract LaborCoinGovernanceV4 is Ownable {
 
         p.executed = true;
 
-        // =================================================
-        // BUILD SAFE ACTIONS
-        // =================================================
-
         Action[]
             memory actions =
                 new Action[](1);
-
-        // =============================================
-        // TREASURY TRANSFER
-        // =============================================
 
         if (
             p.proposalType ==
@@ -583,10 +590,6 @@ contract LaborCoinGovernanceV4 is Ownable {
                     ""
             });
         }
-
-        // =============================================
-        // PAUSE TRADING
-        // =============================================
 
         else if (
             p.proposalType ==
@@ -608,10 +611,6 @@ contract LaborCoinGovernanceV4 is Ownable {
             });
         }
 
-        // =============================================
-        // RESUME TRADING
-        // =============================================
-
         else if (
             p.proposalType ==
             ProposalType.ResumeTrading
@@ -631,10 +630,6 @@ contract LaborCoinGovernanceV4 is Ownable {
                     )
             });
         }
-
-        // =================================================
-        // CREATE ARAGON PROPOSAL
-        // =================================================
 
         uint256 adminProposalId =
             adminPlugin.createProposal(
@@ -679,7 +674,6 @@ contract LaborCoinGovernanceV4 is Ownable {
 
     )
         internal
-        view
         returns (bool)
     {
 
@@ -701,6 +695,10 @@ contract LaborCoinGovernanceV4 is Ownable {
                     expiry
                 )
             );
+
+        emit DebugHash(
+            messageHash
+        );
 
         bytes32 ethHash =
             messageHash
