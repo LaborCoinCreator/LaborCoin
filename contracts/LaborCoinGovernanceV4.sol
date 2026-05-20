@@ -1,7 +1,7 @@
 # LaborCoin Governance Contract
 
 **Network:** Polygon  
-**Contract Address:** `0x858212375299ba9Ed198cDc5Ab525dc45E08593b`
+**Contract Address:** `0x69b3317D3D742AFa6cd770F7cA29Eeeacdda073D`
 
 ---
 
@@ -739,12 +739,21 @@ function debugVerifyHash(
             messageHash
         );
 
-        bytes32 ethHash =
-            messageHash
-                .toEthSignedMessageHash();
+                bytes32 ethHash =
+            MessageHashUtils
+                .toEthSignedMessageHash(
+                    messageHash
+                );
 
         address recovered =
-            ethHash.recover(signature);
+            ECDSA.recover(
+                ethHash,
+                signature
+            );
+
+        emit DebugHash(
+            ethHash
+        );
 
         return recovered == verifier;
     }
