@@ -149,7 +149,7 @@ Execution is constrained to prevent arbitrary control and reduce attack surface.
 `0x858212375299ba9Ed198cDc5Ab525dc45E08593b`
 
 **Pause Executor:**  
-`0x5a0C3d5F6A814Dda121Fe174FFD963451E9fCa4f`
+`0x94c83d82Bd04947C3eC426b99C316d49dA977af2`
 
 ---
 
