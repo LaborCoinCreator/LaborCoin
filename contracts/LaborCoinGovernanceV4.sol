@@ -1,7 +1,7 @@
 # LaborCoin Governance Contract
 
 **Network:** Polygon  
-**Contract Address:** `0xa0060E934377d3E9d74699D48D46A491aeb976b9`
+**Contract Address:** `0x858212375299ba9Ed198cDc5Ab525dc45E08593b`
 
 ---
 
@@ -282,19 +282,58 @@ contract LaborCoinGovernanceV4 is Ownable {
     }
 
     // =====================================================
-    // DEBUG NONCE
-    // =====================================================
+// DEBUG NONCE
+// =====================================================
 
-    function debugNonce(
-        address user
-    )
-        external
-        view
-        returns (uint256)
-    {
+function debugNonce(
+    address user
+)
+    external
+    view
+    returns (uint256)
+{
 
-        return nonces[user];
-    }
+    return nonces[user];
+}
+
+// =====================================================
+// DEBUG VERIFY HASH
+// =====================================================
+
+function debugVerifyHash(
+
+    address user,
+
+    string memory action,
+
+    uint256 nonce,
+
+    uint256 expiry
+
+)
+    external
+    view
+    returns (bytes32)
+{
+
+    return keccak256(
+
+        abi.encode(
+
+            user,
+
+            address(this),
+
+            action,
+
+            nonce,
+
+            block.chainid,
+
+            expiry
+        )
+    );
+}
 
     // =====================================================
     // PROPOSE
