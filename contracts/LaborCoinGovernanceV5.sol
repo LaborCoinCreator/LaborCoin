@@ -1,7 +1,7 @@
 # LaborCoin Governance Contract
 
 **Network:** Polygon  
-**Contract Address:** `0x69b3317D3D742AFa6cd770F7cA29Eeeacdda073D`
+**Contract Address:** `0x8840368d41B93dB9C718e9A9039B625028b23B0B`
 
 ---
 
@@ -80,10 +80,10 @@ interface IAdminPlugin {
 }
 
 // =====================================================
-// GOVERNANCE V4
+// GOVERNANCE V5
 // =====================================================
 
-contract LaborCoinGovernanceV4 is Ownable {
+contract LaborCoinGovernanceV5 is Ownable {
 
     using ECDSA for bytes32;
     using MessageHashUtils for bytes32;
@@ -318,7 +318,7 @@ function debugVerifyHash(
 
     return keccak256(
 
-        abi.encode(
+        abi.encodePacked(
 
             user,
 
@@ -719,7 +719,7 @@ function debugVerifyHash(
         bytes32 messageHash =
             keccak256(
 
-                abi.encode(
+                abi.encodePacked(
 
                     user,
 
