@@ -22,7 +22,7 @@ Core contracts for the LaborCoin system:
 | DAO | `0x0C2e5679153593b82a84eAB5CA90895BB291Cec4` |
 | Registration (v2) | `0xFFc3499A71b806C3919f4B54D236b151cFdCB453` |
 | LABRV (v6) | `0x113579220515cd59b884Ea2379b4C369025246e2` |
-| DAO Governance (v6) | `0x357E8574E6046411717946485fD7edbEd0066150` |
+| DAO Governance (v7) | `0xbf06aA27bD4B327ec0B36dcD3d2aa1E72BCAc9e8` |
 
 
 ---
@@ -31,7 +31,7 @@ Core contracts for the LaborCoin system:
 
 | Contract | Address |
 |---------|--------|
-| PauseExecutor (v3) | `0xEFd26AFA3a3F91EF371b22a596A3502E7745212C` |
+| PauseExecutor (v3) | `0x63a55Bd2C7e7d473a8DD74c1e568fb415Ba38A76` |
 
 ---
 
