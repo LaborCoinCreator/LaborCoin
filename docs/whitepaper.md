@@ -145,11 +145,11 @@ Execution is constrained to prevent arbitrary control and reduce attack surface.
 **LaborVote (LABRV v6):**  
 `0x113579220515cd59b884Ea2379b4C369025246e2`
 
-**LaborCoinGovernance (v7):**  
-`0xbf06aA27bD4B327ec0B36dcD3d2aa1E72BCAc9e8`
+**LaborCoinGovernance (v12):**  
+`0xEFbb3f8f873282a5d6789E6Ae11409B43FC18910`
 
-**Pause Executor (v3):**  
-`0x63a55Bd2C7e7d473a8DD74c1e568fb415Ba38A76`
+**Treasury Module:**  
+`0x84AC5be86e2102496949862F59aCeB5d7Dc3Df77`
 
 ---
 
