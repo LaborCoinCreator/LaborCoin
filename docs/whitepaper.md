@@ -146,10 +146,10 @@ Execution is constrained to prevent arbitrary control and reduce attack surface.
 `0x113579220515cd59b884Ea2379b4C369025246e2`
 
 **LaborCoinGovernance (v12):**  
-`0xEFbb3f8f873282a5d6789E6Ae11409B43FC18910`
+`0x499b32e9E5a8b9865a9D69480d590252a56FA78F`
 
 **Treasury Module:**  
-`0x84AC5be86e2102496949862F59aCeB5d7Dc3Df77`
+`0x0B018E45E4cB71E222C345a5341BdbaeE519c623`
 
 ---
 
