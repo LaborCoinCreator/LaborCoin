@@ -22,16 +22,16 @@ Core contracts for the LaborCoin system:
 | DAO | `0x0C2e5679153593b82a84eAB5CA90895BB291Cec4` |
 | Registration (v3) | `0xa7D0C092C2391379046cACDc56BEbDe5A0CBD113` |
 | LABRV (v6) | `0x113579220515cd59b884Ea2379b4C369025246e2` |
-| DAO Governance (v7) | `0xbf06aA27bD4B327ec0B36dcD3d2aa1E72BCAc9e8` |
+| DAO Governance (v12) | `0x499b32e9E5a8b9865a9D69480d590252a56FA78F` |
 
 
 ---
 
-## ⚙️ Executors
+## ⚙️ Modules
 
 | Contract | Address |
 |---------|--------|
-| PauseExecutor (v3) | `0x63a55Bd2C7e7d473a8DD74c1e568fb415Ba38A76` |
+| Treasury Module | `0x0B018E45E4cB71E222C345a5341BdbaeE519c623` |
 
 ---
 
@@ -75,7 +75,7 @@ Treasury / Actions
 
 - DAO controlled (Aragon)
 - LABRV determines voting power
-- Executors enforce actions
+- Contracts enforce actions
 
 ---
 
