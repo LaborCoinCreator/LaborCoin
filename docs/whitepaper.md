@@ -1,4 +1,4 @@
-[LaborCoin-Technical-Whitepaper-v1.0.md](https://github.com/user-attachments/files/28748297/LaborCoin-Technical-Whitepaper-v1.0.md)
+[LaborCoin-Technical-Whitepaper-v1.0.md](https://github.com/user-attachments/files/28748928/LaborCoin-Technical-Whitepaper-v1.0.md)
 Version: 1.0
 
 Status: Pre-Launch Final Draft
@@ -643,23 +643,6 @@ The architecture can be summarized as follows:
 
 Figure 1. LaborCoin System Architecture.
 High-level relationship between all core protocol components.
-
-User --> Exchange
-
-Exchange --> LABR
-
-User --> Registration
-
-Registration --> LABRV
-
-LABRV --> Governance
-
-Governance --> TreasuryModule
-
-Treasury --> TreasuryModule
-
-TreasuryModule --> Recipients
-```
 
 The protocol intentionally separates economic participation from governance participation.
 
@@ -5852,7 +5835,6 @@ J --> K[Create Proposals]
 K --> L[Treasury Governance]
 
 L --> M[Treasury Distribution]
-```
 
 The protocol does not require participants to complete every stage.
 
