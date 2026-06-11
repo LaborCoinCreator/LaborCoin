@@ -840,7 +840,7 @@ Resources move through the following stages:
 
 A simplified representation appears below:
 
-Figure 4. Bonding Curve Distribution Model
+Figure 12. Treasury Execution Lifecycle
 
 Illustrates the governance-controlled process through which treasury resources move from accumulation to approved distribution. No treasury allocation may bypass governance approval, ensuring that treasury resources remain subject to collective decision-making.
 
