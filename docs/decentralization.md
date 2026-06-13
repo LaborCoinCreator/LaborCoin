@@ -56,3 +56,13 @@ This table identifies the primary smart contracts comprising the LaborCoin proto
 |---------|-------------|
 | Yes | Source code has been publicly verified and can be independently audited. |
 | No | Source code has not yet been publicly verified. |
+
+---
+
+| Contract     | Current Owner | Ownership Transferred |
+| ------------ | ------------- | --------------------- |
+| LABR         | Creator       | []
+| Exchange     | Creator       | []
+| Registration | Creator       | []
+| Governance   | Creator       | []
+| Treasury     | Immutable     | [x]
