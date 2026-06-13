@@ -1,4 +1,16 @@
-// SPDX-License-Identifier: MIT
+# LaborVote (LABRV) V6
+
+## Address
+
+`0x113579220515cd59b884Ea2379b4C369025246e2`
+
+## Purpose
+
+LABRV is the governance token of the LaborCoin ecosystem.
+
+Unlike LABR, LABRV is non-transferable and exists solely to represent governance participation.
+
+/ SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
