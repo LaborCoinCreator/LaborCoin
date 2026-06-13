@@ -1,146 +1,172 @@
 # LaborCoin
 
-A governance system for coordinating labor, allocating resources, and executing collective decisions on-chain.
+A decentralized governance and funding system designed to support worker solidarity through collective resource allocation, democratic decision-making, and transparent on-chain coordination.
 
-LaborCoin is a decentralized governance system designed to enable the working class to coordinate, allocate resources, and make collective decisions on-chain. It is built to support striking workers.
-
-It combines a voting token, DAO governance, and controlled execution to create a transparent and accountable decision-making framework.
-
-The goal: enable sustained collective action by overcoming economic retaliation with working-class organizing and financial solidarity.
+LaborCoin combines a bonding curve economy, a non-transferable governance token, and a DAO-managed treasury to enable participants to collectively direct resources toward worker support initiatives, strike assistance, educational projects, and other community-approved purposes.
 
 ---
 
-## What This Is
+# Mission
 
-LaborCoin is not a speculative token or passive investment.
+LaborCoin was created to explore how blockchain technology can be used to strengthen collective action and economic solidarity.
 
-It is a system for:
+The project is built around a simple idea:
 
-- Collective funding decisions  
-- Democratic resource allocation  
-- Coordinated action through shared governance  
+Workers often face significant economic pressure when organizing, negotiating, or taking collective action. LaborCoin seeks to provide a transparent and democratic funding infrastructure that can be governed directly by its participants.
 
 ---
 
-## How It Works
+# What LaborCoin Is
 
-1. Participants register and receive a voting token (LABRV)  
-2. Proposals are submitted through LaborCoin Solidarity Proposals (LSP)  
-3. Participants vote (one person, one vote)  
-4. If thresholds are met, the DAO executes decisions through executors  
+LaborCoin is a governance and treasury system.
 
----
+Participants may:
 
-## Governance Rules
+* Acquire LABR through the protocol exchange
+* Register for governance participation
+* Receive LABRV governance rights
+* Submit and vote on proposals
+* Direct treasury resources through collective decision-making
 
-- **1 LABRV per participant**
-- **Non-transferable voting power**
-- **75% participation required**
-- **75% approval required**
-
-These constraints ensure decisions reflect broad consensus.
+LaborCoin is not intended to function as a traditional investment product.
 
 ---
 
-## System Architecture
+# How It Works
 
-LaborCoin separates decision-making from execution:
-
-DAO → Executors → Contracts → Treasury → Distribution
-
-- The DAO decides  
-- Executors enforce constraints  
-- Contracts perform actions  
-
-This structure minimizes centralized control and reduces risk.
+1. Connect a wallet on Polygon
+2. Acquire LABR using POL through the LaborCoin Exchange
+3. Complete registration requirements
+4. Receive LABRV governance rights
+5. Participate in proposals and voting
+6. Help direct treasury resources through governance
 
 ---
 
-## Core Components
+# Governance Model
+
+LaborCoin separates economic participation from governance participation.
 
 ### LABR
 
-Primary token distributed through the bonding curve exchange.
+LABR is the ecosystem's primary economic token.
+
+It is used for:
+
+* Participation in the bonding curve economy
+* Treasury funding through protocol taxes
+* Dividend participation
+* Ecosystem engagement
+
+### LABRV
+
+LABRV is the governance token.
+
+Properties:
+
+* Non-transferable
+* Cannot be bought or sold
+* Issued through the registration system
+* Used exclusively for governance
+
+Governance rights are distributed through registration rather than token accumulation.
+
+This helps maintain equal voting power for eligible registered participants.
 
 ---
 
-### LABRV (v6)
+# Core Components
 
-Voting token
+## Exchange V2
 
-- Non-transferable  
-- One per participant  
-- Enables one-person, one-vote governance  
+The LaborCoin Exchange provides the primary mechanism for acquiring and selling LABR.
 
----
+Features include:
 
-### DAO (Aragon)
+* Deterministic bonding curve pricing
+* On-chain liquidity
+* Treasury funding
+* Dividend funding
+* Transaction cooldowns
+* Wallet limits
+* Slippage protection
 
-Handles proposals, voting, and execution logic.
+### Current Exchange Parameters
 
----
-
-### Executors
-
-Restricted execution layer between governance and contracts.
-
-- PauseExecutor → controls trading state (pause/unpause)  
-- TreasuryExecutor → distributes funds  
-
-Executors enforce boundaries on what governance can do.
-
----
-
-## Exchange Contract (LABR)
-
-**Network:** Polygon  
-**Address:**  
-0xD0692ec758bb852421B702B187b6439f74f8Bf3b
-
-The LaborCoin exchange contract implements a bonding curve token system designed to fund worker solidarity.
-
-### Core Mechanics
-
-- Deterministic pricing curve (~$1 → ~$15)  
-- Continuous liquidity via bonding curve  
-- POL/USD oracle pricing  
-- Slippage-protected trades  
+| Parameter         | Value       |
+| ----------------- | ----------- |
+| Transaction Limit | 5,000 LABR  |
+| Wallet Limit      | 10,000 LABR |
+| Cooldown          | 12 Hours    |
 
 ---
 
-### Constraints
+## Treasury System
 
-- Transaction limit: 5,000 LABR  
-- Wallet limit: 10,000 LABR  
-- 12-hour cooldown between transactions  
-- 10% buy fee routed to DAO treasury  
+The Treasury collects protocol revenue and distributes resources through governance-approved proposals.
 
----
+Treasury allocations may support:
 
-### Safety Mechanisms
-
-- Oracle staleness protection  
-- Circuit breaker (auto-pause on abnormal price movement)  
-- Reentrancy protection  
-- Treasury accounting enforcement  
+* Strike assistance
+* Worker support initiatives
+* Educational projects
+* Community infrastructure
+* Other governance-approved activities
 
 ---
 
-### Governance Control
+## Registration System
 
-The exchange contract is parameter-locked.
+The Registration contract manages governance eligibility and LABRV issuance.
 
-The DAO (via executor) can only:
+Participants who satisfy registration requirements may receive governance rights and participate in DAO voting.
 
-- Pause trading  
-- Resume trading  
+---
 
-It cannot:
+## Governance
 
-- Change pricing  
-- Change limits  
-- Change fees  
-- Modify supply mechanics  
+Governance proposals are voted on using LABRV.
+
+A proposal passes only when both requirements are met:
+
+* 75% participation
+* 75% approval
+
+These thresholds are designed to encourage broad consensus before treasury resources are allocated.
+
+---
+
+# Protocol Architecture
+
+```text
+Users
+  │
+  ▼
+Exchange V2
+  │
+  ▼
+LABR
+  │
+  ▼
+Registration
+  │
+  ▼
+LABRV
+  │
+  ▼
+Governance
+  │
+  ▼
+LaborCoin DAO
+  │
+  ▼
+Treasury Module
+  │
+  ▼
+Approved Distributions
+```
+
+Additional architectural documentation can be found in the `/docs` directory.
 
 ---
 
@@ -148,59 +174,75 @@ It cannot:
 
 All LaborCoin contracts are deployed on Polygon and publicly verifiable.
 
-| Component | Address |
-|------------|------------|
-| LABR Token | `0x460DD873A1D2a41e77410B125cD3027C5FEd2f78` |
-| LaborCoin DAO | `0x0C2e5679153593b82a84eAB5CA90895BB291Cec4` |
-| Exchange V2 | `0xD0692ec758bb852421B702B187b6439f74f8Bf3b` |
-| Governance V12 | `0x499b32e9E5a8b9865a9D69480d590252a56FA78F` |
+| Component       | Address                                      |
+| --------------- | -------------------------------------------- |
+| LABR Token      | `0x460DD873A1D2a41e77410B125cD3027C5FEd2f78` |
+| LaborCoin DAO   | `0x0C2e5679153593b82a84eAB5CA90895BB291Cec4` |
+| Exchange V2     | `0xD0692ec758bb852421B702B187b6439f74f8Bf3b` |
+| Governance V12  | `0x499b32e9E5a8b9865a9D69480d590252a56FA78F` |
 | Registration V3 | `0xa7D0C092C2391379046cACDc56BEbDe5A0CBD113` |
-| LABRV V6 | `0x113579220515cd59b884Ea2379b4C369025246e2` |
+| LABRV V6        | `0x113579220515cd59b884Ea2379b4C369025246e2` |
 | Treasury Module | `0x0B018E45E4cB71E222C345a5341BdbaeE519c623` |
 
-See the contract documentation folder for detailed descriptions of each component.
+Detailed documentation for each contract is available in the `/contracts-docs` directory.
 
 ---
 
-## Current Status
+# Current Status
 
-- Governance system live and tested  
-- Voting token deployed (LABRV v6)  
-- Executor architecture implemented  
-- First proposal successfully created and passed  
+### Deployed
 
-In progress:
+* LABR Token
+* Exchange V2
+* Registration V3
+* LABRV V6
+* Governance V12
+* LaborCoin DAO
+* Treasury Module
 
-- Registration system (automated onboarding)  
-- Final permission lockdown  
+### Operational
 
----
-
-## Design Principles
-
-- One person, one vote  
-- Transparent governance  
-- Controlled execution  
-- Minimal attack surface  
-- Immutable economic rules  
+* Bonding curve exchange
+* Governance system
+* Registration system
+* Treasury management
+* On-chain proposal voting
 
 ---
 
-## Roadmap
+# Design Principles
 
-- Finalize registration system  
-- Restrict DAO to executor-only actions  
-- Enable public participation  
-- Expand treasury governance  
-
----
-
-## Disclaimer
-
-LaborCoin is an experimental governance system. It is not a traditional investment. Participation involves interacting with smart contracts and decentralized systems, which carry inherent risks.
+* Transparent governance
+* Equal voting power for eligible registered participants
+* Separation of governance and economic ownership
+* Publicly auditable treasury activity
+* Deterministic protocol rules
+* Open-source development
+* Long-term community stewardship
 
 ---
 
-## License
+# Documentation
+
+Additional documentation is available in this repository:
+
+* `/docs` – System documentation and architecture
+* `/contracts-docs` – Contract-level documentation
+* `/contracts` – Solidity source code
+* `/deployments` – Deployment records and artifacts
+
+---
+
+# Disclaimer
+
+LaborCoin is experimental software.
+
+Participation involves interacting with smart contracts, decentralized governance systems, and blockchain networks. Users should review the source code, documentation, and deployed contracts before participating.
+
+Nothing in this repository constitutes legal, financial, or investment advice.
+
+---
+
+# License
 
 MIT
