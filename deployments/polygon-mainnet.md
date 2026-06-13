@@ -1,3 +1,11 @@
+## Deployment Summary
+
+Network: Polygon Mainnet
+
+Deployment Status: Active
+
+Verification Status: Verified on Polygonscan
+
 # Deployed Contracts
 
 All LaborCoin contracts are deployed on Polygon and publicly verifiable.
