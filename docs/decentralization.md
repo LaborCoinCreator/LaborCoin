@@ -61,8 +61,8 @@ This table identifies the primary smart contracts comprising the LaborCoin proto
 
 | Contract     | Current Owner | Ownership Transferred |
 | ------------ | ------------- | --------------------- |
-| LABR         | Creator       | []
-| Exchange     | Creator       | []
-| Registration | Creator       | []
-| Governance   | Creator       | []
+| LABR         | Creator       | [ - ]
+| Exchange     | Creator       | [ - ]
+| Registration | Creator       | [ - ]
+| Governance   | Creator       | [ - ]
 | Treasury     | Immutable     | [x]
