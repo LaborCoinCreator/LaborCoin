@@ -59,10 +59,14 @@ This table identifies the primary smart contracts comprising the LaborCoin proto
 
 ---
 
-| Contract     | Current Owner | Ownership Transferred |
-| ------------ | ------------- | --------------------- |
-| LABR         | Creator       | [ - ]
-| Exchange     | Creator       | [ - ]
-| Registration | Creator       | [ - ]
-| Governance   | Creator       | [ - ]
-| Treasury     | Immutable     | [x]
+## Ownership Transfer Status
+
+| Contract | Current Owner | Ownership Transfer |
+|-----------|-----------|-----------|
+| LABR | Creator | 🔄 Pending |
+| Exchange | Creator | 🔄 Pending |
+| Registration | Creator | 🔄 Pending |
+| Governance | Creator | 🔄 Pending |
+| Treasury | Immutable | ✅ Complete |
+
+> Ownership of protocol components will be transferred to governance or otherwise finalized as part of the public launch process. Status will be updated as milestones are completed.
