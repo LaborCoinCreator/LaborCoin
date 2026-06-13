@@ -1,3 +1,25 @@
+## Repository Guide
+
+### Documentation
+
+- docs/architecture.md
+- docs/governance.md
+- docs/user-journey.md
+- docs/contract-map.md
+
+### Contract Documentation
+
+- contracts-docs/LABR-Token.md
+- contracts-docs/Exchange-V2.md
+- contracts-docs/Registration-V3.md
+- contracts-docs/LABRV-V6.md
+- contracts-docs/Governance-V12.md
+- contracts-docs/Treasury-Module.md
+
+### Source Code
+
+- contracts/
+
 # LaborCoin
 
 A decentralized governance and funding system designed to support worker solidarity through collective resource allocation, democratic decision-making, and transparent on-chain coordination.
