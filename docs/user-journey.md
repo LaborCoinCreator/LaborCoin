@@ -1,26 +1,30 @@
+Illustrates the participant pathway from acquiring LABR through governance participation and treasury allocation. Economic participation enables governance onboarding, which in turn enables collective decision-making regarding treasury resources.
+
 ```mermaid
-flowchart TD
+graph TD
 
-    A[User] -->|Registers| B["Registration System"]
+POL[POL]
+--> Exchange[Exchange V2]
 
-    B -->|Verifies eligibility| C[LABRV Token Issued]
+Exchange --> LABR[Acquire LABR]
 
-    C -->|Receives 1 LABRV| D[User Gains Voting Power]
+LABR --> Holder[LABR Holder]
 
-    D -->|Submits or votes| E["LABR Solidarity Proposals"]
+Holder --> Registration[Registration V3]
 
-    E -->|Proposal passes 75 percent| F["DAO Executes Decision"]
+Registration --> LABRV[Receive LABRV]
 
-    F --> G1[Funds Distributed]
-    F --> G2[Token Paused or Unpaused]
-    F --> G3[System Actions Executed]
+LABRV --> Participant[Governance Participant]
 
-    %% Styling
-    classDef user fill:#6b7280,color:#fff;
-    classDef action fill:#1d4ed8,color:#fff;
-    classDef result fill:#065f46,color:#fff;
+Participant --> Governance[Governance Contract]
 
-    class A user;
-    class B,C,D,E,F action;
-    class G1,G2,G3 result;
+Governance --> Treasury[DAO Treasury]
+
+Treasury --> Recipients[Recipients]
 ```
+
+This sequence illustrates how economic participation may ultimately contribute to collective resource allocation.
+
+Not every participant will progress through every stage.
+
+However, each stage remains available to eligible participants.
