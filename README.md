@@ -6,6 +6,16 @@
 
 ## Repository Guide
 
+## Quick Links
+
+- [Website](https://www.laborcoin.tech/)
+- [Whitepaper](docs/whitepaper.md)
+- [Redpaper](docs/redpaper.md)
+- [Architecture](docs/architecture.md)
+- [Governance](docs/governance.md)
+- [Contract Map](contracts/contract-map.md)
+- [Polygon Deployment](deployments/polygon-mainnet.md)
+
 ### Documentation
 
 - docs/architecture.md
