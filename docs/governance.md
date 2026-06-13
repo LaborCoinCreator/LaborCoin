@@ -2,108 +2,202 @@
 
 ## Overview
 
-LaborCoin governance is conducted through **LABR Solidarity Proposals (LSP)**.
+LaborCoin governance is conducted through the LaborCoin DAO using LABRV, a non-transferable governance token issued to eligible registered participants.
 
-This system enables participants to collectively decide how resources are allocated and how the system evolves.
+The purpose of governance is to allow participants to collectively direct treasury resources, oversee protocol development, and guide the future evolution of the ecosystem.
 
----
+LaborCoin separates economic ownership from governance participation.
 
-## Voting Power
+LABR represents economic participation.
 
-Voting is based on the LABRV token.
+LABRV represents governance participation.
 
-* Each participant holds **1 LABRV**
-* LABRV is **non-transferable**
-* Voting follows a **one person, one vote** model
+This distinction is intended to reduce the influence of wealth concentration on governance decisions.
 
 ---
 
-## Proposal Requirements
+# Governance Principles
 
-For a proposal to pass, it must meet both conditions:
+The governance system is built around five core principles:
 
-* **75% participation**
-* **75% approval**
+### Democratic Participation
 
-This ensures that decisions reflect broad consensus, not narrow majorities.
+Eligible participants receive equal voting power regardless of LABR holdings.
 
----
+### Transparency
 
-## Proposal Flow
+Proposals, votes, treasury activity, and governance actions are recorded on-chain and publicly verifiable.
 
-1. A proposal is submitted through LSP
-2. Voting begins and remains open for a fixed period
-3. Participants vote using LABRV
-4. If thresholds are met, the proposal passes
-5. The DAO executes the approved action
+### Accountability
 
----
+Approved actions must pass through the governance process and are subject to community review.
 
-## Execution Model
+### Decentralization
 
-All approved proposals are executed through **executor contracts**.
+Decision-making authority is distributed among participants rather than concentrated in a single administrator or organization.
 
-The DAO does not directly interact with core contracts.
+### Long-Term Stewardship
 
-Instead:
-
-```text
-DAO → Executor → Action
-```
-
-This ensures that governance actions are limited to predefined, controlled operations.
+Governance is intended to protect the long-term interests of the ecosystem and the workers it serves.
 
 ---
 
-## Types of Proposals
+# Voting Power
 
-Governance is primarily focused on:
+Voting power is determined by LABRV ownership.
 
-* Funding requests from the treasury
-* Allocation of resources to workers or initiatives
-* System-level operational decisions (within defined constraints)
+LABRV has the following properties:
 
----
+* Non-transferable
+* Cannot be bought or sold
+* Issued through the registration system
+* Used exclusively for governance
 
-## Security Model
+Each eligible registered wallet receives one LABRV token.
 
-The system is designed to prevent abuse and reduce risk:
-
-* Voting power cannot be transferred or accumulated
-* Execution is restricted to executor contracts
-* Arbitrary contract calls will be removed after bootstrap phase
+Because LABRV cannot be traded, governance participation is separated from market speculation.
 
 ---
 
-## Current Phase
+# Governance Eligibility
 
-The system is currently in a **bootstrap phase**:
+To participate in governance, a user must:
 
-* Governance is active and functional
-* Execution is temporarily unrestricted for setup purposes
+1. Complete registration requirements
+2. Receive LABRV
+3. Hold the LABRV token in their wallet
 
----
-
-## Planned Transition
-
-The following changes will be implemented:
-
-* Removal of unrestricted execution ("Any Action")
-* Restriction to executor-only actions
-* Introduction of a registration system for participant onboarding
+Only LABRV holders may vote on governance proposals.
 
 ---
 
-## Participation
+# Proposal Types
+
+Governance proposals may include:
+
+### Treasury Allocations
+
+Requests for funding from the LaborCoin Treasury.
+
+Examples include:
+
+* Strike support
+* Worker assistance
+* Educational initiatives
+* Infrastructure development
+* Community projects
+
+### Protocol Improvements
+
+Changes to protocol functionality, governance processes, or ecosystem operations.
+
+### Administrative Actions
+
+Actions required for the maintenance and operation of the protocol.
+
+---
+
+# Voting Process
+
+## Proposal Submission
+
+A proposal is submitted through the governance system.
+
+The proposal enters a voting period during which participants may review and discuss the proposal.
+
+## Voting
+
+LABRV holders cast votes for or against the proposal.
+
+Voting power is equal for all participants.
+
+## Outcome
+
+A proposal passes only if it satisfies both requirements:
+
+* 75% participation
+* 75% approval
+
+These thresholds are designed to encourage broad consensus before collective resources are committed.
+
+---
+
+# Proposal Execution
+
+When a proposal passes:
+
+1. Voting concludes
+2. Governance records the result on-chain
+3. Approved actions are executed through the DAO
+
+Execution occurs only after governance approval.
+
+Failed proposals have no effect on protocol resources or system state.
+
+---
+
+# Treasury Governance
+
+The LaborCoin Treasury is governed by the DAO.
+
+Treasury resources may only be allocated through approved governance proposals.
+
+This ensures that treasury funds remain under collective oversight rather than individual control.
+
+Participants are encouraged to carefully evaluate funding requests and consider their long-term impact before voting.
+
+---
+
+# Security Model
+
+LaborCoin governance incorporates several protections:
+
+### Non-Transferable Voting Rights
+
+LABRV cannot be transferred between wallets.
+
+This prevents the direct purchase or sale of governance power.
+
+### Public Auditability
+
+All governance actions are recorded on-chain and may be independently verified.
+
+### Registration Controls
+
+Governance participation requires successful registration and eligibility verification.
+
+### Consensus Thresholds
+
+The participation and approval requirements are designed to reduce the likelihood of governance capture by small groups.
+
+---
+
+# Governance Evolution
+
+The LaborCoin governance system may evolve through governance itself.
+
+Future improvements, parameter changes, and structural adjustments can be proposed and approved through the same democratic process used for all other governance decisions.
+
+This allows the system to adapt over time while maintaining community control.
+
+---
+
+# Participation
 
 Participants are encouraged to:
 
 * Review proposals carefully
-* Verify funding requests when applicable
-* Engage in discussion before voting
+* Verify supporting information
+* Consider long-term consequences
+* Engage in constructive discussion
+* Vote responsibly
+
+The effectiveness of the governance system depends on informed and active participation.
 
 ---
 
-## Disclaimer
+# Disclaimer
 
-Governance decisions are executed on-chain and are irreversible. Participants should understand the implications of proposals before voting.
+Governance actions are executed on-chain and may be irreversible.
+
+Participants should carefully review proposals and understand their potential consequences before voting.
