@@ -1,4 +1,16 @@
-Address: 0x0B018E45E4cB71E222C345a5341BdbaeE519c623
+# Treasury Module
+
+## Address
+
+`0x0B018E45E4cB71E222C345a5341BdbaeE519c623`
+
+## Purpose
+
+The Treasury Module acts as the dedicated treasury distribution component of LaborCoin.
+
+It receives treasury funds and executes approved distributions.
+
+---
 
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
