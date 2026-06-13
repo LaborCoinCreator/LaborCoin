@@ -1,5 +1,9 @@
 # LaborCoin (LABR)
 
+## Address
+
+`0x460DD873A1D2a41e77410B125cD3027C5FEd2f78`
+
 ## Overview
 
 LaborCoin (LABR) is the native ERC-20 token of the LaborCoin ecosystem.
