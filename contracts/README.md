@@ -31,7 +31,7 @@ See the contract documentation folder for detailed descriptions of each componen
 
 ---
 
-## 🧠 Architecture
+## Architecture
 
 User
  ↓
@@ -49,7 +49,7 @@ Treasury / Actions
 
 ---
 
-## 🪙 System Summary
+## System Summary
 
 - **LABR**  
   Fixed supply token with built-in: wallet, buy/sell and cooldown limits, as well as a 10% sell tax, used for exchange and DAO access
@@ -75,7 +75,7 @@ Treasury / Actions
 
 ---
 
-## 🔐 Notes
+## Notes
 
 - Registration is one-time (LABR not continuously checked)
 - No on-chain Sybil resistance yet (coming soon before launch!)
@@ -83,6 +83,6 @@ Treasury / Actions
 
 ---
 
-## 📜 License
+## License
 
 MIT
