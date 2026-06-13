@@ -1,3 +1,9 @@
+![License](https://img.shields.io/badge/license-MIT-blue)
+
+![Network](https://img.shields.io/badge/network-Polygon-purple)
+
+![Status](https://img.shields.io/badge/status-Active-green)
+
 ## Repository Guide
 
 ### Documentation
