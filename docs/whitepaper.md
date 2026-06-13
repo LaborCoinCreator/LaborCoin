@@ -13,7 +13,6 @@ Status: Pre-Launch Final Draft
 Protocol Status: Final Validation Phase
 
 # LaborCoin Technical Whitepaper v1.0
-Pre-Launch Final Draft
 
 Decentralized Treasury Governance Infrastructure for Collective Economic Coordination
 
