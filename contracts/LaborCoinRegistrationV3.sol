@@ -1,7 +1,14 @@
-# LaborCoin DAO Registration V3
+# LaborCoin Registration V3
 
-**Network:** Polygon  
-**Contract Address:** `0xa7D0C092C2391379046cACDc56BEbDe5A0CBD113`
+## Address
+
+`0xa7D0C092C2391379046cACDc56BEbDe5A0CBD113`
+
+## Purpose
+
+Registration V3 controls entry into LaborCoin governance.
+
+Users who hold LABR and successfully complete identity verification may register and receive LABRV governance rights.
 
 ---
 
