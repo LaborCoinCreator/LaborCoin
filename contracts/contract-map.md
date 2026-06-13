@@ -19,7 +19,6 @@ flowchart TD
     LABRV --> Governance
     Governance --> Treasury
     Treasury --> TreasuryModule
-```oved Distributions
 ```
 
 ---
