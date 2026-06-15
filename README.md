@@ -22,8 +22,8 @@ LaborCoin combines a bonding curve economy, a non-transferable governance token,
 
 * 🏗️ [Architecture](docs/architecture.md)
 * 🗳️ [Governance](docs/governance.md)
-* 🧩 [Contract Map](docs/contract-map.md)
-* 🚀 [Polygon Deployment](deployments/polygon-mainnet.md)
+* 🧩 [Contract Map](final-launch/contracts/contract-map.md)
+* 🚀 [Polygon Deployment](final-launch/deployment-records/README.md)
 
 ---
 
