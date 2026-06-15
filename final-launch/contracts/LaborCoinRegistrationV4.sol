@@ -1,0 +1,1 @@
+LaborCoinRegistrationV4.sol
