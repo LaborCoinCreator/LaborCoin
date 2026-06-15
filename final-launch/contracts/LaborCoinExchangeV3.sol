@@ -32,8 +32,6 @@ contract LaborCoinExchangeV3 is ReentrancyGuard {
         AggregatorV3Interface(0xAB594600376Ec9fD91F8e885dADF0CE036862dE0);
 
     address public daoTreasury;
-    address public owner;
-    address public pendingOwner;
 
     uint256 public constant MAX_SUPPLY = 1_000_000_000 ether;
     uint256 public constant INITIAL_TRANCHE = 100_000_000 ether;
@@ -45,17 +43,11 @@ contract LaborCoinExchangeV3 is ReentrancyGuard {
     uint256 public totalSold;
     uint256 public unlockedSupply;
 
-    bool public paused;
-
     mapping(address => uint256) public lastTxTime;
 
     event Buy(address indexed user, uint256 polIn, uint256 tokensOut);
     event Sell(address indexed user, uint256 tokensIn, uint256 polOut);
     event TrancheUnlocked(uint256 unlocked);
-    event Paused(bool status);
-    event Withdraw(uint256 amount);
-    event OwnershipTransferStarted(address indexed newOwner);
-    event OwnershipTransferred(address indexed newOwner);
 
     constructor(
         address _labr,
@@ -67,24 +59,13 @@ contract LaborCoinExchangeV3 is ReentrancyGuard {
         LABR = IERC20(_labr);
         daoTreasury = _daoTreasury;
 
-        owner = msg.sender;
         unlockedSupply = INITIAL_TRANCHE;
-    }
-
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Not owner");
-        _;
     }
 
     modifier cooldownCheck() {
         require(block.timestamp >= lastTxTime[msg.sender] + COOLDOWN, "Cooldown");
         _;
         lastTxTime[msg.sender] = block.timestamp;
-    }
-
-    modifier notPaused() {
-        require(!paused, "Paused");
-        _;
     }
 
     /* ---------- SAFE TOKEN WRAPPERS ---------- */
@@ -140,7 +121,6 @@ contract LaborCoinExchangeV3 is ReentrancyGuard {
         payable
         nonReentrant
         cooldownCheck
-        notPaused
     {
         require(msg.value > 0);
 
@@ -176,7 +156,6 @@ contract LaborCoinExchangeV3 is ReentrancyGuard {
         external
         nonReentrant
         cooldownCheck
-        notPaused
     {
         require(amount > 0);
         require(amount <= totalSold);
@@ -216,49 +195,6 @@ contract LaborCoinExchangeV3 is ReentrancyGuard {
     }
 
     /* ---------- CONTROL ---------- */
-
-    function setPaused(bool _paused) external onlyOwner {
-        paused = _paused;
-        emit Paused(_paused);
-    }
-
-    function transferOwnership(address newOwner) external onlyOwner {
-        require(newOwner != address(0), "Bad owner");
-        pendingOwner = newOwner;
-        emit OwnershipTransferStarted(newOwner);
-    }
-
-    function acceptOwnership() external {
-        require(msg.sender == pendingOwner, "Not pending");
-        owner = pendingOwner;
-        pendingOwner = address(0);
-        emit OwnershipTransferred(owner);
-    }
-
-    function renounceOwnership() external onlyOwner {
-
-        owner = address(0);
-
-        pendingOwner = address(0);
-
-        emit OwnershipTransferred(
-            address(0)
-        );
-    }
-
-    function withdrawPOL(uint256 amount) external onlyOwner {
-        uint256 balance = address(this).balance;
-
-        require(
-            balance - amount >= (balance * 20) / 100,
-            "Reserve breach"
-        );
-
-        (bool sent, ) = daoTreasury.call{value: amount}("");
-        require(sent);
-
-        emit Withdraw(amount);
-    }
 
     receive() external payable {}
 }
