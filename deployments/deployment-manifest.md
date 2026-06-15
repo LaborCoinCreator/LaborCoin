@@ -59,13 +59,13 @@ TO BE FILLED
 Solidity Version:
 
 ```text
-0.8.20
+0.8.30
 ```
 
 EVM Version:
 
 ```text
-paris
+prague
 ```
 
 Optimizer Enabled:
@@ -105,14 +105,9 @@ MIT
 OpenZeppelin Contracts Version:
 
 ```text
-TO BE FINALIZED
+5.6.1
 ```
-
-Recommended:
-
-```text
-5.0.2
-```
+---
 
 All contracts must compile against the exact same OpenZeppelin release.
 
