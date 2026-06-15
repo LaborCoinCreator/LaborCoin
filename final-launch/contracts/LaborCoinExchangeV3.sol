@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+
 /* ========== INTERFACES ========== */
 interface IERC20 {
     function transfer(address to, uint256 amount) external returns (bool);
@@ -19,20 +21,6 @@ interface AggregatorV3Interface {
             uint256 updatedAt,
             uint80
         );
-}
-
-/* ========== REENTRANCY GUARD ========== */
-abstract contract ReentrancyGuard {
-    uint256 private constant _ENTERED = 2;
-    uint256 private constant _NOT_ENTERED = 1;
-    uint256 private _status = _NOT_ENTERED;
-
-    modifier nonReentrant() {
-        require(_status != _ENTERED, "Reentrancy");
-        _status = _ENTERED;
-        _;
-        _status = _NOT_ENTERED;
-    }
 }
 
 /* ========== MAIN CONTRACT ========== */
@@ -245,6 +233,17 @@ contract LaborCoinExchangeV3 is ReentrancyGuard {
         owner = pendingOwner;
         pendingOwner = address(0);
         emit OwnershipTransferred(owner);
+    }
+
+    function renounceOwnership() external onlyOwner {
+
+        owner = address(0);
+
+        pendingOwner = address(0);
+
+        emit OwnershipTransferred(
+            address(0)
+        );
     }
 
     function withdrawPOL(uint256 amount) external onlyOwner {
