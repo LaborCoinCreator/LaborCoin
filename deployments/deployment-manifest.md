@@ -278,6 +278,58 @@ TO BE FILLED
 
 ---
 
+## Contract 4
+
+Name:
+
+```text
+LaborCoinGovernanceV13
+```
+
+Purpose:
+
+```text
+Primary LABR exchange and treasury contract.
+```
+
+Deployment Order:
+
+```text
+3
+```
+
+Contract Address:
+
+```text
+TO BE FILLED
+```
+
+Deployment Transaction:
+
+```text
+TO BE FILLED
+```
+
+Block Number:
+
+```text
+TO BE FILLED
+```
+
+Verification Status:
+
+```text
+TO BE FILLED
+```
+
+Constructor Arguments:
+
+```text
+TO BE FILLED
+```
+
+---
+
 # External Dependencies
 
 ## LABR Token
@@ -289,6 +341,58 @@ TO BE FILLED
 ```
 
 Verification Status:
+
+```text
+TO BE FILLED
+```
+
+---
+
+## Contract 5
+
+Name:
+
+```text
+LaborCoinTreasuryModuleV1
+```
+
+Purpose:
+
+```text
+Primary LABR exchange and treasury contract.
+```
+
+Deployment Order:
+
+```text
+3
+```
+
+Contract Address:
+
+```text
+TO BE FILLED
+```
+
+Deployment Transaction:
+
+```text
+TO BE FILLED
+```
+
+Block Number:
+
+```text
+TO BE FILLED
+```
+
+Verification Status:
+
+```text
+TO BE FILLED
+```
+
+Constructor Arguments:
 
 ```text
 TO BE FILLED
@@ -358,6 +462,8 @@ The following must be committed to GitHub and retained permanently.
 LaborVote.sol
 LaborCoinRegistrationV3.sol
 LaborCoinExchangeV2.sol
+LaborCoinGovernanceV13.sol
+LaborCoinTreasuryModuleV1.sol
 ```
 
 ## artifacts/
