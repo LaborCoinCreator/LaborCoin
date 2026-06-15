@@ -33,7 +33,7 @@ contract LaborCoinExchangeV3 is ReentrancyGuard {
 
     address public daoTreasury;
     address public owner;
-    address public pendingOwner; // NEW
+    address public pendingOwner;
 
     uint256 public constant MAX_SUPPLY = 1_000_000_000 ether;
     uint256 public constant INITIAL_TRANCHE = 100_000_000 ether;
