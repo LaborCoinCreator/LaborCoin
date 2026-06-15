@@ -325,18 +325,6 @@ TO BE FILLED
 
 ---
 
-# External Dependencies
-
-## LABR Token
-
-Contract Address:
-
-```text
-TO BE FILLED
-```
-
----
-
 ## Contract 5
 
 Name:
@@ -388,6 +376,18 @@ TO BE FILLED
 ```
 
 Verification Status:
+
+```text
+TO BE FILLED
+```
+
+---
+
+# External Dependencies
+
+## LABR Token
+
+Contract Address:
 
 ```text
 TO BE FILLED
