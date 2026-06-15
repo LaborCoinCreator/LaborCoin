@@ -13,7 +13,7 @@ contract LaborVoteV7 is ERC20Votes, Ownable {
     constructor()
         ERC20("LaborVote", "LABRV")
         EIP712("LaborVote", "1")
-        Ownable(msg.sender) // ✅ FIX
+        Ownable(msg.sender)
     {}
 
     // ===== SET MINTER =====
