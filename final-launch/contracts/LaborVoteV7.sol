@@ -26,7 +26,11 @@ contract LaborVoteV7 is ERC20Votes, Ownable {
 
     // ===== LOCK MINTER =====
     function lockMinter() external onlyOwner {
+        require(minter != address(0), "Minter not set");
+
         minterLocked = true;
+
+        renounceOwnership();
     }
 
     // ===== MINT =====
