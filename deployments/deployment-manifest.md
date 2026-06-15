@@ -127,7 +127,7 @@ No mixed OpenZeppelin versions are permitted.
 Name:
 
 ```text
-LaborVote
+LaborVoteV7
 ```
 
 Purpose:
@@ -179,7 +179,7 @@ TO BE FILLED
 Name:
 
 ```text
-LaborCoinRegistrationV3
+LaborCoinRegistrationV4
 ```
 
 Purpose:
@@ -231,7 +231,7 @@ TO BE FILLED
 Name:
 
 ```text
-LaborCoinExchangeV2
+LaborCoinExchangeV3
 ```
 
 Purpose:
@@ -459,9 +459,9 @@ The following must be committed to GitHub and retained permanently.
 ## contracts/
 
 ```text
-LaborVote.sol
-LaborCoinRegistrationV3.sol
-LaborCoinExchangeV2.sol
+LaborVoteV7.sol
+LaborCoinRegistrationV4.sol
+LaborCoinExchangeV3.sol
 LaborCoinGovernanceV13.sol
 LaborCoinTreasuryModuleV1.sol
 ```
