@@ -1,0 +1,1 @@
+LaborVoteV7.sol
