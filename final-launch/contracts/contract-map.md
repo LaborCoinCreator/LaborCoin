@@ -1,10 +1,12 @@
-# Contract Map
+# LaborCoin Contract Map
 
 ## Overview
 
-This document describes how the deployed LaborCoin contracts interact with one another and how responsibilities are distributed throughout the protocol.
+This document describes how the deployed LaborCoin contracts interact and how responsibilities are distributed throughout the protocol.
 
-The LaborCoin architecture separates economic participation, governance participation, registration, treasury management, and governance execution into distinct components.
+The LaborCoin architecture separates economic participation, governance participation, registration, treasury custody, treasury execution, and governance decision-making into distinct components.
+
+This separation reduces concentration of authority, improves transparency, and allows each contract to perform a narrowly defined role within the ecosystem.
 
 ---
 
@@ -12,43 +14,51 @@ The LaborCoin architecture separates economic participation, governance particip
 
 ```mermaid
 flowchart TD
-    Exchange --> LABR
-    LABR <--> Registration
-    Registration <--> Passport
-    Registration --> LABRV
-    LABRV --> Governance
-    Governance --> Treasury
-    Treasury --> TreasuryModule
+    Exchange["Exchange V3"] --> LABR["LABR Token"]
+    LABR --> Registration["Registration V4"]
+    Registration --> Passport["Verification System"]
+    Registration --> LABRV["LaborVote V7"]
+    LABRV --> Governance["Governance V13"]
+    Governance --> DAO["LaborCoin DAO"]
+    DAO --> Treasury["Treasury Module V1"]
 ```
 
 ---
 
 # Contract Relationships
 
-## Exchange V2
+## Exchange V3
 
 Address:
 
 ```text
-0xD0692ec758bb852421B702B187b6439f74f8Bf3b
+DEPLOYMENT_PENDING
 ```
 
 Responsibilities:
 
-* Sells LABR through the bonding curve
-* Buys LABR through the bonding curve
+* Sells LABR through the protocol bonding curve
+* Buys LABR through the protocol bonding curve
 * Maintains protocol liquidity
-* Enforces transaction limits
-* Enforces wallet limits
 * Enforces cooldown periods
+* Performs automatic treasury funding
+* Manages tranche-based token release
 
 Interacts With:
 
 ```text
-Exchange V2
+Exchange V3
     ├── LABR Token
-    └── Treasury System
+    └── Treasury Funding
 ```
+
+Notes:
+
+* Uses Chainlink POL/USD pricing data
+* Contains no owner controls
+* Contains no pause functionality
+* Contains no administrative withdrawal mechanisms
+* Designed as immutable infrastructure
 
 ---
 
@@ -57,106 +67,130 @@ Exchange V2
 Address:
 
 ```text
-0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
+DEPLOYMENT_PENDING
 ```
 
 Responsibilities:
 
 * Economic participation
-* Treasury funding through sell taxes
-* Dividend funding through sell taxes
-* Exchange integration
+* Exchange settlement
+* Treasury funding
+* Protocol utility
+* Registration eligibility
 
 Interacts With:
 
 ```text
 LABR
-    ├── Exchange V2
-    ├── Registration V3
-    └── Treasury Funding
+    ├── Exchange V3
+    └── Registration V4
 ```
 
-Registration requires LABR ownership.
+Notes:
+
+Registration requires ownership of at least 1 LABR.
+
+LABR provides economic participation but does not provide governance rights by itself.
 
 ---
 
-## Registration V3
+## Registration V4
 
 Address:
 
 ```text
-0xa7D0C092C2391379046cACDc56BEbDe5A0CBD113
+DEPLOYMENT_PENDING
 ```
 
 Responsibilities:
 
 * Governance onboarding
+* Membership registration
 * Eligibility verification
-* Registration tracking
+* Member tracking
+* Sequential member numbering
 * LABRV issuance
 
 Interacts With:
 
 ```text
-Registration V3
+Registration V4
     ├── LABR Token
-    └── LABRV V6
+    ├── Verification System
+    └── LaborVote V7
 ```
 
-Registration verifies eligibility and issues governance rights.
+Notes:
+
+Registration verifies eligibility requirements and issues governance rights through LABRV.
+
+Each successful registration receives a permanent member number and registration timestamp.
 
 ---
 
-## LABRV V6
+## LaborVote (LABRV) V7
 
 Address:
 
 ```text
-0x113579220515cd59b884Ea2379b4C369025246e2
+DEPLOYMENT_PENDING
 ```
 
 Responsibilities:
 
 * Governance participation
-* Vote delegation
 * Voting power representation
+* Vote delegation
+* Historical vote snapshots
 
 Interacts With:
 
 ```text
-LABRV V6
-    ├── Registration V3
-    └── Governance V12
+LaborVote V7
+    ├── Registration V4
+    └── Governance V13
 ```
 
-LABRV is non-transferable and exists solely for governance.
+Notes:
+
+* Non-transferable
+* One token per registered member
+* ERC20Votes compatible
+* Cannot be purchased or traded
+
+LABRV exists solely to represent governance participation.
 
 ---
 
-## Governance V12
+## Governance V13
 
 Address:
 
 ```text
-0x499b32e9E5a8b9865a9D69480d590252a56FA78F
+DEPLOYMENT_PENDING
 ```
 
 Responsibilities:
 
 * Proposal management
-* Voting periods
-* Vote counting
-* Proposal execution
+* Voting administration
+* Quorum enforcement
+* Approval threshold enforcement
+* Proposal execution authorization
 
 Interacts With:
 
 ```text
-Governance V12
-    ├── LABRV V6
+Governance V13
+    ├── LaborVote V7
     └── LaborCoin DAO
 ```
 
-Governance uses LABRV voting power to determine proposal outcomes.
+Notes:
+
+Governance determines whether treasury proposals succeed or fail according to predefined rules.
+
+Governance cannot modify protocol logic, alter token supply, or control the Exchange.
 
 ---
 
@@ -165,50 +199,61 @@ Governance uses LABRV voting power to determine proposal outcomes.
 Address:
 
 ```text
-0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
+DEPLOYMENT_PENDING
 ```
 
 Responsibilities:
 
 * Governance authority
-* Treasury oversight
 * Proposal execution
-* Administrative control
+* Treasury oversight
+* Treasury authorization
 
 Interacts With:
 
 ```text
 LaborCoin DAO
-    ├── Governance V12
-    └── Treasury Module
+    ├── Governance V13
+    └── Treasury Module V1
 ```
 
-The DAO serves as the primary governance authority of the protocol.
+Notes:
+
+The DAO serves as the governance execution layer connecting approved proposals to treasury distributions.
+
+The DAO does not control the Exchange, Registration system, or LABRV token.
 
 ---
 
-## Treasury Module
+## Treasury Module V1
 
 Address:
 
 ```text
-0x0B018E45E4cB71E222C345a5341BdbaeE519c623
+DEPLOYMENT_PENDING
 ```
 
 Responsibilities:
 
 * Treasury custody
-* Fund accounting
+* Treasury accounting
 * Governance-approved distributions
+* Treasury execution
 
 Interacts With:
 
 ```text
-Treasury Module
+Treasury Module V1
     └── Approved Recipients
 ```
 
-Treasury resources may only be distributed through governance-approved actions.
+Notes:
+
+The Treasury Module cannot independently initiate transfers.
+
+Funds may only be distributed through governance-approved actions.
+
+All treasury distributions are permanently recorded on-chain.
 
 ---
 
@@ -221,22 +266,25 @@ Participant
 Acquire LABR
     │
     ▼
-Register
+Complete Verification
     │
     ▼
-Receive LABRV
+Register Through V4
+    │
+    ▼
+Receive LABRV V7
     │
     ▼
 Create / Vote on Proposal
     │
     ▼
-Governance V12
+Governance V13
     │
     ▼
 LaborCoin DAO
     │
     ▼
-Treasury Module
+Treasury Module V1
     │
     ▼
 Approved Distribution
@@ -247,19 +295,25 @@ Approved Distribution
 # Treasury Flow
 
 ```text
-LABR Sell Transaction
+LABR Purchase
         │
         ▼
-Treasury Tax (5%)
+10% Treasury Allocation
         │
         ▼
 Protocol Treasury
         │
         ▼
-DAO Governance
+Governance Proposal
         │
         ▼
-Treasury Module
+Governance Vote
+        │
+        ▼
+DAO Authorization
+        │
+        ▼
+Treasury Module V1
         │
         ▼
 Approved Recipient
@@ -273,16 +327,19 @@ Approved Recipient
 Eligible Participant
         │
         ▼
-Registration V3
+Registration V4
         │
         ▼
-Receive LABRV
+Receive LABRV V7
         │
         ▼
-Vote on Proposal
+Delegate Votes (Optional)
         │
         ▼
-Governance V12
+Vote On Proposal
+        │
+        ▼
+Governance V13
         │
         ▼
 Proposal Outcome
@@ -292,13 +349,58 @@ Proposal Outcome
 
 # Design Principles
 
-The contract architecture is designed around several core principles:
+The LaborCoin architecture is designed around several core principles:
 
-* Separation of governance and economic ownership
-* Equal voting power for eligible registered participants
+* Separation of governance and economic participation
+* One governance token per registered member
 * Transparent treasury management
 * Publicly auditable operations
 * Deterministic protocol behavior
-* Minimal reliance on trusted intermediaries
+* Immutable core infrastructure
+* Limited administrative authority
+* On-chain accountability
 
-Each contract has a narrowly defined role within the broader ecosystem, 
+Each contract has a narrowly defined role within the broader ecosystem.
+
+Economic participation, membership registration, governance participation, treasury custody, and treasury execution are intentionally separated into distinct components to improve transparency, reduce complexity, and minimize concentration of authority.
+
+---
+
+# Trust Assumptions
+
+The final deployed system relies on a limited set of trust assumptions:
+
+* Chainlink oracle infrastructure for POL/USD pricing
+* Verification infrastructure used during registration
+* Correct deployment and verification of immutable contract code
+
+Beyond these external dependencies, protocol behavior is governed by publicly verifiable smart contracts and transparent on-chain rules.
+
+---
+
+# Final Architecture Summary
+
+```text
+Exchange V3
+      │
+      ▼
+LABR Token
+      │
+      ▼
+Registration V4
+      │
+      ▼
+LaborVote V7
+      │
+      ▼
+Governance V13
+      │
+      ▼
+LaborCoin DAO
+      │
+      ▼
+Treasury Module V1
+      │
+      ▼
+Approved Treasury Distribution
+```
