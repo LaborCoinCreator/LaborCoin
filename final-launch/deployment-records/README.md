@@ -2,7 +2,7 @@
 
 Network: Polygon Mainnet
 
-Deployment Status: Active
+Deployment Status: Fianl-Launch Deployments Pending!!
 
 Verification Status: Verified on Polygonscan
 
