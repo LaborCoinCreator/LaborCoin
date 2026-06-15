@@ -123,6 +123,7 @@ contract LaborCoinRegistrationV4 {
     // =====================================================
 
     function register(
+        uint256 expiry,
         bytes calldata signature
     )
         external
@@ -148,9 +149,18 @@ contract LaborCoinRegistrationV4 {
 
         require(
 
+            block.timestamp <= expiry,
+
+            "Signature expired"
+        );
+
+        require(
+
             _verify(
 
                 msg.sender,
+
+                expiry,
 
                 signature
             ),
@@ -213,6 +223,8 @@ contract LaborCoinRegistrationV4 {
 
         address user,
 
+        uint256 expiry,
+
         bytes calldata signature
     )
         internal
@@ -222,7 +234,10 @@ contract LaborCoinRegistrationV4 {
 
         bytes32 messageHash =
             keccak256(
-                abi.encode(user)
+                abi.encode(
+                    user,
+                    expiry
+                )
             );
 
         bytes32 ethSigned =
