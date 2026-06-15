@@ -335,12 +335,6 @@ Contract Address:
 TO BE FILLED
 ```
 
-Verification Status:
-
-```text
-TO BE FILLED
-```
-
 ---
 
 ## Contract 5
@@ -388,6 +382,12 @@ TO BE FILLED
 ```
 
 Constructor Arguments:
+
+```text
+TO BE FILLED
+```
+
+Verification Status:
 
 ```text
 TO BE FILLED
