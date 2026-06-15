@@ -8,7 +8,7 @@ Verification Status: Verified on Polygonscan
 
 # Deployed Contracts
 
-Contract Registry
+Testing Contract Registry (Final-Launch Deployments Pending)
 
 This table identifies the primary smart contracts comprising the LaborCoin protocol. Contract addresses, deployment metadata, verification status, and ownership status are provided to facilitate independent verification of protocol architecture and decentralization status.
 
