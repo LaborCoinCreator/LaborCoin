@@ -119,19 +119,25 @@ Notes:
 
 ## LaborVoteV7
 
-Contract Address:
+Contract Address: 
 
-Deployment Transaction:
+0x833242E933c675846D8f8982048FecA95B8e435A
 
-Block Number:
+Deployment Transaction: 
 
-Timestamp:
+0x83f241f7c3d3442d9a4a1d56c38d3354fb1803a5bb3bae05c6e22c547a143db7
+
+Block Number: 
+
+88595455
+
+Timestamp: 
 
 Verification Status:
 
 Verification URL:
 
-Constructor Arguments:
+Constructor Arguments: 
 
 None
 
