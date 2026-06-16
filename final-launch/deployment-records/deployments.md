@@ -36,6 +36,8 @@ RPC Provider:
 
 Deployment Wallet:
 
+0x015b6D0990E56D908c876474C6A30eBa2b8A0CFB
+
 ---
 
 # Build Environment
