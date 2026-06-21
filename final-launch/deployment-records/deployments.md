@@ -123,6 +123,13 @@ Notes:
 
 Contract Address: 0x833242E933c675846D8f8982048FecA95B8e435A
 
+Deployment Transaction:
+0x83f241f7c3d3442d9a4a1d56c38d3354fb1803a5bb3bae05c6e22c547a143db7
+
+Timestamp: Jun-16-2026 08:22:48 AM +UTC
+
+Block Number: 88595455
+
 Verification Status: Verified
 
 Verification Date: Jun-16-2026
@@ -131,9 +138,6 @@ Explorer: Polygonscan
 
 Contract URL:
 https://polygonscan.com/address/0x833242E933c675846D8f8982048FecA95B8e435A#code
-
-Deployment Transaction:
-0x83f241f7c3d3442d9a4a1d56c38d3354fb1803a5bb3bae05c6e22c547a143db7
 
 Constructor Arguments: None
 
