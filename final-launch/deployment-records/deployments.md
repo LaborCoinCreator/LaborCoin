@@ -139,7 +139,11 @@ Jun-16-2026 08:22:48 AM +UTC
 
 Verification Status:
 
+Verified
+
 Verification URL:
+
+https://polygonscan.com/tx/0x83f241f7c3d3442d9a4a1d56c38d3354fb1803a5bb3bae05c6e22c547a143db7
 
 Constructor Arguments: 
 
