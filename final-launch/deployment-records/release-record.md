@@ -83,9 +83,12 @@ Notes:
 ### LaborVoteV7.sol
 
 SHA256:
+aa2c75d1a4ecd36cb8544e9890dfc4c4804bfe65359feb693e912eb5630545a1
 
-File Size: 1.43 kb
+File Size:
+1520 bytes
 
+Notes:
 Final production deployment.
 
 Network: Polygon Mainnet
