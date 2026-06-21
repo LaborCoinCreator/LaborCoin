@@ -164,9 +164,17 @@ Metadata SHA256:
 
 ### LaborVoteV7
 
-Artifact SHA256: 79e9d402a794cca2a854a9eebadcd81f729723008deac10cee5a8b501114d9f5 *final-launch/artifacts/LaborVoteV7/LaborVoteV7.json
+Artifact File:
+final-launch/artifacts/LaborVoteV7/LaborVoteV7.json
 
-Metadata SHA256: 569952c8ae4f91093b6efdc16ecc3c80c6f59eaf8d7beabc32587a3e884a8add *final-launch/artifacts/LaborVoteV7/LaborVoteV7_metadata.json
+Artifact SHA256:
+79e9d402a794cca2a854a9eebadcd81f729723008deac10cee5a8b501114d9f5
+
+Metadata File:
+final-launch/artifacts/LaborVoteV7/LaborVoteV7_metadata.json
+
+Metadata SHA256:
+569952c8ae4f91093b6efdc16ecc3c80c6f59eaf8d7beabc32587a3e884a8add
 
 ---
 
