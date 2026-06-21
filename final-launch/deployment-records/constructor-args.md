@@ -49,7 +49,7 @@ LaborVoteV7
 Source File:
 
 ```text
-final-launch/contracts/LaborVote7.sol
+final-launch/contracts/LaborVoteV7.sol
 ```
 
 Deployment Order:
@@ -61,49 +61,65 @@ Deployment Order:
 Constructor Signature:
 
 ```solidity
-TO BE FILLED
+constructor()
 ```
 
 Constructor Arguments:
 
-| Parameter    | Type         | Value        |
-| ------------ | ------------ | ------------ |
-| TO BE FILLED | TO BE FILLED | TO BE FILLED |
+| Parameter | Type | Value |
+| --------- | ---- | ----- |
+| None      | N/A  | N/A   |
 
 Raw Constructor Arguments:
 
 ```text
-TO BE FILLED
+None
 ```
 
 Encoded Constructor Arguments:
 
 ```text
-TO BE FILLED AFTER DEPLOYMENT
+None
 ```
 
 Contract Address:
 
 ```text
-TO BE FILLED
+0x833242E933c675846D8f8982048FecA95B8e435A
 ```
 
 Deployment Transaction:
 
 ```text
-TO BE FILLED
+0x83f241f7c3d3442d9a4a1d56c38d3354fb1803a5bb3bae05c6e22c547a143db7
 ```
 
 Verification Status:
 
 ```text
-TO BE FILLED
+Verified
 ```
 
 Notes:
 
 ```text
-TO BE FILLED
+Network: Polygon Mainnet
+
+Verification Method: Solidity Standard JSON Input
+
+Compiler Version: 0.8.30
+
+EVM Version: Prague
+
+Optimizer: Enabled
+
+Optimizer Runs: 200
+
+OpenZeppelin Version: 5.6.1
+
+License: MIT
+
+Contract successfully verified on Polygonscan using Standard JSON Input. No constructor arguments were required. Contract deployed as the initial contract in the final LaborCoin deployment sequence.
 ```
 
 ---
