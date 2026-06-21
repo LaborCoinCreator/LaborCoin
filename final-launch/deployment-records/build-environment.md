@@ -14,6 +14,12 @@ Solidity Compiler Version:
 
 Compiler Build:
 
+v0.8.30+commit.73712a01
+
+Via IR:
+
+False
+
 ---
 
 Language:
@@ -62,19 +68,29 @@ Remix IDE
 
 Remix Version:
 
+2.4.1
+
+Native Currency:
+
+POL
+
 ---
 
 Deployment Network:
+
+Polygon Mainnet
 
 ---
 
 Chain ID:
 
+137
+
 ---
 
 Deployment Date:
 
----
+June 16, 2026
 
 ---
 
@@ -82,21 +98,17 @@ Deployment Date:
 
 ### LaborCoin (LABR)
 
-Source File:
+Deployment Source:
 
-contracts/LaborCoin.sol
+20LABS Token Generator
 
-Compiler Version:
+Contract Address:
 
-0.8.30
+0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
 
-Optimizer:
+Notes:
 
-Enabled
-
-Optimizer Runs:
-
-200
+LABR was generated and deployed through the 20LABS platform prior to the final launch contract deployment process documented in this repository.
 
 ---
 
@@ -240,6 +252,10 @@ Constructor Arguments:
 Recorded separately in:
 
 deployment-records/constructor-args.md
+
+Verification Method:
+
+Solidity Standard JSON Input
 
 ---
 
