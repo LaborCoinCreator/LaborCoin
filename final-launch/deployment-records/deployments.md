@@ -76,9 +76,17 @@ OpenZeppelin Version:
 
 ## LABR Token
 
+Deployment Source:
+
+20LABS Token Generator
+
 Contract Address:
 
+0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
+
 Notes:
+
+LABR was generated and deployed through the 20LABS platform prior to the final launch contract deployment process documented in this repository.
 
 ---
 
