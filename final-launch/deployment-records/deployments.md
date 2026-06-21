@@ -96,19 +96,14 @@ LABR was generated and deployed through the 20LABS platform prior to the final l
 
 Contract Address:
 
-```text
 0xAB594600376Ec9fD91F8e885dADF0CE036862dE0
-```
 
 Verification Status:
 
-```text
 Verified
-```
 
 Notes:
 
-```text
 Chainlink POL/USD Price Feed used by LaborCoinExchangeV3 for USD-denominated bonding curve pricing.
 
 Network: Polygon Mainnet
@@ -131,7 +126,6 @@ https://polygonscan.com/address/0xAB594600376Ec9fD91F8e885dADF0CE036862dE0
 
 Notes:
 This contract is an external dependency and is not deployed, owned, or controlled by LaborCoin. The address was selected as the canonical Chainlink POL/USD feed available on Polygon Mainnet at the time of deployment.
-```
 
 ---
 
