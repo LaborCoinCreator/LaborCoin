@@ -92,7 +92,7 @@ LABR was generated and deployed through the 20LABS platform prior to the final l
 
 ---
 
-### Chainlink POL/USD Feed
+## Chainlink POL/USD Feed
 
 Contract Address:
 
