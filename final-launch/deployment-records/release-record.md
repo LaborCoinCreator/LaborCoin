@@ -84,9 +84,26 @@ Notes:
 
 SHA256:
 
-File Size:
+File Size: 1.43 kb
 
-Notes:
+Final production deployment.
+
+Network: Polygon Mainnet
+Contract Address: 0x833242E933c675846D8f8982048FecA95B8e435A
+Deployment Transaction: 0x83f241f7c3d3442d9a4a1d56c38d3354fb1803a5bb3bae05c6e22c547a143db7
+
+Compiler: Solidity 0.8.30
+EVM Version: Prague
+Optimizer: Enabled (200 runs)
+OpenZeppelin: 5.6.1
+License: MIT
+
+Verification Status: Verified
+Verification Method: Standard JSON Input
+
+Deployment Order: 1
+
+No constructor arguments.
 
 ---
 
