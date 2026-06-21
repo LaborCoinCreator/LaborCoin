@@ -121,35 +121,38 @@ Notes:
 
 ## LaborVoteV7
 
-Contract Address: 
+Contract Address: 0x833242E933c675846D8f8982048FecA95B8e435A
 
-0x833242E933c675846D8f8982048FecA95B8e435A
+Verification Status: Verified
 
-Deployment Transaction: 
+Verification Date: Jun-16-2026
 
+Explorer: Polygonscan
+
+Contract URL:
+https://polygonscan.com/address/0x833242E933c675846D8f8982048FecA95B8e435A#code
+
+Deployment Transaction:
 0x83f241f7c3d3442d9a4a1d56c38d3354fb1803a5bb3bae05c6e22c547a143db7
 
-Block Number: 
+Constructor Arguments: None
 
-88595455
+Compiler Version: 0.8.30
 
-Timestamp:
+EVM Version: Prague
 
-Jun-16-2026 08:22:48 AM +UTC
+Optimizer: Enabled
 
-Verification Status:
+Optimizer Runs: 200
 
-Verified
+OpenZeppelin Version: 5.6.1
 
-Verification URL:
+License: MIT
 
-https://polygonscan.com/tx/0x83f241f7c3d3442d9a4a1d56c38d3354fb1803a5bb3bae05c6e22c547a143db7
-
-Constructor Arguments: 
-
-None
+Verification Method: Solidity Standard JSON Input
 
 Notes:
+Successfully verified using Standard JSON Input. No constructor arguments.
 
 ---
 
