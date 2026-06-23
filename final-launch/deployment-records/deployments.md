@@ -154,72 +154,165 @@ This contract is an external dependency and is not deployed, owned, or controlle
 
 ## LaborVoteV7
 
-Contract Address: 0x833242E933c675846D8f8982048FecA95B8e435A
+Contract Address:
+
+0x833242E933c675846D8f8982048FecA95B8e435A
 
 Deployment Transaction:
+
 0x83f241f7c3d3442d9a4a1d56c38d3354fb1803a5bb3bae05c6e22c547a143db7
 
-Timestamp: Jun-16-2026 08:22:48 AM +UTC
+Timestamp:
 
-Block Number: 88595455
+Jun-16-2026 08:22:48 AM +UTC
 
-Verification Status: Verified
+Block Number:
 
-Verification Date: Jun-16-2026
+88595455
 
-Explorer: Polygonscan
+Deployment Wallet:
+
+0x015b6D0990E56D908c876474C6A30eBa2b8A0CFB
+
+Verification Status:
+
+Verified
+
+Verification Date:
+
+Jun-16-2026
+
+Explorer:
+
+Polygonscan
 
 Contract URL:
+
 https://polygonscan.com/address/0x833242E933c675846D8f8982048FecA95B8e435A#code
 
-Constructor Arguments: None
+Constructor Arguments:
 
-Compiler Version: 0.8.30
+None
 
-EVM Version: Prague
+Compiler Version:
 
-Optimizer: Enabled
+0.8.30
 
-Optimizer Runs: 200
+EVM Version:
 
-OpenZeppelin Version: 5.6.1
+Prague
 
-License: MIT
+Optimizer:
 
-Verification Method: Solidity Standard JSON Input
+Enabled
+
+Optimizer Runs:
+
+200
+
+OpenZeppelin Version:
+
+5.6.1
+
+License:
+
+MIT
+
+Verification Method:
+
+Solidity Standard JSON Input
 
 Notes:
-Successfully verified using Standard JSON Input. No constructor arguments.
+
+Successfully verified on Polygonscan using Standard JSON Input. No constructor arguments required.
 
 ---
 
 ## LaborCoinRegistrationV4
 
 Contract Address:
+
 0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C
 
 Deployment Transaction:
+
 0xbe8c2a8cc7f9322a36b9a6a1726d7f830531b601941f17324bffe1b995bc10fe
 
+Timestamp:
+
+Jun-22-2026
+
 Block Number:
+
 88997813
 
 Deployment Wallet:
+
 0x015b6D0990E56D908c876474C6A30eBa2b8A0CFB
+
+Verification Status:
+
+Verified
+
+Verification Date:
+
+Jun-22-2026
+
+Explorer:
+
+Polygonscan
+
+Contract URL:
+
+https://polygonscan.com/address/0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C#code
 
 Constructor Arguments:
 
-_labr: 0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
+_labr:
+0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
 
-_labrv: 0x833242E933c675846D8f8982048FecA95B8e435A
+_labrv:
+0x833242E933c675846D8f8982048FecA95B8e435A
 
-_verifier: 0x475d519631d2406753aCA29F305f19b83E97513e
+_verifier:
+0x475d519631d2406753aCA29F305f19b83E97513e
 
-Verification Status:
-Pending Polygonscan verification
+Compiler Version:
+
+0.8.30
+
+EVM Version:
+
+Prague
+
+Optimizer:
+
+Enabled
+
+Optimizer Runs:
+
+200
+
+OpenZeppelin Version:
+
+5.6.1
+
+License:
+
+MIT
+
+Verification Method:
+
+Solidity Standard JSON Input
 
 Notes:
-Deployment successful on Polygon Mainnet. Sourcify and Blockscout verification were submitted from Remix. Polygonscan verification still requires Standard JSON Input upload.
+
+Successfully verified on Polygonscan using Standard JSON Input. Registration requires a valid verifier signature, an unexpired signature timestamp, and a minimum balance of 1 LABR. Mints one non-transferable LABRV governance token to eligible participants who do not already hold LABRV.
+
+```
+
+---
+```
 
 ---
 
