@@ -398,6 +398,23 @@ DAO Treasury:
 
 Notes:
 
+Testing Contract Dust:
+
+Old Exchange V2 retired with 0.0002534 LABR unrecovered dust balance.
+No admin withdrawal function available. Further recovery attempts not justified.
+
+Recovered:
+0.50361236 LABR
+
+Remaining:
+0.0002534 LABR
+
+Successful dust-clearing tx:
+0x45f2e3c0f56b9cd3b66de9817f5643445f7b5e5903e89af2e0882b1b837c8dbf
+
+DAO treasury received:
+0.6572 POL
+
 ---
 
 # Post-Deployment Configuration
