@@ -196,26 +196,27 @@ Successfully verified using Standard JSON Input. No constructor arguments.
 ## LaborCoinRegistrationV4
 
 Contract Address:
+0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C
 
 Deployment Transaction:
+0xbe8c2a8cc7f9322a36b9a6a1726d7f830531b601941f17324bffe1b995bc10fe
 
 Block Number:
+88997813
 
-Timestamp:
-
-Verification Status:
-
-Verification URL:
+Deployment Wallet:
+0x015b6D0990E56D908c876474C6A30eBa2b8A0CFB
 
 Constructor Arguments:
+_labr: 0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
+_labrv: 0x833242E933c675846D8f8982048FecA95B8e435A
+_verifier: 0x475d519631d2406753aCA29F305f19b83E97513e
 
-LABR:
-
-LABRV:
-
-Verifier:
+Verification Status:
+Pending Polygonscan verification
 
 Notes:
+Deployment successful on Polygon Mainnet. Sourcify and Blockscout verification were submitted from Remix. Polygonscan verification still requires Standard JSON Input upload.
 
 ---
 
