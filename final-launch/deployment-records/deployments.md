@@ -326,6 +326,12 @@ Block:
 Status:
 Success
 
+Minter Set Transaction:
+0x7768e6344a44b53b371c753c81379dcbfcc9abd96342a3d37fb6e324de69b074
+
+Minter Lock Transaction:
+0x30bad6d15a7aed4ec7ae8e30423ac10efe679f36549bb5f7fb81fa5baf42e6a4
+
 ---
 
 ## LaborCoinTreasuryModuleV1
