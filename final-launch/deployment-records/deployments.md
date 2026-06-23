@@ -309,6 +309,23 @@ Notes:
 
 Successfully verified on Polygonscan using Standard JSON Input. Registration requires a valid verifier signature, an unexpired signature timestamp, and a minimum balance of 1 LABR. Mints one non-transferable LABRV governance token to eligible participants who do not already hold LABRV.
 
+LABRV V7 Minter Set
+
+Contract:
+0x833242E933c675846D8f8982048FecA95B8e435A
+
+New Minter:
+0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C
+
+Transaction:
+0x7768e6344a44b53b371c753c81379dcbfcc9abd96342a3d37fb6e324de69b074
+
+Block:
+89000282
+
+Status:
+Success
+
 ---
 
 ## LaborCoinTreasuryModuleV1
