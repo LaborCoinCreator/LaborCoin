@@ -147,49 +147,79 @@ Deployment Order:
 Constructor Signature:
 
 ```solidity
-TO BE FILLED
+constructor(
+    address _labr,
+    address _labrv,
+    address _verifier
+)
 ```
 
 Constructor Arguments:
 
-| Parameter    | Type         | Value        |
-| ------------ | ------------ | ------------ |
-| TO BE FILLED | TO BE FILLED | TO BE FILLED |
+| Parameter | Type    | Value                                      |
+| --------- | ------- | ------------------------------------------ |
+| _labr     | address | 0x460DD873A1D2a41e77410B125cD3027C5FEd2f78 |
+| _labrv    | address | 0x833242E933c675846D8f8982048FecA95B8e435A |
+| _verifier | address | 0x475d519631d2406753aCA29F305f19b83E97513e |
 
 Raw Constructor Arguments:
 
 ```text
-TO BE FILLED
+_labr = 0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
+
+_labrv = 0x833242E933c675846D8f8982048FecA95B8e435A
+
+_verifier = 0x475d519631d2406753aCA29F305f19b83E97513e
 ```
 
 Encoded Constructor Arguments:
 
 ```text
-TO BE FILLED AFTER DEPLOYMENT
+000000000000000000000000460dd873a1d2a41e77410b125cd3027c5fed2f78
+000000000000000000000000833242e933c675846d8f8982048feca95b8e435a
+000000000000000000000000475d519631d2406753aca29f305f19b83e97513e
 ```
 
 Contract Address:
 
 ```text
-TO BE FILLED
+0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C
 ```
 
 Deployment Transaction:
 
 ```text
-TO BE FILLED
+0xbe8c2a8cc7f9322a36b9a6a1726d7f830531b601941f17324bffe1b995bc10fe
 ```
 
 Verification Status:
 
 ```text
-TO BE FILLED
+Verified
 ```
 
 Notes:
 
 ```text
-TO BE FILLED
+Final production deployment.
+
+Network: Polygon Mainnet
+
+Compiler: Solidity 0.8.30
+
+EVM Version: Prague
+
+Optimizer: Enabled (200 runs)
+
+OpenZeppelin Version: 5.6.1
+
+License: MIT
+
+Verification Method: Solidity Standard JSON Input
+
+Registration requires a valid verifier signature, an unexpired signature timestamp, and a minimum balance of 1 LABR.
+
+The contract records registration timestamps, assigns sequential member numbers, tracks totalMembers, and mints one LABRV governance token to eligible participants who do not already hold LABRV.
 ```
 
 ---
