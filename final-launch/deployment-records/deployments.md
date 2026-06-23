@@ -309,11 +309,6 @@ Notes:
 
 Successfully verified on Polygonscan using Standard JSON Input. Registration requires a valid verifier signature, an unexpired signature timestamp, and a minimum balance of 1 LABR. Mints one non-transferable LABRV governance token to eligible participants who do not already hold LABRV.
 
-```
-
----
-```
-
 ---
 
 ## LaborCoinTreasuryModuleV1
