@@ -120,7 +120,7 @@ final-launch/contracts/LaborVoteV7.sol
 
 Compiler Version:
 
-0.8.30
+0.8.30 - Prague
 
 Optimizer:
 
@@ -136,11 +136,11 @@ Optimizer Runs:
 
 Source File:
 
-contracts/LaborCoinRegistrationV4.sol
+final-launch/contracts/LaborCoinRegistrationV4.sol
 
 Compiler Version:
 
-0.8.30
+0.8.30 - Prague
 
 Optimizer:
 
