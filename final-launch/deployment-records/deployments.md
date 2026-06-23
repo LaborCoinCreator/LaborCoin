@@ -317,21 +317,6 @@ Contract:
 New Minter:
 0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C
 
-Transaction:
-0x7768e6344a44b53b371c753c81379dcbfcc9abd96342a3d37fb6e324de69b074
-
-Block:
-89000282
-
-Status:
-Success
-
-Minter Set Transaction:
-0x7768e6344a44b53b371c753c81379dcbfcc9abd96342a3d37fb6e324de69b074
-
-Minter Lock Transaction:
-0x30bad6d15a7aed4ec7ae8e30423ac10efe679f36549bb5f7fb81fa5baf42e6a4
-
 ---
 
 ## LaborCoinTreasuryModuleV1
@@ -421,21 +406,21 @@ DAO treasury received:
 
 ## LaborVoteV7
 
-Registration Contract Assigned As Minter:
+Registration Contract Assigned As Minter: True
 
-Transaction Hash:
+Transaction Hash: 0x7768e6344a44b53b371c753c81379dcbfcc9abd96342a3d37fb6e324de69b074
 
-Timestamp:
+Timestamp: Jun-23-2026 09:03:38 AM +UTC
 
 ---
 
 ## LaborVoteV7
 
-Minter Locked:
+Minter Locked: True
 
-Transaction Hash:
+Transaction Hash: 0x30bad6d15a7aed4ec7ae8e30423ac10efe679f36549bb5f7fb81fa5baf42e6a4
 
-Timestamp:
+Timestamp: Jun-23-2026 09:45:32 AM +UTC
 
 ---
 
