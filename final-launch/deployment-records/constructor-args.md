@@ -382,6 +382,32 @@ Verification Status:
 Verified
 ```
 
+Notes:
+
+```text
+Final production deployment.
+
+Successfully verified on Polygonscan using Solidity Standard JSON Input.
+
+Compiler Version: 0.8.30
+EVM Version: Prague
+Optimizer: Enabled (200 runs)
+OpenZeppelin Version: None
+License: MIT
+
+Constructor Argument:
+_dao = 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
+
+The DAO address is immutable and fixed at deployment.
+
+The contract contains no owner, no upgrade mechanism, no admin withdrawal function, and no arbitrary external execution capability.
+
+Only the configured DAO may execute transfers through executeTransfer(). Transfer amounts are determined by the POL value supplied with the DAO call.
+
+Deployment Order: 4
+```
+---
+
 # Contract 5: LaborCoinGovernanceV13
 
 Contract Name:
@@ -449,32 +475,6 @@ Notes:
 ```text
 TO BE FILLED
 ```
-
-Notes:
-
-```text
-Final production deployment.
-
-Successfully verified on Polygonscan using Solidity Standard JSON Input.
-
-Compiler Version: 0.8.30
-EVM Version: Prague
-Optimizer: Enabled (200 runs)
-OpenZeppelin Version: None
-License: MIT
-
-Constructor Argument:
-_dao = 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
-
-The DAO address is immutable and fixed at deployment.
-
-The contract contains no owner, no upgrade mechanism, no admin withdrawal function, and no arbitrary external execution capability.
-
-Only the configured DAO may execute transfers through executeTransfer(). Transfer amounts are determined by the POL value supplied with the DAO call.
-
-Deployment Order: 5
-```
-
 ---
 
 # External Contract References
