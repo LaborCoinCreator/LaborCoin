@@ -297,10 +297,79 @@ The contract records cumulative distributed POL through totalDistributed and emi
 ### LaborCoinGovernanceV13.sol
 
 SHA256:
+8e0feaa4567833d6d3af4ffde6bd00ca19e2aebfad3bee67a1ea1be611b5efc7
 
 File Size:
+13241 bytes
 
 Notes:
+Final production deployment.
+
+Network: Polygon Mainnet
+
+Contract Address:
+0x8238105d31F6Bb26897d8Ab270a0A521FEF03E8c
+
+Deployment Transaction:
+0xabd669c27e4bc94471241d433432e8c66375d258a0a6fa5413772d2aef0fbc6e
+
+Block Number:
+89084762
+
+Deployment Order:
+5
+
+Compiler:
+Solidity 0.8.30
+
+EVM Version:
+Prague
+
+Optimizer:
+Enabled (200 runs)
+
+OpenZeppelin:
+5.6.1
+
+License:
+MIT
+
+Verification Status:
+Verified
+
+Verification Method:
+Automatic Exact Match Verification (Sourcify / PolygonScan Metadata Match)
+
+Constructor Arguments:
+
+_dao:
+0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
+
+_labrv:
+0x833242E933c675846D8f8982048FecA95B8e435A
+
+_verifier:
+0x475d519631d2406753aCA29F305f19b83E97513e
+
+_treasuryModule:
+0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C
+
+_registration:
+0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C
+
+Notes:
+
+LaborCoinGovernanceV13 is the final production governance contract responsible for proposal creation, voting, proposal execution authorization, and treasury distribution control.
+
+The contract integrates with the Aragon DAO treasury, LaborVoteV7 governance token, LaborCoinRegistrationV4 membership registry, verifier signature system, and LaborCoinTreasuryModuleV1 distribution module.
+
+Governance activation requires a minimum of 50 registered participants before treasury proposals may be executed. Proposals require a 25% participation quorum and a 67% approval threshold. Voting remains open for 14 days followed by a 7-day execution window.
+
+Treasury distributions are limited to 5% of the DAO treasury balance at execution time. Proposal execution uses the Aragon DAO execute(Action[]) permission framework and routes approved transfers through LaborCoinTreasuryModuleV1.
+
+The contract includes verifier-signed identity validation, proposal eligibility checks, execution-window enforcement, treasury-cap validation, and registration-based governance participation controls.
+
+This deployment represents the final immutable governance implementation for LaborCoin treasury allocation and democratic treasury management.
 
 ---
 
@@ -334,9 +403,17 @@ Metadata SHA256:
 
 ### LaborCoinRegistrationV4
 
-Artifact SHA256: 999b2c57f169c36c51df4513ca9274cde54148829dcd248b015aa690674dc0de
+Artifact File:
+final-launch/artifacts/LaborCoinRegistrationV4/LaborCoinRegistrationV4.json
 
-Metadata SHA256: bf6ecded77da8917df464fffd6d05140744b559d4ca9d98773ad52ff88f47ad6
+Artifact SHA256:
+999b2c57f169c36c51df4513ca9274cde54148829dcd248b015aa690674dc0de
+
+Metadata File:
+final-launch/artifacts/LaborCoinRegistrationV4/LaborCoinRegistrationV4_metadata.json
+
+Metadata SHA256:
+bf6ecded77da8917df464fffd6d05140744b559d4ca9d98773ad52ff88f47ad6
 
 ---
 
@@ -374,9 +451,17 @@ Metadata SHA256:
 
 ### LaborCoinGovernanceV13
 
+Artifact File:
+final-launch/artifacts/LaborCoinGovernanceV13/LaborCoinGovernanceV13.json
+
 Artifact SHA256:
+64d0db4ed7c277a950501c7cd4bf915b2746376f25ce14fc274ecd95c5ddaf1a
+
+Metadata File:
+final-launch/artifacts/LaborCoinGovernanceV13/LaborCoinGovernanceV13_metadata.json
 
 Metadata SHA256:
+c54a360099be00947b24f5ade7b186062f0f8d7356052fa32e5c9568816b15c0
 
 ---
 
@@ -430,12 +515,15 @@ Yes
 Verification URL:
 https://polygonscan.com/address/0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C#code
 
+---
 
 LaborCoinGovernanceV13:
 
 Verified:
+Yes
 
 Verification URL:
+https://polygonscan.com/address/0x8238105d31f6bb26897d8ab270a0a521fef03e8c#code
 
 ---
 
@@ -447,15 +535,20 @@ Chain ID: 137
 
 Deployment Wallet: 0x015b6D0990E56D908c876474C6A30eBa2b8A0CFB
 
-Deployment Date: 
+Deployment Date:
+Jun-24-2026
 
 Total Contracts Deployed:
+5
 
 All Contracts Verified:
+Yes
 
 Frontend Updated:
+Yes
 
 Final Testing Completed:
+Yes
 
 ---
 
