@@ -292,6 +292,8 @@ The DAO address is immutable and fixed at deployment. Only the DAO may call exec
 
 The contract records cumulative distributed POL through totalDistributed and emits TransferExecuted events for transparency.
 
+---
+
 ### LaborCoinGovernanceV13.sol
 
 SHA256:
