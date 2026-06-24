@@ -48,7 +48,7 @@ Using this strategy, the working class can build sustained collective action.
 
 ## The Bigger Picture
 
-This is also a tool that can scale to support a nationwide strike. Eventually, the working class could organize a general strike behind a unifying demand that ends the system of economic exploitation. LaborCoin is a means to that end. This system could potentially distirubte billions of dollars, but for a nationwide strike to change the system, we must have a unifying goal that a majority can agree on. Then, a general strike will bring everyone to the table. We must decide this for ourselves, but with these new tools we can communicate the demands of the working class, coordinate responses, and make efforts to improve material conditions at scale.
+This is also a tool that can scale to support a nationwide strike. Eventually, the working class could organize a general strike behind a unifying demand that ends the system of economic exploitation. LaborCoin is a means to that end. This system could potentially distribute billions of dollars, but for a nationwide strike to change the system, we must have a unifying goal that a majority can agree on. Then, a general strike will bring everyone to the table. We must decide this for ourselves, but with these new tools we can communicate the demands of the working class, coordinate responses, and make efforts to improve material conditions at scale.
 
 ---
 
