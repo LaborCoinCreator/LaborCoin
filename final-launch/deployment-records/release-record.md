@@ -334,15 +334,15 @@ Metadata SHA256:
 
 ### LaborCoinRegistrationV4
 
-Artifact SHA256:
+Artifact SHA256: 999b2c57f169c36c51df4513ca9274cde54148829dcd248b015aa690674dc0de
 
-Metadata SHA256:
+Metadata SHA256: bf6ecded77da8917df464fffd6d05140744b559d4ca9d98773ad52ff88f47ad6
 
 ---
 
 ### LaborCoinExchangeV3
 
-Artifact SHA256:
+Artifact SHA256: 
 
 Metadata SHA256:
 
