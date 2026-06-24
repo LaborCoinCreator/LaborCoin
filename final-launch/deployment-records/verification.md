@@ -227,17 +227,86 @@ Successfully verified on Polygonscan using Standard JSON Input. Registration req
 
 Contract Address:
 
+0xE57ba76AED1B7B4142E3DfaBd6cf3E94970b86eA
+
 Verification Status:
+
+Verified
 
 Verification Date:
 
+Jun-24-2026
+
 Explorer:
 
-Verification URL:
+Polygonscan
+
+Contract URL:
+
+https://polygonscan.com/address/0xE57ba76AED1B7B4142E3DfaBd6cf3E94970b86eA#code
+
+Deployment Transaction:
+
+0x7eafc77c8e5a0e5f2d2c6f83f2cd1fd4e104f963dca1c0325e2b93d563c9d876
 
 Constructor Arguments:
 
+_labr:
+0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
+
+_daoTreasury:
+0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
+
+Compiler Version:
+
+0.8.30
+
+EVM Version:
+
+Prague
+
+Optimizer:
+
+Enabled
+
+Optimizer Runs:
+
+200
+
+OpenZeppelin Version:
+
+5.6.1
+
+License:
+
+MIT
+
+Verification Method:
+
+Automatic Exact Match Verification (Sourcify / PolygonScan Metadata Match)
+
 Notes:
+
+Successfully verified on Polygonscan as an Exact Match. The contract implements the LaborCoin bonding curve exchange, uses the Chainlink POL/USD oracle at 0xAB594600376Ec9fD91F8e885dADF0CE036862dE0, enforces a 12-hour transaction cooldown, distributes 10% of buy volume to the DAO treasury, and automatically unlocks supply tranches as distribution milestones are reached.
+
+Exchange V2 Retirement Record:
+
+Retired Exchange:
+0xD0692ec758bb852421B702B187b6439f74f8Bf3b
+
+Recovered:
+0.50361236 LABR
+
+Remaining Dust:
+0.0002534 LABR
+
+Dust Recovery Transaction:
+0x45f2e3c0f56b9cd3b66de9817f5643445f7b5e5903e89af2e0882b1b837c8dbf
+
+DAO Treasury Received:
+0.6572 POL
+
+No administrative withdrawal function existed on Exchange V2. The remaining dust balance was deemed economically insignificant and retained as a retired contract balance.
 
 ---
 
