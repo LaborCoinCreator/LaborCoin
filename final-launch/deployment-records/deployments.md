@@ -525,13 +525,13 @@ Sourcify and Blockscout verification were submitted from Remix. Polygonscan veri
 
 ## LaborCoinGovernanceV13
 
-Contract Address:
+Contract Address: 0x8238105d31F6Bb26897d8Ab270a0A521FEF03E8c
 
-Deployment Transaction:
+Deployment Transaction: 0xabd669c27e4bc94471241d433432e8c66375d258a0a6fa5413772d2aef0fbc6e
 
-Block Number:
+Block Number: 89084762
 
-Timestamp:
+Timestamp: Jun-24-2026 08:15:38 PM +UTC
 
 Verification Status:
 
