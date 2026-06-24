@@ -385,8 +385,10 @@ Metadata SHA256:
 LaborCoin:
 
 Verified:
+Yes
 
 Verification URL:
+https://polygonscan.com/address/0x460DD873A1D2a41e77410B125cD3027C5FEd2f78#code
 
 ---
 
@@ -439,13 +441,13 @@ Verification URL:
 
 ## Deployment Summary
 
-Network:
+Network: Polygon (POL)
 
-Chain ID:
+Chain ID: 137
 
-Deployment Wallet:
+Deployment Wallet: 0x015b6D0990E56D908c876474C6A30eBa2b8A0CFB
 
-Deployment Date:
+Deployment Date: 
 
 Total Contracts Deployed:
 
