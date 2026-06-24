@@ -226,6 +226,32 @@ Notes:
 
 Successfully verified on Polygonscan using Standard JSON Input. No constructor arguments required.
 
+LABRV V7 Minter Set
+
+Contract:
+
+0x833242E933c675846D8f8982048FecA95B8e435A
+
+New Minter:
+
+0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C
+
+Minter Set Transaction:
+
+0x7768e6344a44b53b371c753c81379dcbfcc9abd96342a3d37fb6e324de69b074
+
+Minter Lock Transaction:
+
+0x30bad6d15a7aed4ec7ae8e30423ac10efe679f36549bb5f7fb81fa5baf42e6a4
+
+Ownership Status:
+
+Renounced
+
+Minter Locked:
+
+True
+
 ---
 
 ## LaborCoinRegistrationV4
@@ -268,13 +294,13 @@ https://polygonscan.com/address/0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C#code
 
 Constructor Arguments:
 
-_labr:
+LABR:
 0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
 
-_labrv:
+LABRV:
 0x833242E933c675846D8f8982048FecA95B8e435A
 
-_verifier:
+Verifier:
 0x475d519631d2406753aCA29F305f19b83E97513e
 
 Compiler Version:
@@ -307,15 +333,110 @@ Solidity Standard JSON Input
 
 Notes:
 
-Successfully verified on Polygonscan using Standard JSON Input. Registration requires a valid verifier signature, an unexpired signature timestamp, and a minimum balance of 1 LABR. Mints one non-transferable LABRV governance token to eligible participants who do not already hold LABRV.
+Successfully verified on Polygonscan using Standard JSON Input. Registration requires a valid verifier signature, an unexpired signature timestamp, and a minimum balance of 1 LABR. Eligible participants receive one non-transferable LABRV governance token if they do not already hold LABRV.
 
-LABRV V7 Minter Set
+---
 
-Contract:
-0x833242E933c675846D8f8982048FecA95B8e435A
+## LaborCoinExchangeV3
 
-New Minter:
-0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C
+Contract Address:
+
+0xE57ba76AED1B7B4142E3DfaBd6cf3E94970b86eA
+
+Deployment Transaction:
+
+0x7eafc77c8e5a0e5f2d2c6f83f2cd1fd4e104f963dca1c0325e2b93d563c9d876
+
+Timestamp:
+
+Jun-24-2026 03:02:19 AM +UTC
+
+Block Number:
+
+89043429
+
+Deployment Wallet:
+
+0x015b6D0990E56D908c876474C6A30eBa2b8A0CFB
+
+Verification Status:
+
+Verified
+
+Verification Date:
+
+Jun-24-2026
+
+Explorer:
+
+Polygonscan
+
+Contract URL:
+
+https://polygonscan.com/address/0xE57ba76AED1B7B4142E3DfaBd6cf3E94970b86eA#code
+
+Constructor Arguments:
+
+LABR:
+0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
+
+DAO Treasury:
+0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
+
+Compiler Version:
+
+0.8.30
+
+EVM Version:
+
+Prague
+
+Optimizer:
+
+Enabled
+
+Optimizer Runs:
+
+200
+
+OpenZeppelin Version:
+
+5.6.1
+
+License:
+
+MIT
+
+Verification Method:
+
+Automatic Exact Match Verification (Sourcify / PolygonScan Metadata Match)
+
+Notes:
+
+Successfully verified on Polygonscan as an Exact Match.
+
+Chainlink POL/USD Oracle:
+0xAB594600376Ec9fD91F8e885dADF0CE036862dE0
+
+Old Exchange V2 Retirement Record:
+
+Retired Exchange:
+0xD0692ec758bb852421B702B187b6439f74f8Bf3b
+
+Recovered:
+0.50361236 LABR
+
+Remaining Dust:
+0.0002534 LABR
+
+Dust Recovery Transaction:
+0x45f2e3c0f56b9cd3b66de9817f5643445f7b5e5903e89af2e0882b1b837c8dbf
+
+DAO Treasury Received:
+0.6572 POL
+
+No administrative withdrawal function existed on Exchange V2. Remaining dust balance was deemed economically insignificant and retained as a retired contract balance.
+
 
 ---
 
@@ -358,59 +479,6 @@ Verification URL:
 Constructor Arguments:
 
 Notes:
-
----
-
-## LaborCoinExchangeV3
-
-Contract Address: 0xE57ba76AED1B7B4142E3DfaBd6cf3E94970b86eA
-
-Deployment Transaction: 0x7eafc77c8e5a0e5f2d2c6f83f2cd1fd4e104f963dca1c0325e2b93d563c9d876
-
-Block Number: 89043429
-
-Timestamp: Jun-24-2026 03:02:19 AM +UTC
-
-Verification Status:
-Verified
-
-Verification Date:
-Jun-23-2026
-
-Explorer:
-PolygonScan
-
-Verification Method:
-Automatic Exact Match Verification
-(via Sourcify / PolygonScan metadata match)
-
-Verification URL:
-https://polygonscan.com/address/0xE57ba76AED1B7B4142E3DfaBd6cf3E94970b86eA#code
-
-Constructor Arguments:
-
-LABR: 0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
-
-DAO Treasury: 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
-
-Notes: 
-
-Testing Contract Dust:
-
-Old Exchange V2 retired with 0.0002534 LABR unrecovered dust balance.
-No admin withdrawal function available. Further recovery attempts not justified.
-
-Recovered:
-0.50361236 LABR
-
-Remaining:
-0.0002534 LABR
-
-Successful dust-clearing tx:
-0x45f2e3c0f56b9cd3b66de9817f5643445f7b5e5903e89af2e0882b1b837c8dbf
-
-DAO treasury received:
-0.6572 POL
 
 ---
 
