@@ -2,7 +2,7 @@
 
 ## Introduction
 
-If you have tried to answer the question “why has there not been a general strike in the United States?” you will inevitably arrive at the conclusion that wage slavery and economic retaliation prevent such action. LaborCoin is an answer to this problem. If you have been alarmed at the very prominent crypto scams and the millions of dollars they circulate, you may have asked yourself “what would a crypto project that isn’t a scam look like?” If you are a leftist, you may have asked yourself “is there a way to use this technology to aid the working class?” LaborCoin is an answer to these questions. This is a new tool for the working class, a path forward in the class struggle.
+If you have tried to answer the question “why has there not been a general strike in the United States?” you will inevitably arrive at the conclusion that wage slavery and economic retaliation prevent such action. LaborCoin is an answer to this problem. If you have been alarmed at the very prominent crypto scams and the millions of dollars they circulate, you may have asked yourself “what would a crypto project that isn’t a scam look like?” If you are working-class, you may have asked yourself, “is there a way to use this technology to fight exploitation?” LaborCoin is an answer to these questions. This is a new tool for the working class, a path forward in the class struggle.
 
 ---
 
@@ -20,11 +20,11 @@ We need new ways of showing solidarity and sending mutual aid to subvert a syste
 
 ## Solutions
 
-The only tool we have left is solidarity. Our only actionable threat is to withhold our labor. We no longer have a framework to participate in democracy, to appeal to the government, or to bargain with corporations. What we can do is pool together collective value and choose democratically where to send it.
+The only tool we have left is solidarity. Our only actionable threat is to withhold our labor. We no longer have a framework to participate in democracy, to appeal to the government, or to bargain with corporations. What we can do is pool together collective value and choose where to send it democratically.
 
-LaborCoin (LABR), the LaborCoin exchange, and the LaborCoin DAO (Decentralized Autonomous Organization) are tools designed to support the working class by enabling anonymous, secure, and democratic coordination of mutual aid to striking workers. The LaborCoin DAO treasury is funded by taxes on sales of LABR and public donations. It is governed by verified working-class participants, enabling direct support of labor organizing and strikes without centralized control.
+LaborCoin (LABR), the LaborCoin Exchange, and the LaborCoin DAO (Decentralized Autonomous Organization) are tools designed to support the working class by enabling anonymous, secure, and democratic coordination of mutual aid to striking workers. The LaborCoin DAO treasury is funded by taxes on sales of LABR, a 10% exchange split on buys, and public donations. It is governed by verified individual participants, enabling direct support of labor organizing and strikes without centralized control.
 
-LaborCoin and the LaborCoin DAO are intended to democratically fund striking groups, unionized or not, in order to minimize systemic and targeted economic retaliation. This tool can be used in a targeted approach repeatedly. With this system, we can build collective value, show solidarity, and send mutual aid democratically. This can enable successful strikes by workers anywhere. LaborCoin empowers people to use their collective value to fund sustained collective action.
+LaborCoin and the LaborCoin DAO are intended to democratically fund striking groups, unionized or not, in order to minimize systemic and targeted economic retaliation. This tool can be used in a targeted approach repeatedly. With this system, we can build collective value, show solidarity, and send mutual aid democratically. This system can enable successful strikes by workers anywhere. LaborCoin empowers people to use their collective value to fund sustained collective action.
 
 ---
 
@@ -32,13 +32,15 @@ LaborCoin and the LaborCoin DAO are intended to democratically fund striking gro
 
 Here is how the LaborCoin system works:
 
-The general public can buy and hold LABR or donate to the LaborCoin DAO to support striking workers. Our collective power increases when more people buy and hold LABR.
+The general public can buy and hold LABR or donate to the LaborCoin DAO to support striking workers. Our collective power increases when more people buy and hold LABR, that is where solidarity comes into play.
 
 Workers planning collective action can buy or be transferred tokens and hold them until they strike. When workers participate in a strike, they can then sell their LABR to pay their expenses, and the DAO can vote to transfer them funds. When the token is sold on the exchange, a tax is evenly distributed amongst all token holders and the DAO treasury, which also builds collective value.
 
-For example, if Amazon workers in a given city decide to strike, they can make a proposal on the LaborCoin DAO to receive funds. If voting members approve their proposal, funds in the treasury are sent directly to their workplace’s treasury where they distribute the funds. No official union necessary. DAO proposals must pass a supermajority. Once that threshold passes, the system automatically transfers the funds. There is also a minimum voter threshold and token mechanics that allow the DAO to pause trading.
+For example, if warehouse workers in a given city decide to strike, they can make a proposal on the LaborCoin DAO to receive funds. If voting members approve their proposal, funds in the treasury are sent directly to their workplace’s treasury where they distribute the funds. No official union necessary. DAO proposals must pass a supermajority with 25% participation. Once that threshold passes, the system allows a user to transfer the funds.
 
 It is recommended that collections of workers from specific businesses form their own DAO so that they can distribute funds democratically. Businesses that prevent employees from unionizing cannot prevent workers from creating their own DAO or participating in the LaborCoin DAO to receive mutual aid.
+
+Buy LABR and hold it to show solidarity. Sell if you are going on strike. Vote to send funds to striking workers.
 
 Using this strategy, the working class can build sustained collective action.
 
@@ -46,7 +48,7 @@ Using this strategy, the working class can build sustained collective action.
 
 ## The Bigger Picture
 
-This is also a tool that can scale to support a nationwide strike. Eventually, the working class could organize a general strike behind a unifying demand that ends the system of economic exploitation. LaborCoin is a means to that end. For a nationwide strike to change the system, we must have a unifying goal that a majority can agree on. Then, a general strike will bring everyone to the table. Using these new tools, we can communicate the demands of the working class, coordinate responses, and make efforts to improve material conditions at scale.
+This is also a tool that can scale to support a nationwide strike. Eventually, the working class could organize a general strike behind a unifying demand that ends the system of economic exploitation. LaborCoin is a means to that end. This system could potentially distirubte billions of dollars, but for a nationwide strike to change the system, we must have a unifying goal that a majority can agree on. Then, a general strike will bring everyone to the table. We must decide this for ourselves, but with these new tools we can communicate the demands of the working class, coordinate responses, and make efforts to improve material conditions at scale.
 
 ---
 
@@ -54,7 +56,7 @@ This is also a tool that can scale to support a nationwide strike. Eventually, t
 
 At a time when unions and collective bargaining are under threat, we need a system that is incorruptible and built with integrity. We can have a transparent, democratic process where the will of the people is heard and directly implemented, and use it to achieve economic justice.
 
-When we have a general strike behind a policy to end exploitation, who will the government bargain with? Organizations with centralized authority can be corrupted. Individuals can be corrupted. But the government and corporations can bargain with the working class on the LaborCoin DAO. It is a framework for digital, democratic representation. LaborCoin is intended as a tool for collective economic empowerment.
+When we have a general strike behind a policy to end exploitation, who will the government bargain with? Organizations with centralized authority can be corrupted. Individuals can be corrupted, but the government and corporations can bargain with the working class on the LaborCoin DAO. It is a framework for digital, democratic representation. LaborCoin is intended as a tool for collective economic empowerment.
 
 This is a peaceful movement in accordance with international human rights and the constitution of the United States of America.
 
@@ -62,9 +64,11 @@ This is a peaceful movement in accordance with international human rights and th
 
 ## What To Do Next
 
-Use the LaborCoin system. Donate to the DAO. Spread the word that there is a way to support striking workers.
+Buy and hold LABR. Donate to the DAO. Spread the word that there is a way to support striking workers.
 
 Register for the DAO and make proposals. Encourage your coworkers to make a DAO for your workplace.
+
+So, who wants to go first?
 
 ---
 
@@ -72,7 +76,9 @@ Individually, we lack capital. Collectively, we hold immense power.
 
 ---
 
-Please Note: Once completed, ownership of the token and exchange will be transferred to the DAO executor contracts. The DAO will be governed by the community and I will be removed as an admin. I will not be able to exercise any control. The funds and voting will be community controlled. This project hinges on integrity and has been built accordingly.
+Please Note: Once completed, ownership of the token will be transferred to the DAO. and the deployed contracts will be immutable or ownership will be renounced. The DAO will be governed by the community and The LaborCoin Creator will be removed as an admin, and will not be able to exercise any control over the system. The funds and voting will be community controlled. This project hinges on integrity and has been built accordingly. All ownership transfers will be publicly verifiable.
+
+Power to the People!
 
 ---
 
