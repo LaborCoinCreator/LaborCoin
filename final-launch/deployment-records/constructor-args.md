@@ -15,7 +15,7 @@ All constructor arguments should be documented before deployment and verified af
 Repository Commit Hash:
 
 ```text
-TO BE FILLED
+0fa98aa098057689db8479c323dd69ef4a86d880
 ```
 
 Deployment Tag:
@@ -27,7 +27,7 @@ v1.0-final-launch
 Deployment Date:
 
 ```text
-TO BE FILLED
+Jun-24-2026
 ```
 
 Network:
