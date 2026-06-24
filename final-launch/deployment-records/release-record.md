@@ -233,17 +233,66 @@ No administrative withdrawal function existed on Exchange V2. The remaining dust
 
 ---
 
-### LaborCoinGovernanceV13.sol
+### LaborCoinTreasuryModuleV1.sol
 
 SHA256:
+a6c8ceb4b1b20cc048fc2615ff447f5cc7a274028e835b7c99e1efe6fba35be2
 
 File Size:
+2151 bytes
+
+Notes:
+Final production deployment.
+
+Network: Polygon Mainnet
+
+Contract Address:
+0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C
+
+Deployment Transaction:
+0x6817331673fa3d178b78c9a7d4499a36a28913728767c870ffce5c2bb9a84cb8
+
+Block Number:
+89052358
+
+Deployment Order:
+4
+
+Compiler:
+Solidity 0.8.30
+
+EVM Version:
+Prague
+
+Optimizer:
+Enabled (200 runs)
+
+OpenZeppelin:
+None
+
+License:
+MIT
+
+Verification Status:
+Verified
+
+Verification Method:
+Solidity Standard JSON Input
+
+Constructor Arguments:
+
+_dao:
+0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
 
 Notes:
 
----
+LaborCoinTreasuryModuleV1 is the final production treasury transfer module. The contract is controlled only by the configured DAO address and has no owner, no upgrade path, no admin withdrawal function, and no arbitrary external control mechanism.
 
-### LaborCoinTreasuryModuleV1.sol
+The DAO address is immutable and fixed at deployment. Only the DAO may call executeTransfer. Transfer amounts are determined by the POL value sent with the DAO call.
+
+The contract records cumulative distributed POL through totalDistributed and emits TransferExecuted events for transparency.
+
+### LaborCoinGovernanceV13.sol
 
 SHA256:
 
