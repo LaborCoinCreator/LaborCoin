@@ -431,50 +431,99 @@ Deployment Order:
 Constructor Signature:
 
 ```solidity
-TO BE FILLED
+constructor(
+    address _dao,
+    address _labrv,
+    address _verifier,
+    address _treasuryModule,
+    address _registration
+)
 ```
 
 Constructor Arguments:
 
-| Parameter    | Type         | Value        |
-| ------------ | ------------ | ------------ |
-| TO BE FILLED | TO BE FILLED | TO BE FILLED |
+| Parameter       | Type    | Value                                      |
+| --------------- | ------- | ------------------------------------------ |
+| _dao            | address | 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4 |
+| _labrv          | address | 0x833242E933c675846D8f8982048FecA95B8e435A |
+| _verifier       | address | 0x475d519631d2406753aCA29F305f19b83E97513e |
+| _treasuryModule | address | 0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C |
+| _registration   | address | 0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C |
 
 Raw Constructor Arguments:
 
 ```text
-TO BE FILLED
+_dao = 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
+
+_labrv = 0x833242E933c675846D8f8982048FecA95B8e435A
+
+_verifier = 0x475d519631d2406753aCA29F305f19b83E97513e
+
+_treasuryModule = 0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C
+
+_registration = 0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C
 ```
 
 Encoded Constructor Arguments:
 
 ```text
-TO BE FILLED AFTER DEPLOYMENT
+0000000000000000000000000c2e5679153593b82a84eab5ca90895bb291cec4
+000000000000000000000000833242e933c675846d8f8982048feca95b8e435a
+000000000000000000000000475d519631d2406753aca29f305f19b83e97513e
+00000000000000000000000010f2798ef055950b897af4b3a8ae90de34f6c56c
+000000000000000000000000d1cd6c0b6f1f709a52908b40c07d3c54649e323c
 ```
 
 Contract Address:
 
 ```text
-TO BE FILLED
+0x8238105d31F6Bb26897d8Ab270a0A521FEF03E8c
 ```
 
 Deployment Transaction:
 
 ```text
-TO BE FILLED
+0xabd669c27e4bc94471241d433432e8c66375d258a0a6fa5413772d2aef0fbc6e
 ```
 
 Verification Status:
 
 ```text
-TO BE FILLED
+Verified
 ```
 
 Notes:
 
 ```text
-TO BE FILLED
+Final production deployment.
+
+Successfully verified on Polygonscan as an Exact Match.
+
+Compiler Version: 0.8.30
+EVM Version: Prague
+Optimizer: Enabled (200 runs)
+OpenZeppelin Version: 5.6.1
+License: MIT
+
+The contract is permanently connected to the deployed Aragon DAO treasury, LABRV governance token, RegistrationV4 contract, TreasuryModuleV1 contract, and verifier address through immutable constructor parameters.
+
+Governance activation requires a minimum of 50 registered participants before proposal execution is permitted.
+
+Proposal duration is fixed at 14 days.
+
+Successful proposals may only be executed during the 7 day execution window following vote completion.
+
+Proposal approval requires at least 25% participation from registered members and at least 67% affirmative voting support.
+
+Treasury distributions are limited to a maximum of 5% of the DAO treasury balance at execution time.
+
+Replay protection is implemented through signature validation, nonce tracking, and signature expiry enforcement.
+
+The contract contains no owner privileges, no upgrade mechanism, no administrative override capability, and no post-deployment parameter modification functions.
+
+Deployment Order: 5
 ```
+
 ---
 
 # External Contract References
@@ -560,35 +609,35 @@ YES
 LaborCoinGoverneanceV13 Verified:
 
 ```text
-YES / NO
+YES
 ```
 
 All Constructor Arguments Archived:
 
 ```text
-YES / NO
+YES
 ```
 
 All Verification Records Archived:
 
 ```text
-YES / NO
+YES
 ```
 
 Final Deployment Complete:
 
 ```text
-YES / NO
+YES
 ```
 
 Verified By:
 
 ```text
-TO BE FILLED
+The LaborCoin Creator
 ```
 
 Verification Date:
 
 ```text
-TO BE FILLED
+2026-06-24
 ```
