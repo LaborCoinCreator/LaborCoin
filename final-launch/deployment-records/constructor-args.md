@@ -484,13 +484,13 @@ TO BE FILLED
 Contract Address:
 
 ```text
-TO BE FILLED
+0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
 ```
 
 Verification Status:
 
 ```text
-TO BE FILLED
+Verified on Polygonscan
 ```
 
 ---
@@ -500,7 +500,7 @@ TO BE FILLED
 Contract Address:
 
 ```text
-TO BE FILLED
+0xAB594600376Ec9fD91F8e885dADF0CE036862dE0
 ```
 
 Network:
@@ -536,28 +536,28 @@ For each deployed contract verify:
 LaborVoteV7 Verified:
 
 ```text
-YES / NO
+YES
 ```
 
 LaborCoinRegistrationV4 Verified:
 
 ```text
-YES / NO
+YES
 ```
 
 LaborCoinExchangeV3 Verified:
 
 ```text
-YES / NO
-```
-
-LaborCoinGoverneanceV13 Verified:
-
-```text
-YES / NO
+YES
 ```
 
 LaborCoinTreasuryModuleV1 Verified:
+
+```text
+YES
+```
+
+LaborCoinGoverneanceV13 Verified:
 
 ```text
 YES / NO
