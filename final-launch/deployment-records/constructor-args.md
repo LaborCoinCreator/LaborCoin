@@ -318,7 +318,71 @@ Deployment Order: 3
 
 ---
 
-# Contract 4: LaborCoinGovernanceV13
+# Contract 4: LaborCoinTreasuryModuleV1
+
+Contract Name:
+
+```text
+LaborCoinTreasuryModuleV1
+```
+
+Source File:
+
+```text
+final-launch/contracts/LaborCoinTreasuryModuleV1.sol
+```
+
+Deployment Order:
+
+```text
+4
+```
+
+Constructor Signature:
+
+```solidity
+constructor(
+    address _dao
+)
+```
+
+Constructor Arguments:
+
+| Parameter | Type    | Value                                      |
+| --------- | ------- | ------------------------------------------ |
+| _dao      | address | 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4 |
+
+Raw Constructor Arguments:
+
+```text
+_dao = 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
+```
+
+Encoded Constructor Arguments:
+
+```text
+0000000000000000000000000c2e5679153593b82a84eab5ca90895bb291cec4
+```
+
+Contract Address:
+
+```text
+0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C
+```
+
+Deployment Transaction:
+
+```text
+0x6817331673fa3d178b78c9a7d4499a36a28913728767c870ffce5c2bb9a84cb8
+```
+
+Verification Status:
+
+```text
+Verified
+```
+
+# Contract 5: LaborCoinGovernanceV13
 
 Contract Name:
 
@@ -386,74 +450,29 @@ Notes:
 TO BE FILLED
 ```
 
----
-
-# Contract 5: LaborCoinTreasuryModuleV1
-
-Contract Name:
-
-```text
-LaborCoinTreasuryModuleV1
-```
-
-Source File:
-
-```text
-final-launch/contracts/LaborCoinTreasuryModuleV1.sol
-```
-
-Deployment Order:
-
-```text
-3
-```
-
-Constructor Signature:
-
-```solidity
-TO BE FILLED
-```
-
-Constructor Arguments:
-
-| Parameter    | Type         | Value        |
-| ------------ | ------------ | ------------ |
-| TO BE FILLED | TO BE FILLED | TO BE FILLED |
-
-Raw Constructor Arguments:
-
-```text
-TO BE FILLED
-```
-
-Encoded Constructor Arguments:
-
-```text
-TO BE FILLED AFTER DEPLOYMENT
-```
-
-Contract Address:
-
-```text
-TO BE FILLED
-```
-
-Deployment Transaction:
-
-```text
-TO BE FILLED
-```
-
-Verification Status:
-
-```text
-TO BE FILLED
-```
-
 Notes:
 
 ```text
-TO BE FILLED
+Final production deployment.
+
+Successfully verified on Polygonscan using Solidity Standard JSON Input.
+
+Compiler Version: 0.8.30
+EVM Version: Prague
+Optimizer: Enabled (200 runs)
+OpenZeppelin Version: None
+License: MIT
+
+Constructor Argument:
+_dao = 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
+
+The DAO address is immutable and fixed at deployment.
+
+The contract contains no owner, no upgrade mechanism, no admin withdrawal function, and no arbitrary external execution capability.
+
+Only the configured DAO may execute transfers through executeTransfer(). Transfer amounts are determined by the POL value supplied with the DAO call.
+
+Deployment Order: 4
 ```
 
 ---
