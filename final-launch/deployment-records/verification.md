@@ -359,7 +359,7 @@ Optimizer Runs:
 
 OpenZeppelin Version:
 
-5.6.1
+None
 
 License:
 
@@ -379,26 +379,95 @@ Successfully verified on Polygonscan using Standard JSON Input. The contract is 
 
 Contract Address:
 
+0x8238105d31F6Bb26897d8Ab270a0A521FEF03E8c
+
 Verification Status:
+
+Verified
 
 Verification Date:
 
+Jun-24-2026
+
 Explorer:
 
-Verification URL:
+Polygonscan
+
+Contract URL:
+
+https://polygonscan.com/address/0x8238105d31F6Bb26897d8Ab270a0A521FEF03E8c#code
+
+Deployment Transaction:
+
+0xabd669c27e4bc94471241d433432e8c66375d258a0a6fa5413772d2aef0fbc6e
 
 Constructor Arguments:
 
+_dao:
+0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
+
+_labrv:
+0x833242E933c675846D8f8982048FecA95B8e435A
+
+_verifier:
+0x475d519631d2406753aCA29F305f19b83E97513e
+
+_treasuryModule:
+0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C
+
+_registration:
+0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C
+
+Compiler Version:
+
+0.8.30
+
+EVM Version:
+
+Prague
+
+Optimizer:
+
+Enabled
+
+Optimizer Runs:
+
+200
+
+OpenZeppelin Version:
+
+5.6.1
+
+License:
+
+MIT
+
+Verification Method:
+
+Automatic Exact Match Verification (Sourcify / PolygonScan Metadata Match)
+
 Notes:
+
+Successfully verified on Polygonscan as an Exact Match. LaborCoinGovernanceV13 is the final production governance contract responsible for proposal creation, voting, approval validation, and treasury execution authorization.
+
+The contract is permanently connected to the deployed Aragon DAO treasury, LABRV governance token, RegistrationV4 contract, TreasuryModuleV1 contract, and verifier address through immutable constructor parameters established at deployment.
+
+Governance activation requires a minimum of 50 registered participants before treasury proposal execution becomes available. Proposal duration is fixed at 14 days with a 7 day execution window following successful vote completion.
+
+Proposal approval requires at least 25% participation of registered members and at least 67% affirmative voting support. Treasury distributions are limited to a maximum of 5% of the DAO treasury balance at execution time.
+
+Replay protection is implemented through signature validation, nonce tracking, and signature expiry enforcement. Proposal creation and voting actions require verifier-authorized signatures.
+
+The contract includes OpenZeppelin ReentrancyGuard protections and contains no owner privileges, no upgrade mechanism, no administrative override capability, and no post-deployment parameter modification functions.
 
 ---
 
 ## Verification Checklist
 
-* [ ] Source code matches deployed bytecode
-* [ ] Compiler version recorded
-* [ ] EVM version recorded
-* [ ] Optimizer settings recorded
-* [ ] Constructor arguments recorded
-* [ ] Verification successful for all contracts
-* [ ] Verification links archived
+* [x] Source code matches deployed bytecode
+* [x] Compiler version recorded
+* [x] EVM version recorded
+* [x] Optimizer settings recorded
+* [x] Constructor arguments recorded
+* [x] Verification successful for all contracts
+* [x] Verification links archived
