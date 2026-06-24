@@ -247,49 +247,73 @@ Deployment Order:
 Constructor Signature:
 
 ```solidity
-TO BE FILLED
+constructor(
+    address _labr,
+    address _daoTreasury
+)
 ```
 
 Constructor Arguments:
 
-| Parameter    | Type         | Value        |
-| ------------ | ------------ | ------------ |
-| TO BE FILLED | TO BE FILLED | TO BE FILLED |
+| Parameter    | Type    | Value                                      |
+| ------------ | ------- | ------------------------------------------ |
+| _labr        | address | 0x460DD873A1D2a41e77410B125cD3027C5FEd2f78 |
+| _daoTreasury | address | 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4 |
 
 Raw Constructor Arguments:
 
 ```text
-TO BE FILLED
+_labr = 0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
+
+_daoTreasury = 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
 ```
 
 Encoded Constructor Arguments:
 
 ```text
-TO BE FILLED AFTER DEPLOYMENT
+000000000000000000000000460dd873a1d2a41e77410b125cd3027c5fed2f780000000000000000000000000c2e5679153593b82a84eab5ca90895bb291cec4
 ```
 
 Contract Address:
 
 ```text
-TO BE FILLED
+0xE57ba76AED1B7B4142E3DfaBd6cf3E94970b86eA
 ```
 
 Deployment Transaction:
 
 ```text
-TO BE FILLED
+0x7eafc77c8e5a0e5f2d2c6f83f2cd1fd4e104f963dca1c0325e2b93d563c9d876
 ```
 
 Verification Status:
 
 ```text
-TO BE FILLED
+Verified
 ```
 
 Notes:
 
 ```text
-TO BE FILLED
+Final production deployment.
+
+Successfully verified on Polygonscan as an Exact Match.
+
+Compiler Version: 0.8.30
+EVM Version: Prague
+Optimizer: Enabled (200 runs)
+OpenZeppelin Version: 5.6.1
+License: MIT
+
+Chainlink POL/USD Oracle:
+0xAB594600376Ec9fD91F8e885dADF0CE036862dE0
+
+Implements the final LaborCoin bonding curve exchange with tranche unlocking, buy and sell functionality, DAO treasury funding, cooldown enforcement, and oracle-based POL pricing.
+
+Verification Method:
+Automatic Exact Match Verification (Sourcify / PolygonScan Metadata Match)
+
+Deployment Order: 3
 ```
 
 ---
