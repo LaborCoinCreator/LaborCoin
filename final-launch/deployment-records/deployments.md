@@ -464,11 +464,15 @@ Deployment Wallet:
 
 Verification Status:
 
-Pending Polygonscan verification
+Verified
 
 Verification Date:
 
-Pending
+Jun-24-2026
+
+Verification Method:
+
+Automatic verification via Remix / Sourcify metadata match
 
 Explorer:
 
@@ -507,10 +511,6 @@ License:
 
 MIT
 
-Verification Method:
-
-Pending
-
 Notes:
 
 Deployment successful on Polygon Mainnet.
@@ -525,21 +525,106 @@ Sourcify and Blockscout verification were submitted from Remix. Polygonscan veri
 
 ## LaborCoinGovernanceV13
 
-Contract Address: 0x8238105d31F6Bb26897d8Ab270a0A521FEF03E8c
+Contract Address:
 
-Deployment Transaction: 0xabd669c27e4bc94471241d433432e8c66375d258a0a6fa5413772d2aef0fbc6e
+0x8238105d31F6Bb26897d8Ab270a0A521FEF03E8c
 
-Block Number: 89084762
+Deployment Transaction:
 
-Timestamp: Jun-24-2026 08:15:38 PM +UTC
+0xabd669c27e4bc94471241d433432e8c66375d258a0a6fa5413772d2aef0fbc6e
+
+Timestamp:
+
+Jun-24-2026 08:15:38 PM +UTC
+
+Block Number:
+
+89084762
+
+Deployment Wallet:
+
+0x015b6D0990E56D908c876474C6A30eBa2b8A0CFB
 
 Verification Status:
 
-Verification URL:
+Verified
+
+Verification Date:
+
+Jun-24-2026
+
+Explorer:
+
+Polygonscan
+
+Contract URL:
+
+https://polygonscan.com/address/0x8238105d31F6Bb26897d8Ab270a0A521FEF03E8c#code
 
 Constructor Arguments:
 
+DAO:
+0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
+
+LABRV:
+0x833242E933c675846D8f8982048FecA95B8e435A
+
+Verifier:
+0x475d519631d2406753aCA29F305f19b83E97513e
+
+Treasury Module:
+0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C
+
+Registration:
+0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C
+
+Compiler Version:
+
+0.8.30
+
+EVM Version:
+
+Prague
+
+Optimizer:
+
+Enabled
+
+Optimizer Runs:
+
+200
+
+OpenZeppelin Version:
+
+5.6.1
+
+License:
+
+MIT
+
+Verification Method:
+
+Automatic Polygonscan verification via Standard JSON Input metadata match
+
 Notes:
+
+Deployment successful on Polygon Mainnet.
+
+LaborCoinGovernanceV13 is the final governance contract for the LaborCoin system. The contract manages proposal creation, voting, approval validation, and treasury execution authorization through the Aragon DAO treasury architecture.
+
+The contract is permanently connected to the deployed Aragon DAO, LABRV governance token, RegistrationV4 contract, Treasury Module V1, and verifier address through immutable constructor parameters.
+
+Governance activation requires a minimum of 50 registered participants before proposal execution is permitted. Proposal duration is fixed at 14 days and approved proposals may be executed only during the 7 day execution window following vote completion.
+
+Proposal approval requires at least 25% participation from registered members and at least 67% affirmative voting support. Treasury distributions are limited to a maximum of 5% of the DAO treasury balance per proposal.
+
+Replay protection is implemented through per-wallet nonces and signature expiry validation for both proposal creation and voting actions. Signature verification uses the designated verifier address established during deployment.
+
+The contract includes reentrancy protection and contains no owner privileges, no administrative controls, no parameter modification functions, no upgrade mechanism, and no emergency override functionality after deployment.
+
+Source code verification completed successfully on Polygonscan with Exact Match verification status.
+
+The governance contract serves exclusively as a proposal, voting, and execution authorization layer. Treasury assets remain controlled by the Aragon DAO treasury architecture and are distributed only through approved governance actions.
 
 ---
 
@@ -570,9 +655,9 @@ Timestamp: Jun-23-2026 09:45:32 AM +UTC
 * [x] LaborVoteV7 verified
 * [x] LaborCoinRegistrationV4 verified
 * [x] LaborCoinTreasuryModuleV1 verified
-* [ ] LaborCoinGovernanceV13 verified
+* [x] LaborCoinGovernanceV13 verified
 * [x] LaborCoinExchangeV3 verified
-* [ ] Verification links archived
+* [x] Verification links archived
 * [x] Constructor arguments archived
 
 ---
@@ -596,7 +681,7 @@ Timestamp: Jun-23-2026 09:45:32 AM +UTC
 * [x] LaborVoteV7.json
 * [x] LaborCoinRegistrationV4.json
 * [x] LaborCoinTreasuryModuleV1.json
-* [ ] LaborCoinGovernanceV13.json
+* [x] LaborCoinGovernanceV13.json
 * [x] LaborCoinExchangeV3.json
 
 Metadata Files Archived:
@@ -618,8 +703,8 @@ All contracts were compiled using the build environment documented in build-envi
 
 All contract addresses, deployment transactions, verification records, and constructor arguments have been archived.
 
-Final Launch Approved:
+Final Launch Approved: True
 
-Date:
+Date: 2026-06-24
 
-Signature / Maintainer:
+Signature / Maintainer: The LaborCoin Creator
