@@ -156,7 +156,7 @@ Optimizer Runs:
 
 Source File:
 
-contracts/LaborCoinExchangeV3.sol
+final-launch/contracts/LaborCoinExchangeV3.sol
 
 Compiler Version:
 
