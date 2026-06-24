@@ -399,7 +399,7 @@ final-launch/contracts/LaborCoinGovernanceV13.sol
 Deployment Order:
 
 ```text
-3
+5
 ```
 
 Constructor Signature:
@@ -472,7 +472,7 @@ The contract contains no owner, no upgrade mechanism, no admin withdrawal functi
 
 Only the configured DAO may execute transfers through executeTransfer(). Transfer amounts are determined by the POL value supplied with the DAO call.
 
-Deployment Order: 4
+Deployment Order: 5
 ```
 
 ---
