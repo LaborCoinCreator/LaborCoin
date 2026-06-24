@@ -444,21 +444,82 @@ No administrative withdrawal function existed on Exchange V2. Remaining dust bal
 
 Contract Address:
 
+0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C
+
 Deployment Transaction:
 
-Block Number:
+0x6817331673fa3d178b78c9a7d4499a36a28913728767c870ffce5c2bb9a84cb8
 
 Timestamp:
 
+Jun-24-2026
+
+Block Number:
+
+89052358
+
+Deployment Wallet:
+
+0x015b6D0990E56D908c876474C6A30eBa2b8A0CFB
+
 Verification Status:
 
-Verification URL:
+Pending Polygonscan verification
+
+Verification Date:
+
+Pending
+
+Explorer:
+
+Polygonscan
+
+Contract URL:
+
+https://polygonscan.com/address/0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C#code
 
 Constructor Arguments:
 
 DAO:
+0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
+
+Compiler Version:
+
+0.8.30
+
+EVM Version:
+
+Prague
+
+Optimizer:
+
+Enabled
+
+Optimizer Runs:
+
+200
+
+OpenZeppelin Version:
+
+None
+
+License:
+
+MIT
+
+Verification Method:
+
+Pending
 
 Notes:
+
+Deployment successful on Polygon Mainnet.
+
+The treasury module is an immutable DAO-controlled transfer module. The DAO address is fixed at deployment and cannot be changed. The contract has no owner, no admin withdrawal function, no upgrade mechanism, and no arbitrary external control path.
+
+The module allows only the configured DAO address to execute POL transfers through executeTransfer. Transfer amount is determined by the POL value sent with the DAO call. The module records cumulative distributed POL through totalDistributed and emits TransferExecuted events for transparency.
+
+Sourcify and Blockscout verification were submitted from Remix. Polygonscan verification still requires final confirmation or manual verification.
 
 ---
 
