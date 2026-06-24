@@ -172,6 +172,26 @@ Optimizer Runs:
 
 ---
 
+### LaborCoinTreasuryModuleV1
+
+Source File:
+
+final-launch/contracts/LaborCoinTreasuryModuleV1.sol
+
+Compiler Version:
+
+0.8.30
+
+Optimizer:
+
+Enabled
+
+Optimizer Runs:
+
+200
+
+---
+
 ### LaborCoinGovernanceV13
 
 Source File:
@@ -189,28 +209,6 @@ Enabled
 Optimizer Runs:
 
 200
-
----
-
-### LaborCoinTreasuryModuleV1
-
-Source File:
-
-contracts/LaborCoinTreasuryModuleV1.sol
-
-Compiler Version:
-
-0.8.30
-
-Optimizer:
-
-Enabled
-
-Optimizer Runs:
-
-200
-
----
 
 ## Deployment Assumptions
 
@@ -247,9 +245,7 @@ License:
 
 MIT
 
-Constructor Arguments:
-
-Recorded separately in:
+Constructor Arguments recorded separately in:
 
 deployment-records/constructor-args.md
 
@@ -261,15 +257,15 @@ Solidity Standard JSON Input
 
 ## Build Validation Checklist
 
-* [ ] All contracts compile successfully
-* [ ] No compiler warnings requiring action
-* [ ] OpenZeppelin version documented
-* [ ] Compiler version documented
-* [ ] EVM version documented
-* [ ] Optimizer settings documented
-* [ ] Constructor arguments archived
-* [ ] Deployment artifacts archived
-* [ ] Verification settings archived
+* [x] All contracts compile successfully
+* [x] No compiler warnings requiring action
+* [x] OpenZeppelin version documented
+* [x] Compiler version documented
+* [x] EVM version documented
+* [x] Optimizer settings documented
+* [x] Constructor arguments archived
+* [x] Deployment artifacts archived
+* [x] Verification settings archived
 
 ---
 
