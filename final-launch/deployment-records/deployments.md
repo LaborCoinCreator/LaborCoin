@@ -363,25 +363,37 @@ Notes:
 
 ## LaborCoinExchangeV3
 
-Contract Address:
+Contract Address: 0xE57ba76AED1B7B4142E3DfaBd6cf3E94970b86eA
 
-Deployment Transaction:
+Deployment Transaction: 0x7eafc77c8e5a0e5f2d2c6f83f2cd1fd4e104f963dca1c0325e2b93d563c9d876
 
-Block Number:
+Block Number: 89043429
 
-Timestamp:
+Timestamp: Jun-24-2026 03:02:19 AM +UTC
 
 Verification Status:
+Verified
+
+Verification Date:
+Jun-23-2026
+
+Explorer:
+PolygonScan
+
+Verification Method:
+Automatic Exact Match Verification
+(via Sourcify / PolygonScan metadata match)
 
 Verification URL:
+https://polygonscan.com/address/0xE57ba76AED1B7B4142E3DfaBd6cf3E94970b86eA#code
 
 Constructor Arguments:
 
-LABR:
+LABR: 0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
 
-DAO Treasury:
+DAO Treasury: 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
 
-Notes:
+Notes: 
 
 Testing Contract Dust:
 
