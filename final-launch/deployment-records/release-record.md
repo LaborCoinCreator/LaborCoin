@@ -151,10 +151,85 @@ LaborCoinRegistrationV4 is the final registration contract for verified DAO part
 ### LaborCoinExchangeV3.sol
 
 SHA256:
+82de27c817cf45c4e8a07c87c163aacae7ade1f4a21e76701958aa61ca8a80ff
 
 File Size:
+5899 bytes
 
 Notes:
+Final production deployment.
+
+Network: Polygon Mainnet
+
+Contract Address:
+0xE57ba76AED1B7B4142E3DfaBd6cf3E94970b86eA
+
+Deployment Transaction:
+0x7eafc77c8e5a0e5f2d2c6f83f2cd1fd4e104f963dca1c0325e2b93d563c9d876
+
+Block Number:
+89043429
+
+Deployment Order:
+3
+
+Compiler:
+Solidity 0.8.30
+
+EVM Version:
+Prague
+
+Optimizer:
+Enabled (200 runs)
+
+OpenZeppelin:
+5.6.1
+
+License:
+MIT
+
+Verification Status:
+Verified
+
+Verification Method:
+Automatic Exact Match Verification (Sourcify / PolygonScan Metadata Match)
+
+Constructor Arguments:
+
+_labr:
+0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
+
+_daoTreasury:
+0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
+
+Notes:
+
+LaborCoinExchangeV3 is the final production exchange contract implementing the LaborCoin bonding curve distribution system. The contract uses the Chainlink POL/USD oracle (0xAB594600376Ec9fD91F8e885dADF0CE036862dE0) to calculate POL-denominated prices from the USD bonding curve formula.
+
+The exchange begins with an initial unlocked tranche of 100,000,000 LABR and automatically unlocks additional 50,000,000 LABR tranches as distribution milestones are reached. Pricing follows the quadratic bonding curve defined in the LaborCoin whitepaper.
+
+The contract enforces a 12-hour cooldown between transactions, distributes 10% of buy volume directly to the DAO treasury, and uses OpenZeppelin ReentrancyGuard protections for buy and sell operations.
+
+This deployment replaces LaborCoinExchangeV2.
+
+Exchange V2 Retirement Record:
+
+Retired Exchange:
+0xD0692ec758bb852421B702B187b6439f74f8Bf3b
+
+Recovered:
+0.50361236 LABR
+
+Remaining Dust:
+0.0002534 LABR
+
+Dust Recovery Transaction:
+0x45f2e3c0f56b9cd3b66de9817f5643445f7b5e5903e89af2e0882b1b837c8dbf
+
+DAO Treasury Received:
+0.6572 POL
+
+No administrative withdrawal function existed on Exchange V2. The remaining dust balance was deemed economically insignificant and retained as a retired contract balance.
 
 ---
 
