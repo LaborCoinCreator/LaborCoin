@@ -359,7 +359,7 @@ Optimizer Runs:
 
 OpenZeppelin Version:
 
-None
+5.6.1
 
 License:
 
