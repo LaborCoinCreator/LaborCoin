@@ -342,21 +342,37 @@ Metadata SHA256: bf6ecded77da8917df464fffd6d05140744b559d4ca9d98773ad52ff88f47ad
 
 ### LaborCoinExchangeV3
 
-Artifact SHA256: 
-
-Metadata SHA256:
-
----
-
-### LaborCoinGovernanceV13
+Artifact File:
+final-launch/artifacts/LaborCoinExchangeV3/LaborCoinExchangeV3.json
 
 Artifact SHA256:
+c5a14ec17c224fc1fbede89ec2e76b68b435647df12501ffa11c0efea80dd6e2
+
+Metadata File:
+final-launch/artifacts/LaborCoinExchangeV3/LaborCoinExchangeV3_metadata.json
 
 Metadata SHA256:
+5efedb64d0bbbd479e1764873729c3bf39a7099a01ab93974ab6ff72b6bde60a
 
 ---
 
 ### LaborCoinTreasuryModuleV1
+
+Artifact File:
+final-launch/artifacts/LaborCoinTreasuryModuleV1/LaborCoinTreasuryModuleV1.json
+
+Artifact SHA256:
+58bf825f038b1bcaa6af357d069db7f041e5027783c2028b0fca9d9e350e2f0b
+
+Metadata File:
+final-launch/artifacts/LaborCoinTreasuryModuleV1/LaborCoinTreasuryModuleV1_metadata.json
+
+Metadata SHA256:
+8ecf1120c38671706264c859bb7d31aaf912ff40a5d149a3b9e2a3053da7f90a
+
+---
+
+### LaborCoinGovernanceV13
 
 Artifact SHA256:
 
@@ -377,36 +393,43 @@ Verification URL:
 LaborVoteV7:
 
 Verified:
+Yes
 
 Verification URL:
+https://polygonscan.com/address/0x833242E933c675846D8f8982048FecA95B8e435A#code
 
 ---
 
 LaborCoinRegistrationV4:
 
 Verified:
+Yes
 
 Verification URL:
+https://polygonscan.com/address/0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C#code
 
 ---
 
 LaborCoinExchangeV3:
 
 Verified:
+Yes
 
 Verification URL:
-
----
-
-LaborCoinGovernanceV13:
-
-Verified:
-
-Verification URL:
+https://polygonscan.com/address/0xE57ba76AED1B7B4142E3DfaBd6cf3E94970b86eA#code
 
 ---
 
 LaborCoinTreasuryModuleV1:
+
+Verified:
+Yes
+
+Verification URL:
+https://polygonscan.com/address/0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C#code
+
+
+LaborCoinGovernanceV13:
 
 Verified:
 
