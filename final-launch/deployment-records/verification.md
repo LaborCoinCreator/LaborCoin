@@ -310,25 +310,72 @@ No administrative withdrawal function existed on Exchange V2. The remaining dust
 
 ---
 
-## LaborCoinGovernanceV13
+## LaborCoinTreasuryModuleV1
 
 Contract Address:
 
+0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C
+
 Verification Status:
+
+Verified
 
 Verification Date:
 
+Jun-24-2026
+
 Explorer:
 
-Verification URL:
+Polygonscan
+
+Contract URL:
+
+https://polygonscan.com/address/0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C#code
+
+Deployment Transaction:
+
+0x6817331673fa3d178b78c9a7d4499a36a28913728767c870ffce5c2bb9a84cb8
 
 Constructor Arguments:
 
+_dao:
+0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
+
+Compiler Version:
+
+0.8.30
+
+EVM Version:
+
+Prague
+
+Optimizer:
+
+Enabled
+
+Optimizer Runs:
+
+200
+
+OpenZeppelin Version:
+
+None
+
+License:
+
+MIT
+
+Verification Method:
+
+Solidity Standard JSON Input
+
 Notes:
+
+Successfully verified on Polygonscan using Standard JSON Input. The contract is an immutable DAO-controlled treasury transfer module. The DAO address is fixed at deployment, and the contract has no owner, no admin withdrawal function, no upgrade mechanism, and no arbitrary external control path. Only the configured DAO may execute transfers through executeTransfer, with the transfer amount determined by the POL value sent in the DAO call. The contract records cumulative distributed POL through totalDistributed and emits TransferExecuted events for transparency.
 
 ---
 
-## LaborCoinTreasuryModuleV1
+## LaborCoinGovernanceV13
 
 Contract Address:
 
