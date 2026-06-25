@@ -223,11 +223,11 @@ Successfully verified on Polygonscan using Standard JSON Input. Registration req
 
 ---
 
-## LaborCoinExchangeV3
+## LaborCoinExchangeV4
 
 Contract Address:
 
-0xE57ba76AED1B7B4142E3DfaBd6cf3E94970b86eA
+0x4Cf18cB39203B678f5C26f2338a10a79f9684749
 
 Verification Status:
 
@@ -235,7 +235,7 @@ Verified
 
 Verification Date:
 
-Jun-24-2026
+Jun-25-2026
 
 Explorer:
 
@@ -243,11 +243,11 @@ Polygonscan
 
 Contract URL:
 
-https://polygonscan.com/address/0xE57ba76AED1B7B4142E3DfaBd6cf3E94970b86eA#code
+https://polygonscan.com/address/0x4Cf18cB39203B678f5C26f2338a10a79f9684749#code
 
 Deployment Transaction:
 
-0x7eafc77c8e5a0e5f2d2c6f83f2cd1fd4e104f963dca1c0325e2b93d563c9d876
+0xa5d1b14cd13c6aeaf7408878e4dddde141908dab12e27022ee565f5d207025fc
 
 Constructor Arguments:
 
@@ -283,11 +283,11 @@ MIT
 
 Verification Method:
 
-Automatic Exact Match Verification (Sourcify / PolygonScan Metadata Match)
+Solidity Standard JSON Input
 
 Notes:
 
-Successfully verified on Polygonscan as an Exact Match. The contract implements the LaborCoin bonding curve exchange, uses the Chainlink POL/USD oracle at 0xAB594600376Ec9fD91F8e885dADF0CE036862dE0, enforces a 12-hour transaction cooldown, distributes 10% of buy volume to the DAO treasury, and automatically unlocks supply tranches as distribution milestones are reached.
+Successfully verified on Polygonscan as an Exact Match. The contract implements the LaborCoin bonding curve exchange, uses the Chainlink POL/USD oracle at 0xAB594600376Ec9fD91F8e885dADF0CE036862dE0, enforces a 12-hour transaction cooldown, wallet and transaction limits, distributes 10% of buy volume to the DAO treasury, and automatically unlocks supply tranches as distribution milestones are reached.
 
 Exchange V2 Retirement Record:
 
