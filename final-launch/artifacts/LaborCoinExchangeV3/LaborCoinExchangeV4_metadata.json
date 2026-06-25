@@ -130,6 +130,32 @@
 			},
 			{
 				"inputs": [],
+				"name": "MAX_EXCHANGE_TX",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "MAX_EXCHANGE_WALLET",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "MAX_PRICE_POL",
 				"outputs": [
 					{
@@ -326,7 +352,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"final-contracts/LaborCoinExchangeV3.sol": "LaborCoinExchangeV3"
+			"final-contracts/LaborCoinExchangeV4.sol": "LaborCoinExchangeV4"
 		},
 		"evmVersion": "prague",
 		"libraries": {},
@@ -356,12 +382,12 @@
 				"dweb:/ipfs/QmarDJ5hZEgBtCmmrVzEZWjub9769eD686jmzb2XpSU1cM"
 			]
 		},
-		"final-contracts/LaborCoinExchangeV3.sol": {
-			"keccak256": "0x888e3a37f7600e0a38f41141c6a73dc7c599ea4792fadbfb343b70d11a747136",
+		"final-contracts/LaborCoinExchangeV4.sol": {
+			"keccak256": "0xe320baf838542ea36f091a9b63323a28424f1e81d75747427c434c1bde847c72",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://625f87b322553cf86c4f9bd8b5f0b09bc30d0471bf01679b1024ed7d7764b27c",
-				"dweb:/ipfs/QmTwMCvMj5fYXxZ7cfLCZkMA9pE9NQs9sxbqoxv5htFGe5"
+				"bzz-raw://9ed86288d641efe5f7cb195d638148c9b1af6ab1edeb5497c00d025b094b2b73",
+				"dweb:/ipfs/QmUW8D8xerMhcNirSxogaLxvrgWtJzwAtJrURLEwhY9ga2"
 			]
 		}
 	},
