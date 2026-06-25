@@ -152,11 +152,11 @@ Optimizer Runs:
 
 ---
 
-### LaborCoinExchangeV3
+### LaborCoinExchangeV4
 
 Source File:
 
-final-launch/contracts/LaborCoinExchangeV3.sol
+final-launch/contracts/LaborCoinExchangeV4.sol
 
 Compiler Version:
 
