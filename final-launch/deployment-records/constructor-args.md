@@ -224,18 +224,18 @@ The contract records registration timestamps, assigns sequential member numbers,
 
 ---
 
-# Contract 3: LaborCoinExchangeV3
+# Contract 3: LaborCoinExchangeV4
 
 Contract Name:
 
 ```text
-LaborCoinExchangeV3
+LaborCoinExchangeV4
 ```
 
 Source File:
 
 ```text
-final-launch/contracts/LaborCoinExchangeV3.sol
+final-launch/contracts/LaborCoinExchangeV4.sol
 ```
 
 Deployment Order:
@@ -277,13 +277,13 @@ Encoded Constructor Arguments:
 Contract Address:
 
 ```text
-0xE57ba76AED1B7B4142E3DfaBd6cf3E94970b86eA
+0x4Cf18cB39203B678f5C26f2338a10a79f9684749
 ```
 
 Deployment Transaction:
 
 ```text
-0x7eafc77c8e5a0e5f2d2c6f83f2cd1fd4e104f963dca1c0325e2b93d563c9d876
+0xa5d1b14cd13c6aeaf7408878e4dddde141908dab12e27022ee565f5d207025fc
 ```
 
 Verification Status:
@@ -308,10 +308,10 @@ License: MIT
 Chainlink POL/USD Oracle:
 0xAB594600376Ec9fD91F8e885dADF0CE036862dE0
 
-Implements the final LaborCoin bonding curve exchange with tranche unlocking, buy and sell functionality, DAO treasury funding, cooldown enforcement, and oracle-based POL pricing.
+Implements the final LaborCoin bonding curve exchange with tranche unlocking, buy and sell functionality, wallet and transaction limits, DAO treasury funding, cooldown enforcement, and oracle-based POL pricing.
 
 Verification Method:
-Automatic Exact Match Verification (Sourcify / PolygonScan Metadata Match)
+Solidity Standard JSON Input
 
 Deployment Order: 3
 ```
@@ -594,7 +594,7 @@ LaborCoinRegistrationV4 Verified:
 YES
 ```
 
-LaborCoinExchangeV3 Verified:
+LaborCoinExchangeV4 Verified:
 
 ```text
 YES
@@ -639,5 +639,5 @@ The LaborCoin Creator
 Verification Date:
 
 ```text
-2026-06-24
+2026-06-25
 ```
