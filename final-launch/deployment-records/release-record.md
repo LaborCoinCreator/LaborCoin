@@ -148,13 +148,13 @@ LaborCoinRegistrationV4 is the final registration contract for verified DAO part
 
 ---
 
-### LaborCoinExchangeV3.sol
+### LaborCoinExchangeV4.sol
 
 SHA256:
-82de27c817cf45c4e8a07c87c163aacae7ade1f4a21e76701958aa61ca8a80ff
+18bbfb468c1d24a6c031130afeca10ec0e1b03f17b698b8c277353058a12d271
 
 File Size:
-5899 bytes
+6571 bytes
 
 Notes:
 Final production deployment.
@@ -162,13 +162,13 @@ Final production deployment.
 Network: Polygon Mainnet
 
 Contract Address:
-0xE57ba76AED1B7B4142E3DfaBd6cf3E94970b86eA
+0x4Cf18cB39203B678f5C26f2338a10a79f9684749
 
 Deployment Transaction:
-0x7eafc77c8e5a0e5f2d2c6f83f2cd1fd4e104f963dca1c0325e2b93d563c9d876
+0xa5d1b14cd13c6aeaf7408878e4dddde141908dab12e27022ee565f5d207025fc
 
 Block Number:
-89043429
+89115657
 
 Deployment Order:
 3
@@ -204,7 +204,7 @@ _daoTreasury:
 
 Notes:
 
-LaborCoinExchangeV3 is the final production exchange contract implementing the LaborCoin bonding curve distribution system. The contract uses the Chainlink POL/USD oracle (0xAB594600376Ec9fD91F8e885dADF0CE036862dE0) to calculate POL-denominated prices from the USD bonding curve formula.
+LaborCoinExchangeV4 is the final production exchange contract implementing the LaborCoin bonding curve distribution system. The contract uses the Chainlink POL/USD oracle (0xAB594600376Ec9fD91F8e885dADF0CE036862dE0) to calculate POL-denominated prices from the USD bonding curve formula.
 
 The exchange begins with an initial unlocked tranche of 100,000,000 LABR and automatically unlocks additional 50,000,000 LABR tranches as distribution milestones are reached. Pricing follows the quadratic bonding curve defined in the LaborCoin whitepaper.
 
@@ -417,19 +417,19 @@ bf6ecded77da8917df464fffd6d05140744b559d4ca9d98773ad52ff88f47ad6
 
 ---
 
-### LaborCoinExchangeV3
+### LaborCoinExchangeV4
 
 Artifact File:
-final-launch/artifacts/LaborCoinExchangeV3/LaborCoinExchangeV3.json
+final-launch/artifacts/LaborCoinExchangeV4/LaborCoinExchangeV4.json
 
 Artifact SHA256:
-c5a14ec17c224fc1fbede89ec2e76b68b435647df12501ffa11c0efea80dd6e2
+8818a193ddd5041f8d47874568c6bc7ab00753ec10cf8bbfe163072073ffc249
 
 Metadata File:
-final-launch/artifacts/LaborCoinExchangeV3/LaborCoinExchangeV3_metadata.json
+final-launch/artifacts/LaborCoinExchangeV4/LaborCoinExchangeV4_metadata.json
 
 Metadata SHA256:
-5efedb64d0bbbd479e1764873729c3bf39a7099a01ab93974ab6ff72b6bde60a
+b7b70a5279454000bb97cc03713958808f5d5add353e1fea3dba99beb4e40061
 
 ---
 
