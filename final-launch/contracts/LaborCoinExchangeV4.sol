@@ -24,7 +24,7 @@ interface AggregatorV3Interface {
 }
 
 /* ========== MAIN CONTRACT ========== */
-contract LaborCoinExchangeV3 is ReentrancyGuard {
+contract LaborCoinExchangeV4 is ReentrancyGuard {
 
     IERC20 public immutable LABR;
 
@@ -37,6 +37,9 @@ contract LaborCoinExchangeV3 is ReentrancyGuard {
     uint256 public constant INITIAL_TRANCHE = 100_000_000 ether;
     uint256 public constant TRANCHE_SIZE = 50_000_000 ether;
     uint256 public constant COOLDOWN = 12 hours;
+
+    uint256 public constant MAX_EXCHANGE_WALLET = 10_000 ether;
+    uint256 public constant MAX_EXCHANGE_TX = 5_000 ether;
 
     uint256 public constant MAX_PRICE_POL = 100 ether;
 
@@ -127,6 +130,13 @@ contract LaborCoinExchangeV3 is ReentrancyGuard {
         uint256 price = getPrice(totalSold);
         uint256 expected = (msg.value * 1e18) / price;
 
+        require(expected <= MAX_EXCHANGE_TX, "Exceeds tx limit");
+
+        require(
+            LABR.balanceOf(msg.sender) + expected <= MAX_EXCHANGE_WALLET,
+            "Exceeds wallet limit"
+        );
+
         require(totalSold + expected <= unlockedSupply);
         require(LABR.balanceOf(address(this)) >= expected);
 
@@ -137,6 +147,11 @@ contract LaborCoinExchangeV3 is ReentrancyGuard {
         uint256 received = LABR.balanceOf(msg.sender) - before;
 
         require(received >= minTokensOut);
+
+        require(
+            LABR.balanceOf(msg.sender) <= MAX_EXCHANGE_WALLET,
+            "Exceeds wallet limit"
+        );
 
         totalSold += received;
 
@@ -158,6 +173,14 @@ contract LaborCoinExchangeV3 is ReentrancyGuard {
         cooldownCheck
     {
         require(amount > 0);
+
+        require(
+            LABR.balanceOf(msg.sender) <= MAX_EXCHANGE_WALLET,
+            "Wallet exceeds limit"
+        );
+
+        require(amount <= MAX_EXCHANGE_TX, "Exceeds tx limit");
+
         require(amount <= totalSold);
 
         uint256 price = getPrice(totalSold);
