@@ -1,8 +1,10 @@
-# LaborCoin Exchange V3
+# LaborCoin Exchange V4
 
 ## Address
 
-`DEPLOYMENT_PENDING`
+```text
+0x4Cf18cB39203B678f5C26f2338a10a79f9684749
+```
 
 ---
 
@@ -26,7 +28,7 @@ The contract is designed to operate as immutable public infrastructure with no p
 * Chainlink POL/USD oracle integration
 * Oracle anomaly protection
 * Immutable contract design
-* OpenZeppelin reentrancy protection
+* OpenZeppelin ReentrancyGuard protection
 
 ---
 
@@ -48,7 +50,7 @@ The exchange uses a deterministic quadratic bonding curve.
 
 LABR pricing increases automatically as additional tokens are sold. The curve is calculated entirely on-chain and does not depend on external market makers or liquidity providers.
 
-POL/USD pricing data is supplied through a Chainlink oracle to maintain consistent curve behavior relative to USD-denominated target pricing.
+POL/USD pricing data is supplied through the Chainlink oracle to maintain consistent curve behavior relative to USD-denominated target pricing.
 
 ---
 
@@ -57,7 +59,7 @@ POL/USD pricing data is supplied through a Chainlink oracle to maintain consiste
 LABR is released in tranches.
 
 * Initial circulating supply is limited to 100,000,000 LABR.
-* Additional tranches of 50,000,000 LABR unlock automatically as adoption grows.
+* Additional tranches of 50,000,000 LABR unlock automatically as distribution milestones are reached.
 * Total supply can never exceed 1,000,000,000 LABR.
 
 This mechanism limits early distribution while preserving long-term availability.
@@ -69,12 +71,12 @@ This mechanism limits early distribution while preserving long-term availability
 The exchange includes:
 
 * OpenZeppelin ReentrancyGuard
-* Cooldown enforcement
+* 12-hour cooldown enforcement
 * Supply tranche controls
 * Oracle freshness validation
 * Oracle anomaly protection
-* Slippage protection on buys
-* Slippage protection on sells
+* Buy slippage protection
+* Sell slippage protection
 
 The contract contains no pause functionality, no owner privileges, and no administrative withdrawal mechanisms.
 
@@ -82,7 +84,7 @@ The contract contains no pause functionality, no owner privileges, and no admini
 
 ## Immutability
 
-LaborCoin Exchange V3 is designed as immutable infrastructure.
+LaborCoin Exchange V4 is designed as immutable public infrastructure.
 
 The final launch version contains:
 
@@ -92,7 +94,7 @@ The final launch version contains:
 * No treasury withdrawal controls
 * No ownership transfer functionality
 
-POL reserves held by the exchange are permanently dedicated to exchange liquidity and seller payouts.
+POL liquidity reserves held by the exchange are permanently dedicated to exchange operations and seller payouts.
 
 ---
 
@@ -105,4 +107,4 @@ The exchange serves as the economic engine of the LaborCoin ecosystem by:
 * Funding the LaborCoin treasury through automated purchase taxes
 * Enforcing transparent and predictable issuance rules
 
-All pricing, issuance, and treasury funding logic is performed on-chain according to publicly verifiable rules.
+All pricing, issuance, treasury funding, and tranche unlocking logic is performed entirely on-chain according to publicly verifiable rules.
