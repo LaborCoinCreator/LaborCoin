@@ -6,23 +6,23 @@ LaborCoin is a governance-driven ecosystem designed to support worker solidarity
 
 The system consists of six primary components:
 
-```
+```text
 Users
   │
   ▼
-Registration System
+Registration System (V4)
   │
   ▼
-LABRV Voting Token
+LABRV Voting Token (V7)
   │
   ▼
 LaborCoin DAO
   │
-  ├─────────────► Treasury Module
+  ├─────────────► Treasury Module V1
   │
   ├─────────────► LABR Token
   │
-  └─────────────► Exchange V2
+  └─────────────► Exchange V4
 ```
 
 The architecture separates:
@@ -52,7 +52,7 @@ Responsibilities:
 
 Contract:
 
-```
+```text
 0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
 ```
 
@@ -65,7 +65,7 @@ Current Fee Structure:
 
 Total Sell Tax:
 
-```
+```text
 10%
 ```
 
@@ -80,12 +80,12 @@ Responsibilities:
 * Proposal management
 * Community voting
 * Treasury oversight
-* Protocol governance
-* Contract administration
+* Treasury execution authorization
+* Governance coordination
 
 Contract:
 
-```
+```text
 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
 ```
 
@@ -93,7 +93,7 @@ Governance decisions are executed through on-chain voting using LABRV.
 
 ---
 
-## 3. LABRV Voting Token
+## 3. LABRV Voting Token (V7)
 
 LABRV is a non-transferable governance token used exclusively for voting.
 
@@ -106,8 +106,8 @@ Properties:
 
 Contract:
 
-```
-0x113579220515cd59b884Ea2379b4C369025246e2
+```text
+0x833242E933c675846D8f8982048FecA95B8e435A
 ```
 
 The purpose of LABRV is to separate governance rights from economic ownership.
@@ -116,7 +116,7 @@ This reduces the influence of wealth concentration within governance processes.
 
 ---
 
-## 4. Registration System
+## 4. Registration System (V4)
 
 The registration system manages governance eligibility.
 
@@ -129,17 +129,17 @@ Responsibilities:
 
 Contract:
 
-```
-0xa7D0C092C2391379046cACDc56BEbDe5A0CBD113
+```text
+0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C
 ```
 
 The registration system serves as the gateway into governance participation.
 
 ---
 
-## 5. Exchange V2
+## 5. Exchange V4
 
-Exchange V2 is LaborCoin's bonding curve exchange.
+Exchange V4 is LaborCoin's bonding curve exchange.
 
 Responsibilities:
 
@@ -150,15 +150,15 @@ Responsibilities:
 
 Contract:
 
-```
-0xD0692ec758bb852421B702B187b6439f74f8Bf3b
+```text
+0x4Cf18cB39203B678f5C26f2338a10a79f9684749
 ```
 
 The exchange allows participants to enter and exit the ecosystem directly through the protocol rather than relying on external liquidity providers.
 
 ---
 
-## 6. Treasury Module
+## 6. Treasury Module V1
 
 The Treasury Module manages protocol treasury assets.
 
@@ -171,8 +171,8 @@ Responsibilities:
 
 Contract:
 
-```
-0x0B018E45E4cB71E222C345a5341BdbaeE519c623
+```text
+0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C
 ```
 
 Treasury assets are controlled through governance decisions approved by the DAO.
@@ -185,25 +185,26 @@ Treasury assets are controlled through governance decisions approved by the DAO.
 
 A participant:
 
-1. Completes registration requirements
-2. Receives LABRV
-3. Gains governance access
+1. Completes registration requirements.
+2. Receives one LABRV governance token.
+3. Gains governance access.
 
 ## Proposal
 
 A participant:
 
-1. Creates a proposal
-2. Proposal enters voting period
-3. LABRV holders vote
+1. Creates a proposal.
+2. Proposal enters the voting period.
+3. LABRV holders vote.
 
 ## Execution
 
 If a proposal passes:
 
-1. Voting concludes
-2. DAO executes approved actions
-3. Protocol state updates accordingly
+1. Voting concludes.
+2. The DAO authorizes execution.
+3. The Treasury Module distributes approved funds.
+4. Protocol state updates accordingly.
 
 ---
 
@@ -235,7 +236,7 @@ Treasury resources remain visible on-chain and are subject to governance oversig
 
 ### Open Verification
 
-All contracts are publicly deployed and verifiable.
+All contracts are publicly deployed and source verified.
 
 Protocol actions can be independently audited through blockchain records.
 
@@ -243,15 +244,15 @@ Protocol actions can be independently audited through blockchain records.
 
 # Deployed Contracts
 
-| Component       | Address                                    |
-| --------------- | ------------------------------------------ |
-| LABR Token      | 0x460DD873A1D2a41e77410B125cD3027C5FEd2f78 |
-| LaborCoin DAO   | 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4 |
-| Exchange V2     | 0xD0692ec758bb852421B702B187b6439f74f8Bf3b |
-| Governance V12  | 0x499b32e9E5a8b9865a9D69480d590252a56FA78F |
-| Registration V3 | 0xa7D0C092C2391379046cACDc56BEbDe5A0CBD113 |
-| LABRV V6        | 0x113579220515cd59b884Ea2379b4C369025246e2 |
-| Treasury Module | 0x0B018E45E4cB71E222C345a5341BdbaeE519c623 |
+| Component              | Address                                    |
+| ---------------------- | ------------------------------------------ |
+| LABR Token             | 0x460DD873A1D2a41e77410B125cD3027C5FEd2f78 |
+| LaborCoin DAO (Aragon) | 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4 |
+| Exchange V4            | 0x4Cf18cB39203B678f5C26f2338a10a79f9684749 |
+| Governance V13         | 0x8238105d31F6Bb26897d8Ab270a0A521FEF03E8c |
+| Registration V4        | 0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C |
+| LABRV V7               | 0x833242E933c675846D8f8982048FecA95B8e435A |
+| Treasury Module V1     | 0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C |
 
 ---
 
@@ -265,4 +266,4 @@ LaborCoin combines:
 * Automated market infrastructure
 * On-chain accountability
 
-The architecture is designed to balance decentralization, security, and long-term governance stability while providing a sustainable mechanism for worker-directed collective funding.
+The architecture is designed to balance decentralization, security, and long-term governance stability while providing a sustainable mechanism for worker-directed collective funding. The final production deployment consists of immutable, publicly verifiable smart contracts operating on Polygon Mainnet.
