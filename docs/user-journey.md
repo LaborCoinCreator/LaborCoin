@@ -4,13 +4,13 @@ Illustrates the participant pathway from acquiring LABR through governance parti
 graph TD
 
 POL[POL]
---> Exchange[Exchange V4]
+--> Exchange[Exchange]
 
 Exchange --> LABR[Acquire LABR]
 
 LABR --> Holder[LABR Holder]
 
-Holder --> Registration[Registration V4]
+Holder --> Registration[Registration]
 
 Registration --> LABRV[Receive LABRV]
 
