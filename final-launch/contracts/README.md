@@ -125,19 +125,19 @@ Detailed documentation for each contract can be found in the `/contracts-docs` d
 Participant
     │
     ▼
-Exchange V2
+Exchange V4
     │
     ▼
 LABR
     │
     ▼
-Registration V3
+Registration V4
     │
     ▼
-LABRV V6
+LABRV V7
     │
     ▼
-Governance V12
+Governance V13
     │
     ▼
 LaborCoin DAO
