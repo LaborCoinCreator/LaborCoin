@@ -27,7 +27,7 @@ v1.0-final-launch
 Deployment Date:
 
 ```text
-Jun-24-2026
+Jun-25-2026
 ```
 
 Network:
