@@ -437,6 +437,14 @@ DAO Treasury Received:
 
 No administrative withdrawal function existed on Exchange V2. Remaining dust balance was deemed economically insignificant and retained as a retired contract balance.
 
+Old Exchange V3:
+0xE57ba76AED1B7B4142E3DfaBd6cf3E94970b86eA
+
+Final LABR balance:
+0.0098180577244 LABR
+
+Status:
+Decommissioned / residual dust only
 
 ---
 
