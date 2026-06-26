@@ -766,13 +766,13 @@ Illustrates the participant pathway from acquiring LABR through governance parti
 graph TD
 
 POL[POL]
---> Exchange[Exchange V2]
+--> Exchange[Exchange V4]
 
 Exchange --> LABR[Acquire LABR]
 
 LABR --> Holder[LABR Holder]
 
-Holder --> Registration[Registration V3]
+Holder --> Registration[Registration V4]
 
 Registration --> LABRV[Receive LABRV]
 
@@ -3360,11 +3360,11 @@ The LABRV contract includes a designated minter role.
 
 The intended minter is:
 
-Registration V3
+Registration V4
 
 Contract Address:
 
-0xa7D0C092C2391379046cACDc56BEbDe5A0CBD113
+0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C
 
 When registration succeeds, the Registration Contract mints exactly one LABRV token to the participant.
 
@@ -3396,7 +3396,7 @@ The process consists of:
 
 ### Step 1
 
-Assign Registration V3 as LABRV minter.
+Assign Registration V4 as LABRV minter.
 
 ### Step 2
 
@@ -4154,7 +4154,7 @@ Dedicated execution contract responsible for carrying out approved treasury tran
 
 Current Address:
 
-`0x0B018E45E4cB71E222C345a5341BdbaeE519c623`
+`0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C`
 
 These components operate together but perform different functions.
 
@@ -6108,7 +6108,7 @@ Illustrates the flow of resources through the LaborCoin ecosystem. Economic part
 graph TD
 
 Participants[Participants]
---> Exchange[Exchange V2]
+--> Exchange[Exchange V4]
 
 Exchange
 --> Treasury[DAO Treasury]
@@ -6394,7 +6394,7 @@ The LABRV contract includes ownership functionality associated with minter confi
 
 Prior to decentralization:
 
-1. Registration V3 is assigned as the authorized minter.
+1. Registration V4 is assigned as the authorized minter.
 2. Registration functionality is validated.
 3. The minter configuration is permanently locked.
 
@@ -6715,11 +6715,11 @@ Purpose:
 
 ---
 
-### LaborCoin Exchange V2
+### LaborCoin Exchange V4
 
 Address:
 
-`0xD0692ec758bb852421B702B187b6439f74f8Bf3b`
+`0x4Cf18cB39203B678f5C26f2338a10a79f9684749`
 
 Purpose:
 
@@ -6730,11 +6730,11 @@ Purpose:
 
 ---
 
-### Registration V3
+### Registration V4
 
 Address:
 
-`0xa7D0C092C2391379046cACDc56BEbDe5A0CBD113`
+`0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C`
 
 Purpose:
 
@@ -6749,7 +6749,7 @@ Purpose:
 
 Address:
 
-`0x113579220515cd59b884Ea2379b4C369025246e2`
+`0x833242E933c675846D8f8982048FecA95B8e435A`
 
 Purpose:
 
@@ -6760,11 +6760,11 @@ Purpose:
 
 ---
 
-### Governance V12
+### Governance V13
 
 Address:
 
-`0x499b32e9E5a8b9865a9D69480d590252a56FA78F`
+`0x8238105d31F6Bb26897d8Ab270a0A521FEF03E8c`
 
 Purpose:
 
@@ -6793,7 +6793,7 @@ Purpose:
 
 Address:
 
-`0x0B018E45E4cB71E222C345a5341BdbaeE519c623`
+`0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C`
 
 Purpose:
 
@@ -6835,7 +6835,7 @@ Its role is limited to cryptographic authorization.
 
 ## 18.5 Exchange Oracle Dependency
 
-The Exchange V2 contract utilizes:
+The Exchange V4 contract utilizes:
 
 ### Chainlink POL/USD Oracle
 
@@ -7056,7 +7056,7 @@ Prior to final launch, the following actions should be completed and documented.
 
 ### LABRV
 
-☐ Registration V3 confirmed as minter
+☐ Registration V4 confirmed as minter
 
 ☐ Minter locked permanently
 
@@ -7126,10 +7126,10 @@ Governance[Governance]
 TreasuryModule[Treasury Module]
 --> Execution[Execution Only]
 
-Exchange[Exchange V2]
+Exchange[Exchange V4]
 --> Immutable1[Immutable Rules]
 
-Registration[Registration V3]
+Registration[Registration V4]
 --> Immutable2[Immutable Rules]
 
 LABRV[LABRV]
@@ -7782,7 +7782,7 @@ Prior to ownership renouncement:
 
 ### LABRV
 
-☐ Registration V3 assigned as minter
+☐ Registration V4 assigned as minter
 
 ☐ Minter locked permanently
 
@@ -9086,7 +9086,7 @@ flowchart TD
 
 ## LABRV
 
-☐ Registration V3 assigned as minter
+☐ Registration V4 assigned as minter
 
 ☐ Registration tested
 
@@ -9195,7 +9195,7 @@ Every participant can independently calculate the expected LABR price at any poi
 
 ## G.2 Mathematical Definition
 
-The Exchange V2 contract defines a normalized distribution variable:
+The Exchange V4 contract defines a normalized distribution variable:
 
 [
 x=\frac{S}{1,000,000,000}
@@ -9223,7 +9223,7 @@ Where:
 * (P(x)) = LABR price in USD
 * (x) = Fraction of maximum supply distributed
 
-This formula is derived directly from the Exchange V2 smart contract:
+This formula is derived directly from the Exchange V4 smart contract:
 
 [
 P_{min}=1
@@ -9406,7 +9406,7 @@ No administrative intervention is required.
 
 Figure 4. Bonding Curve Distribution Model.
 
-Illustrates the deterministic LABR pricing curve implemented by the deployed Exchange V2 contract. Prices increase quadratically from $1 to $15 as distribution progresses from 0% to 100% of maximum supply.
+Illustrates the deterministic LABR pricing curve implemented by the deployed Exchange V4 contract. Prices increase quadratically from $1 to $15 as distribution progresses from 0% to 100% of maximum supply.
 
 ```mermaid
 xychart-beta
@@ -9546,7 +9546,7 @@ $15
 
 across the full distribution of one billion LABR.
 
-The curve is denominated in USD, converted to POL through the Chainlink POL/USD oracle, and implemented directly within the Exchange V2 smart contract.
+The curve is denominated in USD, converted to POL through the Chainlink POL/USD oracle, and implemented directly within the Exchange V4 smart contract.
 
 Its purpose is to support transparent distribution, progressive scarcity, treasury growth, and long-term protocol sustainability while remaining simple enough to be independently audited and understood by participants.
 
@@ -10015,7 +10015,7 @@ Core immutable parameters governing the LABR token contract.
 
 Table 9. Exchange Constants.
 
-Immutable operational parameters governing Exchange V2.
+Immutable operational parameters governing Exchange V4.
 
 | Parameter                  |      Value |
 | -------------------------- | ---------: |
@@ -10255,10 +10255,10 @@ Governance[Governance]
 TreasuryModule[Treasury Module]
 --> ExecutionOnly[Execution Only]
 
-Exchange[Exchange V2]
+Exchange[Exchange V4]
 --> ImmutableExchange[Immutable Rules]
 
-Registration[Registration V3]
+Registration[Registration V4]
 --> ImmutableRegistration[Immutable Rules]
 
 LABRV[LABRV]
@@ -10270,7 +10270,7 @@ LABR[LABR]
 
 This represents the protocol's intended autonomous operating state.
 
-Following ownership renouncement, creator authority is eliminated. Governance retains authority only to approve treasury allocations. The Treasury Module retains execution authority only. LABR, LABRV, Registration V3, and Exchange V2 operate according to immutable protocol rules.
+Following ownership renouncement, creator authority is eliminated. Governance retains authority only to approve treasury allocations. The Treasury Module retains execution authority only. LABR, LABRV, Registration V4, and Exchange V4 operate according to immutable protocol rules.
 
 ---
 
