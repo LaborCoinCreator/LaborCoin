@@ -224,101 +224,11 @@ The contract records registration timestamps, assigns sequential member numbers,
 
 ---
 
-# Contract 3: LaborCoinExchangeV4
 
-Contract Name:
-
-```text
-LaborCoinExchangeV4
-```
-
-Source File:
-
-```text
-final-launch/contracts/LaborCoinExchangeV4.sol
-```
-
-Deployment Order:
-
-```text
-3
-```
-
-Constructor Signature:
-
-```solidity
-constructor(
-    address _labr,
-    address _daoTreasury
-)
-```
-
-Constructor Arguments:
-
-| Parameter    | Type    | Value                                      |
-| ------------ | ------- | ------------------------------------------ |
-| _labr        | address | 0x460DD873A1D2a41e77410B125cD3027C5FEd2f78 |
-| _daoTreasury | address | 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4 |
-
-Raw Constructor Arguments:
-
-```text
-_labr = 0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
-
-_daoTreasury = 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
-```
-
-Encoded Constructor Arguments:
-
-```text
-000000000000000000000000460dd873a1d2a41e77410b125cd3027c5fed2f780000000000000000000000000c2e5679153593b82a84eab5ca90895bb291cec4
-```
-
-Contract Address:
-
-```text
-0x4Cf18cB39203B678f5C26f2338a10a79f9684749
-```
-
-Deployment Transaction:
-
-```text
-0xa5d1b14cd13c6aeaf7408878e4dddde141908dab12e27022ee565f5d207025fc
-```
-
-Verification Status:
-
-```text
-Verified
-```
-
-Notes:
-
-```text
-Final production deployment.
-
-Successfully verified on Polygonscan as an Exact Match.
-
-Compiler Version: 0.8.30
-EVM Version: Prague
-Optimizer: Enabled (200 runs)
-OpenZeppelin Version: 5.6.1
-License: MIT
-
-Chainlink POL/USD Oracle:
-0xAB594600376Ec9fD91F8e885dADF0CE036862dE0
-
-Implements the final LaborCoin bonding curve exchange with tranche unlocking, buy and sell functionality, wallet and transaction limits, DAO treasury funding, cooldown enforcement, and oracle-based POL pricing.
-
-Verification Method:
-Solidity Standard JSON Input
-
-Deployment Order: 3
-```
 
 ---
 
-# Contract 4: LaborCoinTreasuryModuleV1
+# Contract 3: LaborCoinTreasuryModuleV1
 
 Contract Name:
 
@@ -404,11 +314,11 @@ The contract contains no owner, no upgrade mechanism, no admin withdrawal functi
 
 Only the configured DAO may execute transfers through executeTransfer(). Transfer amounts are determined by the POL value supplied with the DAO call.
 
-Deployment Order: 4
+Deployment Order: 3
 ```
 ---
 
-# Contract 5: LaborCoinGovernanceV13
+# Contract 4: LaborCoinGovernanceV13
 
 Contract Name:
 
@@ -520,6 +430,100 @@ Treasury distributions are limited to a maximum of 5% of the DAO treasury balanc
 Replay protection is implemented through signature validation, nonce tracking, and signature expiry enforcement.
 
 The contract contains no owner privileges, no upgrade mechanism, no administrative override capability, and no post-deployment parameter modification functions.
+
+Deployment Order: 4
+```
+
+---
+
+# Contract 5: LaborCoinExchangeV4
+
+Contract Name:
+
+```text
+LaborCoinExchangeV4
+```
+
+Source File:
+
+```text
+final-launch/contracts/LaborCoinExchangeV4.sol
+```
+
+Deployment Order:
+
+```text
+3
+```
+
+Constructor Signature:
+
+```solidity
+constructor(
+    address _labr,
+    address _daoTreasury
+)
+```
+
+Constructor Arguments:
+
+| Parameter    | Type    | Value                                      |
+| ------------ | ------- | ------------------------------------------ |
+| _labr        | address | 0x460DD873A1D2a41e77410B125cD3027C5FEd2f78 |
+| _daoTreasury | address | 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4 |
+
+Raw Constructor Arguments:
+
+```text
+_labr = 0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
+
+_daoTreasury = 0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
+```
+
+Encoded Constructor Arguments:
+
+```text
+000000000000000000000000460dd873a1d2a41e77410b125cd3027c5fed2f780000000000000000000000000c2e5679153593b82a84eab5ca90895bb291cec4
+```
+
+Contract Address:
+
+```text
+0x4Cf18cB39203B678f5C26f2338a10a79f9684749
+```
+
+Deployment Transaction:
+
+```text
+0xa5d1b14cd13c6aeaf7408878e4dddde141908dab12e27022ee565f5d207025fc
+```
+
+Verification Status:
+
+```text
+Verified
+```
+
+Notes:
+
+```text
+Final production deployment.
+
+Successfully verified on Polygonscan as an Exact Match.
+
+Compiler Version: 0.8.30
+EVM Version: Prague
+Optimizer: Enabled (200 runs)
+OpenZeppelin Version: 5.6.1
+License: MIT
+
+Chainlink POL/USD Oracle:
+0xAB594600376Ec9fD91F8e885dADF0CE036862dE0
+
+Implements the final LaborCoin bonding curve exchange with tranche unlocking, buy and sell functionality, wallet and transaction limits, DAO treasury funding, cooldown enforcement, and oracle-based POL pricing.
+
+Verification Method:
+Solidity Standard JSON Input
 
 Deployment Order: 5
 ```
