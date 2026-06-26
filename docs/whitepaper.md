@@ -8761,13 +8761,13 @@ In that sense, LaborCoin should be understood not as a finished answer to collec
 This table identifies the primary smart contracts comprising the LaborCoin protocol. Contract addresses, deployment metadata, verification status, and ownership status are provided to facilitate independent verification of protocol architecture and decentralization status.
 
 | Contract Name | Contract Address | Deployment Block | Deployment Date (UTC) | Verified Source | Ownership Status |
-|--------------|------------------|------------------|----------------------|----------------|------------------|
+|--------------|------------------|-----------------:|-----------------------|----------------|------------------|
 | LABR Token | [0x460DD873A1D2a41e77410B125cD3027C5FEd2f78](https://polygonscan.com/address/0x460DD873A1D2a41e77410B125cD3027C5FEd2f78) | 69797383 | Apr-02-2025 07:56:25 AM +UTC | Yes | DAO Controlled |
-| Exchange V2 | [0xD0692ec758bb852421B702B187b6439f74f8Bf3b](https://polygonscan.com/address/0xD0692ec758bb852421B702B187b6439f74f8Bf3b) | 86058988 | Apr-26-2026 09:13:40 PM +UTC | No | DAO Controlled |
-| LABRV V6 | [0x113579220515cd59b884Ea2379b4C369025246e2](https://polygonscan.com/address/0x113579220515cd59b884Ea2379b4C369025246e2) | 86338827 | May-03-2026 08:41:38 AM +UTC | No | DAO Controlled |
-| Treasury Module | [0x0B018E45E4cB71E222C345a5341BdbaeE519c623](https://polygonscan.com/address/0x0B018E45E4cB71E222C345a5341BdbaeE519c623) | 88062691 | Jun-07-2026 02:23:42 AM +UTC | Yes | Autonomous |
-| Registration V3 | [0xa7D0C092C2391379046cACDc56BEbDe5A0CBD113](https://polygonscan.com/address/0xa7D0C092C2391379046cACDc56BEbDe5A0CBD113) | 87377671 | May-24-2026 07:23:53 PM +UTC | No | DAO Controlled |
-| Governance V12 | [0x499b32e9E5a8b9865a9D69480d590252a56FA78F](https://polygonscan.com/address/0x499b32e9E5a8b9865a9D69480d590252a56FA78F) | 88062745 | Jun-07-2026 02:25:03 AM +UTC | Yes | DAO Controlled |
+| LaborVote (LABRV) V7 | [0x833242E933c675846D8f8982048FecA95B8e435A](https://polygonscan.com/address/0x833242E933c675846D8f8982048FecA95B8e435A) | 88595455 | Jun-16-2026 08:22:48 AM +UTC | Yes | Ownership Renounced / Minter Permanently Locked |
+| LaborCoin Registration V4 | [0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C](https://polygonscan.com/address/0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C) | 88997813 | Jun-22-2026 | Yes | Autonomous |
+| LaborCoin Treasury Module V1 | [0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C](https://polygonscan.com/address/0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C) | 89052358 | Jun-24-2026 | Yes | Autonomous (DAO Only) |
+| LaborCoin Governance V13 | [0x8238105d31F6Bb26897d8Ab270a0A521FEF03E8c](https://polygonscan.com/address/0x8238105d31F6Bb26897d8Ab270a0A521FEF03E8c) | 89084762 | Jun-24-2026 08:15:38 PM +UTC | Yes | Autonomous |
+| LaborCoin Exchange V4 | [0x4Cf18cB39203B678f5C26f2338a10a79f9684749](https://polygonscan.com/address/0x4Cf18cB39203B678f5C26f2338a10a79f9684749) | 89115657 | Jun-25-2026 09:08:01 AM +UTC | Yes | Autonomous |
 
 
 **Ownership Status Definitions**
