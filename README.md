@@ -1,214 +1,411 @@
-[README.md](https://github.com/user-attachments/files/29404708/README.md)
 # LaborCoin
 
-A decentralized governance and funding system designed to support worker
-solidarity through collective resource allocation, democratic
-decision-making, and transparent on-chain coordination.
-
-LaborCoin combines an immutable bonding curve economy, a
-non-transferable governance token, and a DAO-managed treasury to enable
-participants to collectively direct resources toward worker support
-initiatives, strike assistance, educational projects, mutual aid
-efforts, and other community-approved purposes.
+### Open Infrastructure for Democratic Worker Funding
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Network](https://img.shields.io/badge/network-Polygon-purple)
-![Status](https://img.shields.io/badge/status-Final_Launch-success)
+![Status](https://img.shields.io/badge/status-Production-green)
+![Solidity](https://img.shields.io/badge/Solidity-0.8.30-black)
 
-------------------------------------------------------------------------
+---
 
-# Quick Links
+## Overview
 
-## Project Resources
+LaborCoin is an open-source blockchain protocol designed to help workers and supporters collectively build shared financial resources through transparent, democratic governance.
 
--   🌐 Website: https://www.laborcoin.tech/
--   📖 Whitepaper: docs/whitepaper.md
--   📕 Redpaper: docs/redpaper.md
+The protocol combines an ERC-20 utility token, identity-gated governance, an immutable bonding curve exchange, and an on-chain treasury governed through an Aragon DAO.
 
-## Documentation
+LaborCoin is designed as public infrastructure.
 
--   🏗️ docs/architecture.md
--   🗳️ docs/governance.md
--   🧩 final-launch/contracts/contract-map.md
--   🚀 final-launch/deployment-records/README.md
+The protocol emphasizes:
 
-------------------------------------------------------------------------
+- democratic participation
+- transparent treasury management
+- immutable economic rules
+- publicly verifiable smart contracts
+- open-source development
 
-# Mission
+---
 
-LaborCoin explores how blockchain technology can strengthen collective
-action through transparent, democratic and publicly auditable
-infrastructure.
+## How the Protocol Works
 
-The protocol enables participants to collectively build and govern a
-treasury that may support worker solidarity, strike assistance,
-educational initiatives, mutual aid projects, and other
-community-approved purposes.
+```
 
-------------------------------------------------------------------------
+Workers & Supporters
+│
+▼
+Bonding Curve Exchange
+│
+▼
+LABR Token
+│
+▼
+Registration
+│
+▼
+LABRV Governance Token
+│
+▼
+Governance Voting
+│
+▼
+Aragon DAO
+│
+▼
+Treasury Module
+│
+▼
+Approved Treasury Distribution
 
-# Protocol Overview
+```
 
-LaborCoin separates economic participation from governance
-participation.
+---
 
-1.  Acquire LABR through the LaborCoin Exchange V4.
-2.  Hold at least 1 LABR.
-3.  Complete identity verification requirements (Gitcoin Passport score
-    threshold and verifier signature).
-4.  Register through LaborCoin Registration V4.
-5.  Receive one non-transferable LABRV governance token.
-6.  Create proposals and vote through Governance V13.
-7.  Approved proposals authorize distributions from the DAO Treasury
-    through Treasury Module V1.
+## Protocol Flow
 
-------------------------------------------------------------------------
+1. Participants acquire LABR through the protocol exchange.
+
+2. Participants complete registration.
+
+3. Registration verifies eligibility and mints one non-transferable LABRV governance token.
+
+4. LABRV holders vote on treasury proposals.
+
+5. Approved proposals execute through the Aragon DAO treasury.
+
+---
 
 # Core Components
 
-  Component               Purpose
-  ----------------------- ----------------------------------------
-  LaborCoin Exchange V4   Protocol-native bonding curve exchange
-  LABR Token              Economic participation token
-  Registration V4         Governance eligibility
-  LaborVote (LABRV) V7    Non-transferable governance token
-  Governance V13          Proposal and voting logic
-  Aragon DAO Treasury     Treasury governance
-  Treasury Module V1      Executes approved treasury transfers
+| Component | Purpose |
+|------------|---------|
+| LABR | ERC-20 utility token |
+| LaborVote (LABRV) | Non-transferable governance token |
+| Registration | Identity-gated participant registration |
+| Exchange | Bonding curve token exchange |
+| Treasury Module | Executes approved treasury transfers |
+| Governance | Proposal creation and voting |
+| Aragon DAO | Treasury ownership and execution |
 
-------------------------------------------------------------------------
+---
 
-# Protocol Architecture
+# Features
 
-``` text
-Users
-  │
-  ├──────────────► Exchange V4
-  │                   │
-  │                   ▼
-  │                 LABR
-  │
-  └──────────────► Registration V4
-                      │
-                      ▼
-                 LABRV V7
-                      │
-                      ▼
-             Governance V13
-                      │
-                      ▼
-             Aragon DAO Treasury
-                      │
-                      ▼
-          Treasury Module V1
-                      │
-                      ▼
-          Approved Distributions
-```
+- Deterministic bonding curve pricing
+- ERC-20 utility token
+- ERC20Votes governance
+- Soulbound governance participation
+- DAO-controlled treasury
+- Gitcoin Passport integration
+- Signature-based registration
+- Replay protection
+- Chainlink oracle pricing
+- Automated dividend funding
+- Immutable production contracts
+- Public source verification
+- Open-source architecture
 
-------------------------------------------------------------------------
+---
+
+# Core Design Principles
+
+LaborCoin is built around several protocol-level principles.
+
+## Immutable Production
+
+Production contracts are intended to become immutable following deployment and ownership finalization.
+
+## Democratic Governance
+
+Treasury distributions require on-chain governance approval before execution.
+
+## Public Transparency
+
+Protocol logic, documentation, deployments, and governance activity are publicly accessible.
+
+## Identity-Gated Governance
+
+Each verified participant may receive one governance token through protocol registration.
+
+## Separation of Roles
+
+Economic participation and governance participation are intentionally separated.
+
+---
+
+# Security Model
+
+The protocol incorporates multiple security mechanisms.
+
+## Smart Contract Security
+
+- ReentrancyGuard
+- Replay-protected signatures
+- Signature expiration
+- Ownership renunciation
+- Permanent minter locking
+- Immutable protocol parameters where applicable
+
+## Oracle Security
+
+- Chainlink POL/USD price feed
+- Oracle freshness validation
+- Oracle anomaly detection
+
+## Governance Security
+
+- Identity-gated governance
+- Treasury execution through DAO authorization
+- Governance quorum requirements
+- Approval thresholds
+- Treasury distribution limits
+
+---
 
 # Protocol Parameters
 
-  Parameter                    Value
-  ---------------------------- ----------------------------
-  Network                      Polygon Mainnet
-  Total Supply                 1,000,000,000 LABR
-  Initial Tranche              100,000,000 LABR
-  Tranche Unlock               50,000,000 LABR
-  Buy Treasury Allocation      10% of POL
-  Sell Tax                     5% Treasury / 5% Dividends
-  Exchange Wallet Limit        10,000 LABR
-  Exchange Transaction Limit   5,000 LABR
-  Cooldown                     12 Hours
-  Governance Quorum            25%
-  Governance Approval          67%
-  Voting Period                14 Days
-  Execution Window             7 Days
-  Treasury Distribution Cap    5% of DAO Treasury
-  Minimum Registered Members   50
+| Parameter | Value |
+|------------|------:|
+| Network | Polygon Mainnet |
+| Total Supply | 1,000,000,000 LABR |
+| Initial Distribution | 100,000,000 |
+| Subsequent Distribution | 50,000,000 |
+| Buy Treasury Allocation | 10% POL |
+| Sell Treasury Tax | 5% |
+| Sell Dividend Tax | 5% |
+| Burn Tax | 0% |
+| Wallet Cooldown | 12 Hours |
+| Governance Participation | 25% |
+| Governance Approval | 67% |
+| Treasury Transfer Cap | 5% |
+| Registration Requirement | ≥1 LABR |
+| Passport Threshold | 15 |
 
-------------------------------------------------------------------------
+---
 
-# Deployed Contracts
+# Repository Layout
 
-This table identifies the primary smart contracts comprising the LaborCoin protocol. Contract addresses, deployment metadata, verification status, and ownership status are provided to facilitate independent verification of protocol architecture and decentralization status.
+```
 
-| Contract Name | Contract Address | Deployment Block | Deployment Date (UTC) | Verified Source | Ownership Status |
-|--------------|------------------|-----------------:|-----------------------|----------------|------------------|
-| LABR Token | [0x460DD873A1D2a41e77410B125cD3027C5FEd2f78](https://polygonscan.com/address/0x460DD873A1D2a41e77410B125cD3027C5FEd2f78) | 69797383 | Apr-02-2025 07:56:25 AM +UTC | Yes | DAO Controlled |
-| LaborVote (LABRV) V7 | [0x833242E933c675846D8f8982048FecA95B8e435A](https://polygonscan.com/address/0x833242E933c675846D8f8982048FecA95B8e435A) | 88595455 | Jun-16-2026 08:22:48 AM +UTC | Yes | Ownership Renounced / Minter Permanently Locked |
-| LaborCoin Registration V4 | [0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C](https://polygonscan.com/address/0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C) | 88997813 | Jun-22-2026 | Yes | Autonomous |
-| LaborCoin Treasury Module V1 | [0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C](https://polygonscan.com/address/0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C) | 89052358 | Jun-24-2026 | Yes | Autonomous (DAO Only) |
-| LaborCoin Governance V13 | [0x8238105d31F6Bb26897d8Ab270a0A521FEF03E8c](https://polygonscan.com/address/0x8238105d31F6Bb26897d8Ab270a0A521FEF03E8c) | 89084762 | Jun-24-2026 08:15:38 PM +UTC | Yes | Autonomous |
-| LaborCoin Exchange V4 | [0x4Cf18cB39203B678f5C26f2338a10a79f9684749](https://polygonscan.com/address/0x4Cf18cB39203B678f5C26f2338a10a79f9684749) | 89115657 | Jun-25-2026 09:08:01 AM +UTC | Yes | Autonomous |
+contracts/
+├── Exchange
+├── Governance
+├── Registration
+├── Treasury
+└── Token
 
+contracts-docs/
 
-**Ownership Status Definitions**
+deployments/
 
-| Status | Description |
-|---------|-------------|
-| Creator Controlled | Administrative authority remains with the original deployer. |
-| DAO Controlled | Administrative authority is exercised through governance mechanisms. |
-| Autonomous | No privileged administrator exists following ownership renouncement. |
-| Immutable | Contract contains no administrative functions or upgrade authority. |
+docs/
 
-**Verification Status**
+frontend/
 
-| Status | Description |
-|---------|-------------|
-| Yes | Source code has been publicly verified and can be independently audited. |
-| No | Source code has not yet been publicly verified. |
+assets/
 
-------------------------------------------------------------------------
+```
 
-# Project Status
+---
 
-**Network:** Polygon Mainnet
+# Documentation
 
-**Status:** Final Launch Complete - Documentation in Progress
+## Whitepaper
 
-All production contracts have been deployed, verified, and transitioned
-to their intended immutable governance model.
+Technical specification of the protocol.
 
-------------------------------------------------------------------------
+```
+docs/whitepaper.md
+```
+
+## Redpaper
+
+Project philosophy and long-term vision.
+
+```
+docs/redpaper.md
+```
+
+## Architecture
+
+System architecture and contract relationships.
+
+```
+docs/architecture.md
+```
+
+## Governance
+
+Governance rules and proposal lifecycle.
+
+```
+docs/governance.md
+```
+
+## Contract Map
+
+Relationships between deployed contracts.
+
+```
+docs/contract-map.md
+```
+
+## Deployments
+
+Deployment records and verified addresses.
+
+```
+deployments/
+```
+
+---
+
+# Smart Contracts
+
+| Contract | Description |
+|-----------|-------------|
+| LABR Token | ERC-20 utility token |
+| LaborVote | ERC20Votes governance token |
+| Registration | Participant registration |
+| Exchange | Bonding curve exchange |
+| Treasury Module | Treasury execution |
+| Governance | Proposal management |
+
+---
+
+# Production Deployment
+
+Network:
+
+```
+Polygon Mainnet
+```
+
+Compiler:
+
+```
+Solidity 0.8.30
+```
+
+Optimizer:
+
+```
+Enabled
+Runs: 200
+```
+
+EVM Version
+
+```
+Prague
+```
+
+License
+
+```
+MIT
+```
+
+---
+
+# Development
+
+Clone the repository.
+
+```bash
+git clone https://github.com/LaborCoinCreator/LaborCoin.git
+```
+
+Install dependencies.
+
+```bash
+npm install
+```
+
+Compile.
+
+```bash
+npx hardhat compile
+```
+
+Run tests.
+
+```bash
+npx hardhat test
+```
+
+---
+
+# Verification
+
+All production contracts are intended to be:
+
+- Source verified
+- Publicly documented
+- Deterministically deployed
+- Linked to deployment records
+- Referenced within the whitepaper
+
+---
+
+# Contributing
+
+Pull requests are welcome.
+
+For significant protocol changes, please open an issue first to discuss the proposed modification.
+
+Development discussions should prioritize protocol security, determinism, documentation quality, and long-term maintainability.
+
+---
 
 # Security
 
--   Immutable production contracts
--   Publicly verified source code
--   OpenZeppelin ReentrancyGuard
--   Chainlink POL/USD oracle
--   Oracle freshness and anomaly protection
--   Replay protection
--   Wallet and transaction limits
--   Deterministic bonding curve
--   Transparent on-chain treasury
+If you discover a security issue, please do not publicly disclose it immediately.
 
-------------------------------------------------------------------------
+Instead, responsibly disclose the issue so that it can be investigated before public discussion.
 
-# Design Principles
-
--   Transparent governance
--   Equal voting power
--   Separation of governance and economic ownership
--   Immutable protocol rules
--   Public verification
--   Open-source development
--   Long-term community stewardship
-
-------------------------------------------------------------------------
-
-# Disclaimer
-
-LaborCoin is experimental blockchain software. Participation involves
-interacting with smart contracts and decentralized governance systems.
-Review the documentation and deployed contracts before participating.
-Nothing in this repository constitutes legal, financial, or investment
-advice.
-
-------------------------------------------------------------------------
+---
 
 # License
 
-MIT
+Released under the MIT License.
+
+See:
+
+```
+LICENSE
+```
+
+---
+
+# Additional Resources
+
+Website
+
+https://www.laborcoin.tech
+
+Whitepaper
+
+https://www.laborcoin.tech/whitepaper
+
+GitHub
+
+https://github.com/LaborCoinCreator/LaborCoin
+
+---
+
+# Project Status
+
+Current Status
+
+✅ Production Deployment
+
+✅ Source Verified
+
+✅ Documentation Complete
+
+✅ DAO Controlled Treasury
+
+✅ Open Source
+
+✅ MIT Licensed
