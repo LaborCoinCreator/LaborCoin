@@ -1,16 +1,11 @@
 ```mermaid
 flowchart TD
-    Exchange --> LABR
-    LABR <--> Registration
-    Registration <--> Passport
-    Registration --> LABRV
-    LABRV --> Governance
-    Governance --> Treasury
-    Treasury --> TreasuryModule
+    Exchange[Exchange V4] --> LABR[LABR Token]
+    LABR --> Registration[Registration V4]
+    Passport[Passport + Verifier Service] --> Registration
+    Registration --> LABRV[LaborVote V7 / LABRV]
+    LABRV --> Governance[Governance V13]
+    Governance --> DAO[Aragon DAO Treasury]
+    DAO --> TreasuryModule[Treasury Module V1]
+    TreasuryModule --> Recipients[Approved Recipients]
 ```
-
-The protocol intentionally separates economic participation from governance participation.
-
-Ownership of LABR alone does not confer governance authority.
-
-Governance rights require successful registration and issuance of LABRV.
