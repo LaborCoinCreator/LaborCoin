@@ -454,9 +454,9 @@ LABRV is the non-transferable governance credential used by Governance V13.
 
 ### ERC20Votes Delegation Behavior
 
-Registration V4 mints LABRV when the registering address does not already hold the token. It does not call the inherited ERC20Votes `delegate` function, and LaborVote V7 does not automatically delegate voting power during minting.
+Registration V4 mints LABRV upon successful registration. After the registration transaction confirms, the official DAO frontend checks the participant’s ERC20Votes delegation state and, when necessary, requests a separate self-delegation transaction. 
 
-A LABRV holder may separately call `delegate` or `delegateBySig`, which updates the ERC20Votes checkpoint system. That delegation state is not used by Governance V13. Governance V13 checks LABRV `balanceOf` directly and records one vote for each eligible LABRV-holding address.
+Self-delegation establishes ERC20Votes checkpoints but is not used by Governance V13 to calculate proposal or voting eligibility, which is determined directly from LABRV ownership.
 
 Accordingly:
 
