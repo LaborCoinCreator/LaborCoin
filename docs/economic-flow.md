@@ -1,3 +1,4 @@
+```mermaid
 graph TD
 
 Participants[Participants]
@@ -20,3 +21,4 @@ Module
 
 Recipients
 --> Ecosystem[Ecosystem Impact]
+```
