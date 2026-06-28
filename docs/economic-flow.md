@@ -1,24 +1,22 @@
-Illustrates the complete circulation of resources through the protocol.
-
-```mermaid
 graph TD
 
-Participants
---> Exchange
+Participants[Participants]
+--> Exchange[Exchange V4]
 
 Exchange
---> Treasury
+--> Treasury[Aragon DAO Treasury]
 
 Treasury
---> Governance
+--> Governance[Governance V13]
 
 Governance
---> TreasuryModule[Treasury Module]
+--> DAO[Aragon DAO Execute]
 
-TreasuryModule
---> Recipients
+DAO
+--> Module[Treasury Module V1]
+
+Module
+--> Recipients[Recipients]
 
 Recipients
---> Ecosystem
-```
-The result is a self-contained cycle connecting economic participation to collective resource allocation.
+--> Ecosystem[Ecosystem Impact]
