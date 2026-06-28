@@ -1,7 +1,5 @@
-[architecture.md](https://github.com/user-attachments/files/29429330/architecture.md)
+[architecture (1).md](https://github.com/user-attachments/files/29429486/architecture.1.md)
 # LaborCoin Architecture
-
-SHA-256: e02b8d8d24c4130df8bf091462c29bd03afb0b9361ba386a8ff826a2e99351e4
 
 ## Overview
 
@@ -454,7 +452,17 @@ LABRV is the non-transferable governance credential used by Governance V13.
 * Equal governance weight in Governance V13
 * ERC20Votes-based, although Governance V13 checks token ownership directly
 
-Self-delegation is not required for LaborCoin governance. Governance V13 uses LABRV `balanceOf` eligibility and records one vote per eligible participant.
+### ERC20Votes Delegation Behavior
+
+Registration V4 mints LABRV when the registering address does not already hold the token. It does not call the inherited ERC20Votes `delegate` function, and LaborVote V7 does not automatically delegate voting power during minting.
+
+A LABRV holder may separately call `delegate` or `delegateBySig`, which updates the ERC20Votes checkpoint system. That delegation state is not used by Governance V13. Governance V13 checks LABRV `balanceOf` directly and records one vote for each eligible LABRV-holding address.
+
+Accordingly:
+
+* No delegation transaction is required to create proposals or vote through Governance V13.
+* Registration V4 does not perform self-delegation on behalf of the participant.
+* A separate delegation transaction affects ERC20Votes checkpoints only and does not increase or activate Governance V13 voting weight.
 
 ### Minting Model
 
@@ -743,7 +751,7 @@ flowchart TD
     Registration --> LABRV[Mint 1 LABRV if needed]
 ```
 
-The attestation is part of the official interface and verifier workflow. The on-chain Registration V4 conditions are the LABR balance, registration state, verifier signature, expiration, and LABRV minting rules.
+The attestation is part of the official interface and verifier workflow. The on-chain Registration V4 conditions are the LABR balance, registration state, verifier signature, expiration, and LABRV minting rules. Registration V4 does not initiate ERC20Votes delegation; no delegation is required by Governance V13 because it checks LABRV ownership directly.
 
 ## Governance Proposal and Voting Flow
 
