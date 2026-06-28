@@ -1,10 +1,15 @@
 # Aragon Permission Records
 
 Network: Polygon Mainnet
+
 Chain ID: 137
+
 DAO Treasury / DAO Address: `0x0C2e5679153593b82a84eAB5CA90895BB291Cec4`
+
 Admin Plugin: `0xB51Bf5812Fd8FF0c3F1A1AB1e8F24426d497D5CF`
+
 Permission ID: `EXECUTE_PERMISSION_ID`
+
 Permission ID Hash: `0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d`
 
 ## Purpose
@@ -16,7 +21,9 @@ The permission grants were executed through the Aragon Admin Plugin using `execu
 ## Permission Grant: Governance Contract
 
 Authorized Contract: `0x8238105d31F6Bb26897d8Ab270a0A521FEF03E8c`
+
 Target DAO: `0x0C2e5679153593b82a84eAB5CA90895BB291Cec4`
+
 Permission: `EXECUTE_PERMISSION_ID`
 
 Transaction Hash:
