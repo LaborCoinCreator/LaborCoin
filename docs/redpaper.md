@@ -1,8 +1,8 @@
-# LaborCoin Redpaper
+# LaborCoin Redpaper - Final Draft Phase
 
 ## Introduction
 
-If you have tried to answer the question “why has there not been a general strike in the United States?” you will inevitably arrive at the conclusion that wage slavery and economic retaliation prevent such action. LaborCoin is an answer to this problem. If you have been alarmed at the very prominent crypto scams and the millions of dollars they circulate, you may have asked yourself “what would a crypto project that isn’t a scam look like?” If you are working-class, you may have asked yourself, “is there a way to use this technology to fight exploitation?” LaborCoin is an answer to these questions. This is a new tool for the working class, a path forward in the class struggle.
+If you have tried to answer the question “why has there not been a general strike in the United States?” you will inevitably arrive at the conclusion that wage slavery and economic retaliation prevent such action. LaborCoin is an answer to this problem. If you have been alarmed at the very prominent crypto scams and the millions of dollars they circulate, you may have asked yourself “what would a crypto project that isn’t a scam look like?” LaborCoin is an answer to this question. If you are working-class, you may have asked yourself, “is there a way to use this technology to fight exploitation?” LaborCoin is an answer to this question. This is a new tool for the working class, a path forward in the class struggle.
 
 ---
 
