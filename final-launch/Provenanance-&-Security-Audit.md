@@ -321,6 +321,146 @@ Review:
 
 ---
 
+# 17. Post-Launch Monitoring Plan
+
+Even after immutable launch, LaborCoin should remain publicly observable. This section defines what should be monitored after launch without requiring centralized control or protocol modification.
+
+---
+
+## 17.1 Monitoring Purpose
+
+The purpose of post-launch monitoring is to detect:
+
+* Unexpected treasury activity
+* Unexpected interactions with retired contracts
+* Failed or suspicious governance executions
+* Exchange irregularities
+* Registration failures
+* Oracle availability issues
+* Front-end dependency issues
+* Unusual token movement
+* Attempts to interact with obsolete contracts
+
+Monitoring is observational only. It does not imply administrative control over the protocol.
+
+---
+
+## 17.2 Addresses to Monitor
+
+| Component                    | Address | Expected Activity                               | Alert Condition                     |
+| ---------------------------- | ------- | ----------------------------------------------- | ----------------------------------- |
+| DAO Treasury                 |         | Incoming buy/sell taxes, executed distributions | Unexpected outgoing transfer        |
+| Governance V13               |         | Proposal creation, voting, execution            | Failed or abnormal execution        |
+| Final Exchange               |         | Buy/sell activity                               | Unexpected balance retention        |
+| LABR Token                   |         | Transfers, taxes, dividends                     | Abnormal large movement             |
+| LABRV Token                  |         | Minting through registration only               | Transfer attempt or unexpected mint |
+| Registration V4              |         | Registration transactions                       | Repeated failures or abuse pattern  |
+| Treasury Module V1           |         | DAO-authorized execution only                   | Unexpected direct interaction       |
+| Retired Governance Contracts |         | None                                            | Any new transaction                 |
+| Retired Exchange Contracts   |         | None                                            | Any new transaction                 |
+| Retired Treasury Modules     |         | None                                            | Any new transaction                 |
+
+---
+
+## 17.3 Treasury Monitoring
+
+| Date | Tx Hash | Direction | Counterparty | Amount | Expected | Notes |
+| ---- | ------- | --------- | ------------ | ------ | -------- | ----- |
+
+Review:
+
+* DAO treasury POL balance
+* Incoming exchange tax payments
+* Outgoing DAO-approved distributions
+* Unexpected direct transfers
+* Failed proposal executions
+
+---
+
+## 17.4 Retired Contract Monitoring
+
+Retired contracts should remain inactive after launch.
+
+| Retired Contract | Address | Last Known Status | New Activity Detected | Action |
+| ---------------- | ------- | ----------------- | --------------------- | ------ |
+
+If activity is detected:
+
+1. Identify caller.
+2. Identify function called.
+3. Confirm whether any permission still exists.
+4. Confirm whether funds or tokens moved.
+5. Document publicly if relevant.
+
+---
+
+## 17.5 Oracle Monitoring
+
+| Oracle            | Address | Expected Use           | Alert Condition                            |
+| ----------------- | ------- | ---------------------- | ------------------------------------------ |
+| Chainlink POL/USD |         | Used by final Exchange | Stale, unavailable, or abnormal price data |
+
+Review:
+
+* Latest oracle update time
+* Price deviation
+* Exchange behavior during oracle failure
+* Front-end displayed price versus contract price
+
+---
+
+## 17.6 Governance Monitoring
+
+| Proposal | Date | Type | Amount | Result | Execution Status | Notes |
+| -------- | ---- | ---- | ------ | ------ | ---------------- | ----- |
+
+Review:
+
+* Proposal duration
+* Participation threshold
+* Approval threshold
+* Execution window
+* Treasury transfer cap
+* Whether action matches proposal description
+
+---
+
+## 17.7 Front-End Monitoring
+
+| Page             | Dependency                | Expected Behavior          | Issue Detected |
+| ---------------- | ------------------------- | -------------------------- | -------------- |
+| Exchange         | WalletConnect / MetaMask  | Buy and sell flow works    |                |
+| DAO Registration | Passport / Verifier       | Registration works         |                |
+| Governance       | Aragon / Contract Reads   | Proposal data displays     |                |
+| Whitepaper       | Static content            | Matches deployed contracts |                |
+| PWA              | Manifest / Service Worker | Install and app mode work  |                |
+
+---
+
+## 17.8 Periodic Review Schedule
+
+| Frequency                        | Review                                                                  |
+| -------------------------------- | ----------------------------------------------------------------------- |
+| Daily, first week                | Treasury, exchange, governance, retired contract activity               |
+| Weekly, first month              | Full address activity review                                            |
+| Monthly                          | Documentation consistency and public monitoring review                  |
+| After every governance execution | Verify proposal action, execution, treasury movement, and public record |
+
+---
+
+## 17.9 Post-Launch Incident Record
+
+| Date | Issue | Severity | Affected Component | Findings | Resolution / Public Note |
+| ---- | ----- | -------- | ------------------ | -------- | ------------------------ |
+
+---
+
+## 17.10 Final Monitoring Principle
+
+LaborCoin is intended to operate without centralized intervention after launch. Monitoring exists to preserve transparency, detect anomalies, and help the public understand protocol behavior. It does not create or imply discretionary control over the system.
+
+---
+
 # Final Statement
 
 Following completion of every section above, the LaborCoin protocol shall be considered fully documented, fully audited with respect to known architecture and deployment history, and prepared for immutable public launch.
