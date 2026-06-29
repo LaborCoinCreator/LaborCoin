@@ -8,9 +8,9 @@ All critical protocol functionality should be tested using multiple wallets befo
 
 ## Testing Environment
 
-Network:
+Network: POL Mainnet 137
 
-Deployment Date:
+Deployment Date: Site-Files finalized June-30-2026
 
 Tester(s):
 
