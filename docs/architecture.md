@@ -1,4 +1,4 @@
-[architecture (1).md](https://github.com/user-attachments/files/29429486/architecture.1.md)
+[architecture.md](https://github.com/user-attachments/files/29429486/architecture.1.md)
 # LaborCoin Architecture
 
 ## Overview
