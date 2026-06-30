@@ -1,5 +1,3 @@
-[whitepaper (6).md](https://github.com/user-attachments/files/29494449/whitepaper.6.md)
-[LaborCoin-Technical-Whitepaper-v1.0-user-journey-synchronized.md](https://github.com/user-attachments/files/29432961/LaborCoin-Technical-Whitepaper-v1.0-user-journey-synchronized.md)
 Version: 1.0
 
 Network: Polygon Mainnet (Chain ID 137)
