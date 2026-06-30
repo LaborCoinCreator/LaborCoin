@@ -266,9 +266,11 @@ Cooldown
 
 Status:
 
-* [ ] Passed
+* [x] Passed
 
 Notes:
+
+Buy/Sell fails and cooldown timer is working.
 
 ---
 
@@ -285,9 +287,11 @@ Expected Result:
 
 Status:
 
-* [ ] Passed
+* [x] Passed
 
 Notes:
+
+Price updates on refresh.
 
 ---
 
@@ -324,9 +328,11 @@ Expected Result:
 
 Status:
 
-* [ ] Passed
+* [x] Passed
 
 Notes:
+
+Two test proposals have been successfully created and voted on.
 
 ---
 
@@ -347,9 +353,11 @@ Votes recorded correctly.
 
 Status:
 
-* [ ] Passed
+* [x] Passed
 
 Notes:
+
+Yes and no votes functioning correctly.
 
 ---
 
@@ -365,9 +373,11 @@ Expected Result:
 
 Status:
 
-* [ ] Passed
+* [x] Passed
 
 Notes:
+
+UI returns: "Not enough registered users."
 
 ---
 
@@ -383,9 +393,11 @@ Expected Result:
 
 Status:
 
-* [ ] Passed
+* [x] Passed
 
 Notes:
+
+Execution fails and window continues countdown to expiration.
 
 ---
 
@@ -401,9 +413,11 @@ Expected Result:
 
 Status:
 
-* [ ] Passed
+* [x] Passed
 
 Notes:
+
+Task fails successfully. 
 
 ---
 
@@ -428,9 +442,11 @@ Expected Result:
 
 Status:
 
-* [ ] Passed
+* [x] Passed
 
-Notes:
+Notes: Testing Contract Transaction Hash:
+
+0x04692fb7763ee479123a5d2322a21dd0132c41cf0eeb9a78fbff84240a667353
 
 ---
 
@@ -442,9 +458,9 @@ Verify complete system operation across multiple participants.
 
 Participants:
 
-Wallet A:
+Wallet A: 0x015b6D0990E56D908c876474C6A30eBa2b8A0CFB
 
-Wallet B:
+Wallet B: 0x4ca6DDc4BA8a305054E9434738CEfb17fEA50b9d
 
 Wallet C:
 
@@ -467,22 +483,22 @@ Notes:
 
 # Final Launch Validation
 
-* [ ] Registration system operational
+* [x] Registration system operational
 * [ ] Replay protection operational
-* [ ] LABRV minting operational
-* [ ] LABRV transfer restrictions operational
-* [ ] Exchange buy functionality operational
+* [x] LABRV minting operational
+* [x] LABRV transfer restrictions operational
+* [x] Exchange buy functionality operational
 * [ ] Exchange sell functionality operational
-* [ ] Cooldown enforcement operational
-* [ ] Oracle integration operational
+* [x] Cooldown enforcement operational
+* [x] Oracle integration operational
 * [ ] Tranche unlocking operational
-* [ ] Governance proposal creation operational
-* [ ] Governance voting operational
-* [ ] Governance execution operational
-* [ ] Treasury execution operational
+* [x] Governance proposal creation operational
+* [x] Governance voting operational
+* [x] Governance execution operational
+* [x] Treasury execution operational
 * [ ] Multi-wallet testing completed
-* [ ] All contracts verified
-* [ ] Deployment records completed
+* [x] All contracts verified
+* [x] Deployment records completed
 
 ---
 
