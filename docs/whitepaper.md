@@ -1,3 +1,5 @@
+[whitepaper.md](https://github.com/LaborCoinCreator/LaborCoin/edit/main/docs/whitepaper.md)
+
 Version: 1.0
 
 Network: Polygon Mainnet (Chain ID 137)
