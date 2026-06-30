@@ -13,7 +13,7 @@
 | Test classification | Pre-launch restricted-mode diagnostic |
 | Result | **PASS** |
 | Record date | June 29, 2026 |
-| On-chain timestamp | `ADD_EXACT_POLYGONSCAN_TIMESTAMP` |
+| On-chain timestamp | `Jun-30-2026 05:18:43 AM +UTC` |
 | Evidence source | PolygonScan transaction record and protocol state reads |
 
 ---
@@ -73,10 +73,10 @@ This test does **not** yet validate unrestricted public trading because the test
 | `isExcludedFromFees(Exchange V4)` | `false` |
 | `isExcludedFromDividends(Exchange V4)` | `true` |
 | `isExcludedFromTradingRestriction(Tester Wallet)` | `true` temporarily |
-| Tester excluded from token fees | `CONFIRM_AND_RECORD` |
-| Tester excluded from token limits | `CONFIRM_AND_RECORD` |
-| Tester blacklisted | `CONFIRM_FALSE` |
-| LABR paused | `CONFIRM_FALSE` |
+| Tester excluded from token fees | `false` |
+| Tester excluded from token limits | `false` |
+| Tester blacklisted | `false` |
+| LABR paused | `false` |
 
 ### Interpretation
 
@@ -208,7 +208,7 @@ It also does not complete validation of:
 
 ## 9. Required Follow-Up Evidence
 
-Record each follow-up transaction in a separate validation file.
+Each follow-up transaction will be recorded in a separate validation file.
 
 ### 9.1 Remove Temporary Tester Exclusion
 
