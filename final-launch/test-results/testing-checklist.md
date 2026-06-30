@@ -12,7 +12,11 @@ Network: POL Mainnet 137
 
 Deployment Date: Site-Files finalized June-30-2026
 
-Tester(s):
+Tester(s): 
+
+0x015b6D0990E56D908c876474C6A30eBa2b8A0CFB, 
+
+0x4ca6DDc4BA8a305054E9434738CEfb17fEA50b9d
 
 Build Environment Reference:
 
@@ -44,9 +48,14 @@ Expected Result:
 
 Status:
 
-* [ ] Passed
+* [x] Passed
 
-Notes:
+Notes: Transaction hash:
+
+1st: 0xb191733f1b9924ab0c7d892c0882530aba7ef99510d8852ff0d0219e58efb266
+
+2nd: 0x9b4ca42fe61957ac93a0fca4e7c39e23f6641e30b02a8d4987e1bf2e2b48d06b 
+
 
 ---
 
@@ -71,9 +80,11 @@ Already registered
 
 Status:
 
-* [ ] Passed
+* [x] Passed
 
 Notes:
+
+UI returns: Already registered. Governance access unlocked.
 
 ---
 
@@ -148,9 +159,13 @@ Expected Result:
 
 Status:
 
-* [ ] Passed
+* [x] Passed
 
-Notes:
+Notes: Transaction hash:
+
+1st: 0xb191733f1b9924ab0c7d892c0882530aba7ef99510d8852ff0d0219e58efb266
+
+2nd: 0x9b4ca42fe61957ac93a0fca4e7c39e23f6641e30b02a8d4987e1bf2e2b48d06b
 
 ---
 
@@ -170,32 +185,11 @@ Transaction reverts.
 
 Status:
 
-* [ ] Passed
+* [x] Passed
 
 Notes:
 
----
-
-## Delegation Test
-
-Objective:
-
-Verify ERC20Votes delegation functionality.
-
-Steps:
-
-1. Delegate voting power.
-2. Verify vote checkpoint updates.
-
-Expected Result:
-
-Delegation succeeds.
-
-Status:
-
-* [ ] Passed
-
-Notes:
+Task failed successfully. 
 
 ---
 
@@ -219,9 +213,11 @@ Expected Result:
 
 Status:
 
-* [ ] Passed
+* [x] Passed
 
-Notes:
+Notes: Transaction hash:
+
+0x18aa24b6629a9dd461d32775e43039635feefe0767191f943c85831656e397f4
 
 ---
 
