@@ -1,724 +1,415 @@
-# LaborCoin Final Launch Deployment Record
+[deployments.md](https://github.com/user-attachments/files/29590799/deployments.3.md)
+# LaborCoin Deployment and Lifecycle Record
 
-This document serves as the authoritative deployment manifest and deployment record for the LaborCoin final launch.
+This document is the authoritative on-chain deployment and lifecycle ledger for LaborCoin. It records contract addresses, deployment transactions, configuration actions, verification results, functional validation, and contract retirement events.
 
-It defines the deployment environment, deployment sequence, deployed contract metadata, verification status, and post-deployment validation results.
-
----
-
-# Release Information
-
-Release Name:
-
-Final Launch
-
-Release Tag:
-
-Git Commit Hash:
-
-Deployment Date:
-
-Deployment Operator:
+Exact source hashes and archived artifact hashes are maintained separately in [`release-record.md`](release-record.md). This separation keeps the release-integrity record stable while allowing this document to track later operational events.
 
 ---
 
-# Network
+## 1. Release and Network Information
 
-Network:
+### Release
 
-Polygon Mainnet
+| Field | Record |
+|---|---|
+| Project | LaborCoin |
+| Release name | Final Launch |
+| Release tag | Not yet recorded |
+| Git commit hash | Not yet recorded |
+| Deployment window | June 16–25, 2026 |
+| Deployment operator | The LaborCoin Creator |
 
-Chain ID:
+### Network
 
-137
+| Field | Record |
+|---|---|
+| Network | Polygon Mainnet |
+| Chain ID | 137 |
+| RPC provider | Polygon Mainnet through MetaMask |
+| Deployment wallet | `0x015b6D0990E56D908c876474C6A30eBa2b8A0CFB` |
 
-RPC Provider:
+### Repository Contract Build Environment
 
-Polygon Mainnet (via MetaMask)
+| Setting | Value |
+|---|---|
+| Solidity compiler | 0.8.30 |
+| EVM version | Prague |
+| Optimizer | Enabled |
+| Optimizer runs | 200 |
+| Via IR | False |
+| OpenZeppelin Contracts | 5.6.1 |
+| License | MIT |
 
-Deployment Wallet:
-
-0x015b6D0990E56D908c876474C6A30eBa2b8A0CFB
-
----
-
-# Build Environment
-
-Solidity Version:
-
-0.8.30
-
-EVM Version:
-
-Prague
-
-Optimizer:
-
-Enabled
-
-Optimizer Runs:
-
-200
-
-Via IR:
-
-False
-
-License:
-
-MIT
-
-OpenZeppelin Version:
-
-5.6.1
+> The external LABR token was generated separately through 20LABS. Its recorded compiler environment is Solidity 0.8.25 with EVM Paris.
 
 ---
 
-# External Dependencies
+## 2. External Dependencies
 
-## LABR Token
+### LABR Token
 
-Deployment Source:
+| Field | Record |
+|---|---|
+| Contract | LaborCoin |
+| Symbol | LABR |
+| Deployment source | 20LABS Token Generator |
+| Address | `0x460DD873A1D2a41e77410B125cD3027C5FEd2f78` |
+| Network | Polygon Mainnet |
+| Verification | Verified |
+| Explorer | https://polygonscan.com/address/0x460DD873A1D2a41e77410B125cD3027C5FEd2f78#code |
 
-20LABS Token Generator
+LABR was deployed before the repository contracts recorded below.
 
-Contract Address:
+### Chainlink POL/USD Price Feed
 
-0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
+| Field | Record |
+|---|---|
+| Address | `0xAB594600376Ec9fD91F8e885dADF0CE036862dE0` |
+| Network | Polygon Mainnet |
+| Feed | POL/USD |
+| Provider | Chainlink |
+| Verification | Verified |
+| Explorer | https://polygonscan.com/address/0xAB594600376Ec9fD91F8e885dADF0CE036862dE0 |
 
-Notes:
-
-LABR was generated and deployed through the 20LABS platform prior to the final launch contract deployment process documented in this repository.
-
----
-
-## Chainlink POL/USD Feed
-
-Contract Address:
-
-0xAB594600376Ec9fD91F8e885dADF0CE036862dE0
-
-Verification Status:
-
-Verified
-
-Notes:
-
-Chainlink POL/USD Price Feed used by LaborCoinExchangeV3 for USD-denominated bonding curve pricing.
-
-Network: Polygon Mainnet
-
-Feed Type: POL/USD
-
-Provider: Chainlink
-
-Usage:
-Converts USD bonding curve prices into POL amounts during LABR purchases and sales.
-
-Integration:
-Referenced as an immutable constructor parameter within LaborCoinExchangeV3.
-
-Verification:
-Official Chainlink price feed contract verified on Polygonscan.
-
-Explorer:
-https://polygonscan.com/address/0xAB594600376Ec9fD91F8e885dADF0CE036862dE0
-
-Notes:
-This contract is an external dependency and is not deployed, owned, or controlled by LaborCoin. The address was selected as the canonical Chainlink POL/USD feed available on Polygon Mainnet at the time of deployment.
+The feed converts the USD-denominated bonding-curve price into POL for exchange calculations. It is an external dependency and is not deployed, owned, or controlled by LaborCoin.
 
 ---
 
-# Deployment Sequence
+## 3. Deployment Sequence
 
-1. Deploy LaborVoteV7
-2. Verify LaborVoteV7
-3. Deploy LaborCoinRegistrationV4
-4. Verify LaborCoinRegistrationV4
-5. Configure Registration as LABRV minter
-6. Lock LABRV minter
-7. Verify ownership renounced
-8. Deploy LaborCoinTreasuryModuleV1
-9. Verify LaborCoinTreasuryModuleV1
-10. Deploy LaborCoinGovernanceV13
-11. Verify LaborCoinGovernanceV13
-12. Deploy LaborCoinExchangeV3
-13. Verify LaborCoinExchangeV3
-14. Update frontend addresses
-15. Conduct final testing
-16. Archive deployment artifacts and records
+1. Deploy and verify LaborVoteV7.
+2. Deploy and verify LaborCoinRegistrationV4.
+3. Assign LaborCoinRegistrationV4 as the LABRV minter.
+4. Lock the LABRV minter and renounce LABRV ownership.
+5. Deploy and verify LaborCoinTreasuryModuleV1.
+6. Deploy and verify LaborCoinGovernanceV13.
+7. Deploy and verify LaborCoinExchangeV4.
+8. Update the frontend for the recorded release.
+9. Conduct functional validation.
+10. Archive source, metadata, artifacts, and deployment records.
 
 ---
 
-# Contract Deployments
+## 4. Contract Lifecycle Summary
 
-## LaborVoteV7
+| Component | Address | Deployment block | Verification | Current lifecycle status |
+|---|---|---:|---|---|
+| LABR Token | `0x460DD873A1D2a41e77410B125cD3027C5FEd2f78` | External deployment | Verified | Deployed |
+| LaborVoteV7 | `0x833242E933c675846D8f8982048FecA95B8e435A` | `88595455` | Verified | Deployed; minter locked; ownership renounced |
+| LaborCoinRegistrationV4 | `0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C` | `88997813` | Verified | Deployed |
+| LaborCoinTreasuryModuleV1 | `0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C` | `89052358` | Verified | Deployed |
+| LaborCoinGovernanceV13 | `0x8238105d31F6Bb26897d8Ab270a0A521FEF03E8c` | `89084762` | Verified | Deployed |
+| LaborCoinExchangeV2 | `0xD0692ec758bb852421B702B187b6439f74f8Bf3b` | Not recorded here | Historical | Retired |
+| LaborCoinExchangeV3 | `0xE57ba76AED1B7B4142E3DfaBd6cf3E94970b86eA` | Not recorded here | Verified | Retired |
+| LaborCoinExchangeV4 | `0x4Cf18cB39203B678f5C26f2338a10a79f9684749` | `89115657` | Verified | Retired |
 
-Contract Address:
-
-0x833242E933c675846D8f8982048FecA95B8e435A
-
-Deployment Transaction:
-
-0x83f241f7c3d3442d9a4a1d56c38d3354fb1803a5bb3bae05c6e22c547a143db7
-
-Timestamp:
-
-Jun-16-2026 08:22:48 AM +UTC
-
-Block Number:
-
-88595455
-
-Deployment Wallet:
-
-0x015b6D0990E56D908c876474C6A30eBa2b8A0CFB
-
-Verification Status:
-
-Verified
-
-Verification Date:
-
-Jun-16-2026
-
-Explorer:
-
-Polygonscan
-
-Contract URL:
-
-https://polygonscan.com/address/0x833242E933c675846D8f8982048FecA95B8e435A#code
-
-Constructor Arguments:
-
-None
-
-Compiler Version:
-
-0.8.30
-
-EVM Version:
-
-Prague
-
-Optimizer:
-
-Enabled
-
-Optimizer Runs:
-
-200
-
-OpenZeppelin Version:
-
-5.6.1
-
-License:
-
-MIT
-
-Verification Method:
-
-Solidity Standard JSON Input
-
-Notes:
-
-Successfully verified on Polygonscan using Standard JSON Input. No constructor arguments required.
-
-LABRV V7 Minter Set
-
-Contract:
-
-0x833242E933c675846D8f8982048FecA95B8e435A
-
-New Minter:
-
-0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C
-
-Minter Set Transaction:
-
-0x7768e6344a44b53b371c753c81379dcbfcc9abd96342a3d37fb6e324de69b074
-
-Minter Lock Transaction:
-
-0x30bad6d15a7aed4ec7ae8e30423ac10efe679f36549bb5f7fb81fa5baf42e6a4
-
-Ownership Status:
-
-Renounced
-
-Minter Locked:
-
-True
+> No exchange listed as retired in this record should be presented as the active LaborCoin exchange. A successor exchange must be added to this ledger explicitly after deployment and validation.
 
 ---
 
-## LaborCoinRegistrationV4
+## 5. Contract Deployment Records
 
-Contract Address:
+### 5.1 LaborVoteV7
 
-0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C
+| Field | Record |
+|---|---|
+| Address | `0x833242E933c675846D8f8982048FecA95B8e435A` |
+| Deployment transaction | `0x83f241f7c3d3442d9a4a1d56c38d3354fb1803a5bb3bae05c6e22c547a143db7` |
+| Timestamp | June 16, 2026, 08:22:48 UTC |
+| Block | `88595455` |
+| Deployment wallet | `0x015b6D0990E56D908c876474C6A30eBa2b8A0CFB` |
+| Constructor arguments | None |
+| Verification | Verified June 16, 2026 |
+| Verification method | Solidity Standard JSON Input |
+| Explorer | https://polygonscan.com/address/0x833242E933c675846D8f8982048FecA95B8e435A#code |
 
-Deployment Transaction:
-
-0xbe8c2a8cc7f9322a36b9a6a1726d7f830531b601941f17324bffe1b995bc10fe
-
-Timestamp:
-
-Jun-22-2026
-
-Block Number:
-
-88997813
-
-Deployment Wallet:
-
-0x015b6D0990E56D908c876474C6A30eBa2b8A0CFB
-
-Verification Status:
-
-Verified
-
-Verification Date:
-
-Jun-22-2026
-
-Explorer:
-
-Polygonscan
-
-Contract URL:
-
-https://polygonscan.com/address/0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C#code
-
-Constructor Arguments:
-
-LABR:
-0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
-
-LABRV:
-0x833242E933c675846D8f8982048FecA95B8e435A
-
-Verifier:
-0x475d519631d2406753aCA29F305f19b83E97513e
-
-Compiler Version:
-
-0.8.30
-
-EVM Version:
-
-Prague
-
-Optimizer:
-
-Enabled
-
-Optimizer Runs:
-
-200
-
-OpenZeppelin Version:
-
-5.6.1
-
-License:
-
-MIT
-
-Verification Method:
-
-Solidity Standard JSON Input
-
-Notes:
-
-Successfully verified on Polygonscan using Standard JSON Input. Registration requires a valid verifier signature, an unexpired signature timestamp, and a minimum balance of 1 LABR. Eligible participants receive one non-transferable LABRV governance token if they do not already hold LABRV.
+LaborVoteV7 is the non-transferable LABRV governance token. Its minter was assigned to LaborCoinRegistrationV4, permanently locked, and followed by ownership renunciation.
 
 ---
 
-## LaborCoinExchangeV4
-
-Contract Address:
-
-0x4Cf18cB39203B678f5C26f2338a10a79f9684749
-
-Deployment Transaction:
-
-0xa5d1b14cd13c6aeaf7408878e4dddde141908dab12e27022ee565f5d207025fc
-
-Timestamp:
-
-Jun-25-2026 09:08:01 AM +UTC
-
-Block Number:
-
-89115657
-
-Deployment Wallet:
-
-0x015b6D0990E56D908c876474C6A30eBa2b8A0CFB
-
-Verification Status:
-
-Verified
-
-Verification Date:
-
-Jun-25-2026
-
-Explorer:
-
-Polygonscan
-
-Contract URL:
-
-https://polygonscan.com/address/0x4Cf18cB39203B678f5C26f2338a10a79f9684749#code
-
-Constructor Arguments:
-
-LABR:
-0x460DD873A1D2a41e77410B125cD3027C5FEd2f78
-
-DAO Treasury:
-0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
-
-Compiler Version:
-
-0.8.30
-
-EVM Version:
-
-Prague
-
-Optimizer:
-
-Enabled
-
-Optimizer Runs:
-
-200
-
-OpenZeppelin Version:
-
-5.6.1
-
-License:
-
-MIT
-
-Verification Method:
-
-Solidity Standard JSON Input
-
-Notes:
-
-Successfully verified on Polygonscan as an Exact Match.
-
-Chainlink POL/USD Oracle:
-0xAB594600376Ec9fD91F8e885dADF0CE036862dE0
-
-Old Exchange V2 Retirement Record:
-
-Retired Exchange:
-0xD0692ec758bb852421B702B187b6439f74f8Bf3b
-
-Recovered:
-0.50361236 LABR
-
-Remaining Dust:
-0.0002534 LABR
-
-Dust Recovery Transaction:
-0x45f2e3c0f56b9cd3b66de9817f5643445f7b5e5903e89af2e0882b1b837c8dbf
-
-DAO Treasury Received:
-0.6572 POL
-
-No administrative withdrawal function existed on Exchange V2. Remaining dust balance was deemed economically insignificant and retained as a retired contract balance.
-
-Old Exchange V3:
-0xE57ba76AED1B7B4142E3DfaBd6cf3E94970b86eA
-
-Final LABR balance:
-0.0098180577244 LABR
-
-Status:
-Decommissioned / residual dust only
-
-Old Exchange V4:
-0x4Cf18cB39203B678f5C26f2338a10a79f9684749
-
-Residual LABR dust: 0.00184357529635 LABR
-
-Status: Economically negligible and intentionally left in the retired exchange after recovery.
----
-
-## LaborCoinTreasuryModuleV1
-
-Contract Address:
-
-0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C
-
-Deployment Transaction:
-
-0x6817331673fa3d178b78c9a7d4499a36a28913728767c870ffce5c2bb9a84cb8
-
-Timestamp:
-
-Jun-24-2026
-
-Block Number:
-
-89052358
-
-Deployment Wallet:
-
-0x015b6D0990E56D908c876474C6A30eBa2b8A0CFB
-
-Verification Status:
-
-Verified
-
-Verification Date:
-
-Jun-24-2026
-
-Verification Method:
-
-Automatic verification via Remix / Sourcify metadata match
-
-Explorer:
-
-Polygonscan
-
-Contract URL:
-
-https://polygonscan.com/address/0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C#code
-
-Constructor Arguments:
-
-DAO:
-0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
-
-Compiler Version:
-
-0.8.30
-
-EVM Version:
-
-Prague
-
-Optimizer:
-
-Enabled
-
-Optimizer Runs:
-
-200
-
-OpenZeppelin Version:
-
-None
-
-License:
-
-MIT
-
-Notes:
-
-Deployment successful on Polygon Mainnet.
-
-The treasury module is an immutable DAO-controlled transfer module. The DAO address is fixed at deployment and cannot be changed. The contract has no owner, no admin withdrawal function, no upgrade mechanism, and no arbitrary external control path.
-
-The module allows only the configured DAO address to execute POL transfers through executeTransfer. Transfer amount is determined by the POL value sent with the DAO call. The module records cumulative distributed POL through totalDistributed and emits TransferExecuted events for transparency.
-
-Sourcify and Blockscout verification were submitted from Remix. Polygonscan verification still requires final confirmation or manual verification.
+### 5.2 LaborCoinRegistrationV4
+
+| Field | Record |
+|---|---|
+| Address | `0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C` |
+| Deployment transaction | `0xbe8c2a8cc7f9322a36b9a6a1726d7f830531b601941f17324bffe1b995bc10fe` |
+| Timestamp | June 22, 2026 |
+| Block | `88997813` |
+| Deployment wallet | `0x015b6D0990E56D908c876474C6A30eBa2b8A0CFB` |
+| Verification | Verified June 22, 2026 |
+| Verification method | Solidity Standard JSON Input |
+| Explorer | https://polygonscan.com/address/0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C#code |
+
+**Constructor arguments**
+
+| Parameter | Address |
+|---|---|
+| LABR | `0x460DD873A1D2a41e77410B125cD3027C5FEd2f78` |
+| LABRV | `0x833242E933c675846D8f8982048FecA95B8e435A` |
+| Verifier | `0x475d519631d2406753aCA29F305f19b83E97513e` |
+
+Registration requires a valid verifier signature, an unexpired signature timestamp, and the configured LABR balance threshold. An eligible participant receives one LABRV if the participant does not already hold LABRV.
 
 ---
 
-## LaborCoinGovernanceV13
+### 5.3 LaborCoinTreasuryModuleV1
 
-Contract Address:
+| Field | Record |
+|---|---|
+| Address | `0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C` |
+| Deployment transaction | `0x6817331673fa3d178b78c9a7d4499a36a28913728767c870ffce5c2bb9a84cb8` |
+| Timestamp | June 24, 2026 |
+| Block | `89052358` |
+| Deployment wallet | `0x015b6D0990E56D908c876474C6A30eBa2b8A0CFB` |
+| Verification | Verified |
+| Verification method | Solidity Standard JSON Input |
+| Explorer | https://polygonscan.com/address/0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C#code |
+| OpenZeppelin dependency | None |
 
-0x8238105d31F6Bb26897d8Ab270a0A521FEF03E8c
+**Constructor argument**
 
-Deployment Transaction:
+| Parameter | Address |
+|---|---|
+| DAO | `0x0C2e5679153593b82a84eAB5CA90895BB291Cec4` |
 
-0xabd669c27e4bc94471241d433432e8c66375d258a0a6fa5413772d2aef0fbc6e
-
-Timestamp:
-
-Jun-24-2026 08:15:38 PM +UTC
-
-Block Number:
-
-89084762
-
-Deployment Wallet:
-
-0x015b6D0990E56D908c876474C6A30eBa2b8A0CFB
-
-Verification Status:
-
-Verified
-
-Verification Date:
-
-Jun-24-2026
-
-Explorer:
-
-Polygonscan
-
-Contract URL:
-
-https://polygonscan.com/address/0x8238105d31F6Bb26897d8Ab270a0A521FEF03E8c#code
-
-Constructor Arguments:
-
-DAO:
-0x0C2e5679153593b82a84eAB5CA90895BB291Cec4
-
-LABRV:
-0x833242E933c675846D8f8982048FecA95B8e435A
-
-Verifier:
-0x475d519631d2406753aCA29F305f19b83E97513e
-
-Treasury Module:
-0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C
-
-Registration:
-0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C
-
-Compiler Version:
-
-0.8.30
-
-EVM Version:
-
-Prague
-
-Optimizer:
-
-Enabled
-
-Optimizer Runs:
-
-200
-
-OpenZeppelin Version:
-
-5.6.1
-
-License:
-
-MIT
-
-Verification Method:
-
-Automatic Polygonscan verification via Standard JSON Input metadata match
-
-Notes:
-
-Deployment successful on Polygon Mainnet.
-
-LaborCoinGovernanceV13 is the final governance contract for the LaborCoin system. The contract manages proposal creation, voting, approval validation, and treasury execution authorization through the Aragon DAO treasury architecture.
-
-The contract is permanently connected to the deployed Aragon DAO, LABRV governance token, RegistrationV4 contract, Treasury Module V1, and verifier address through immutable constructor parameters.
-
-Governance activation requires a minimum of 50 registered participants before proposal execution is permitted. Proposal duration is fixed at 14 days and approved proposals may be executed only during the 7 day execution window following vote completion.
-
-Proposal approval requires at least 25% participation from registered members and at least 67% affirmative voting support. Treasury distributions are limited to a maximum of 5% of the DAO treasury balance per proposal.
-
-Replay protection is implemented through per-wallet nonces and signature expiry validation for both proposal creation and voting actions. Signature verification uses the designated verifier address established during deployment.
-
-The contract includes reentrancy protection and contains no owner privileges, no administrative controls, no parameter modification functions, no upgrade mechanism, and no emergency override functionality after deployment.
-
-Source code verification completed successfully on Polygonscan with Exact Match verification status.
-
-The governance contract serves exclusively as a proposal, voting, and execution authorization layer. Treasury assets remain controlled by the Aragon DAO treasury architecture and are distributed only through approved governance actions.
+The treasury module is an immutable DAO-controlled POL transfer module. The DAO address is fixed at deployment. The contract has no owner, upgrade mechanism, administrative withdrawal function, or independent external control path.
 
 ---
 
-# Post-Deployment Configuration
+### 5.4 LaborCoinGovernanceV13
 
-## LaborVoteV7
+| Field | Record |
+|---|---|
+| Address | `0x8238105d31F6Bb26897d8Ab270a0A521FEF03E8c` |
+| Deployment transaction | `0xabd669c27e4bc94471241d433432e8c66375d258a0a6fa5413772d2aef0fbc6e` |
+| Timestamp | June 24, 2026, 20:15:38 UTC |
+| Block | `89084762` |
+| Deployment wallet | `0x015b6D0990E56D908c876474C6A30eBa2b8A0CFB` |
+| Verification | Verified June 24, 2026 |
+| Verification method | Automatic exact-match verification through Standard JSON metadata |
+| Explorer | https://polygonscan.com/address/0x8238105d31F6Bb26897d8Ab270a0A521FEF03E8c#code |
 
-Registration Contract Assigned As Minter: True
+**Constructor arguments**
 
-Transaction Hash: 0x7768e6344a44b53b371c753c81379dcbfcc9abd96342a3d37fb6e324de69b074
+| Parameter | Address |
+|---|---|
+| DAO | `0x0C2e5679153593b82a84eAB5CA90895BB291Cec4` |
+| LABRV | `0x833242E933c675846D8f8982048FecA95B8e435A` |
+| Verifier | `0x475d519631d2406753aCA29F305f19b83E97513e` |
+| Treasury module | `0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C` |
+| Registration | `0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C` |
 
-Timestamp: Jun-23-2026 09:03:38 AM +UTC
+Governance V13 manages proposal creation, voting, approval validation, and treasury-execution authorization. Its DAO, LABRV, verifier, treasury-module, and registration references are immutable.
 
----
+Recorded governance parameters include:
 
-## LaborVoteV7
+- 50 registered participants required before execution
+- 14-day voting period
+- 7-day execution window
+- 25% participation requirement
+- 67% approval requirement
+- 5% maximum DAO treasury distribution per proposal
 
-Minter Locked: True
-
-Transaction Hash: 0x30bad6d15a7aed4ec7ae8e30423ac10efe679f36549bb5f7fb81fa5baf42e6a4
-
-Timestamp: Jun-23-2026 09:45:32 AM +UTC
-
----
-
-# Verification Checklist
-
-* [x] LaborVoteV7 verified
-* [x] LaborCoinRegistrationV4 verified
-* [x] LaborCoinTreasuryModuleV1 verified
-* [x] LaborCoinGovernanceV13 verified
-* [x] LaborCoinExchangeV3 verified
-* [x] Verification links archived
-* [x] Constructor arguments archived
-
----
-
-# Functional Validation
-
-* [x] Registration test successful
-* [x] Replay protection test successful
-* [x] LABRV mint test successful
-* [x] Governance proposal test successful
-* [x] Governance vote test successful
-* [x] Treasury execution test successful
-* [x] Exchange buy test successful
-* [x] Exchange sell test successful
-* [ ] Multi-wallet test successful
+The contract has no owner controls, parameter-modification functions, upgrade mechanism, or emergency override.
 
 ---
 
-# Archived Artifacts
+### 5.5 LaborCoinExchangeV4
 
-* [x] LaborVoteV7.json
-* [x] LaborCoinRegistrationV4.json
-* [x] LaborCoinTreasuryModuleV1.json
-* [x] LaborCoinGovernanceV13.json
-* [x] LaborCoinExchangeV3.json
+| Field | Record |
+|---|---|
+| Address | `0x4Cf18cB39203B678f5C26f2338a10a79f9684749` |
+| Deployment transaction | `0xa5d1b14cd13c6aeaf7408878e4dddde141908dab12e27022ee565f5d207025fc` |
+| Timestamp | June 25, 2026, 09:08:01 UTC |
+| Block | `89115657` |
+| Deployment wallet | `0x015b6D0990E56D908c876474C6A30eBa2b8A0CFB` |
+| Verification | Verified June 25, 2026 |
+| Verification method | Automatic exact-match verification through Sourcify / PolygonScan metadata |
+| Explorer | https://polygonscan.com/address/0x4Cf18cB39203B678f5C26f2338a10a79f9684749#code |
+| Current lifecycle status | **Retired** |
 
-Metadata Files Archived:
+**Constructor arguments**
 
-* [x] Yes
-* [ ] No
+| Parameter | Address |
+|---|---|
+| LABR | `0x460DD873A1D2a41e77410B125cD3027C5FEd2f78` |
+| DAO treasury | `0x0C2e5679153593b82a84eAB5CA90895BB291Cec4` |
 
-Artifact Location:
+**Oracle**
 
-final-launch/artifacts/
+`0xAB594600376Ec9fD91F8e885dADF0CE036862dE0` — Chainlink POL/USD
+
+Exchange V4 implemented the recorded bonding curve, automatic tranche unlocking, transaction cooldown, DAO treasury allocation, and reentrancy protection. It was later retired. Its recovery transaction is recorded in Section 7.
 
 ---
 
-# Final Launch Certification
+## 6. Post-Deployment Configuration
 
-All contracts were deployed from the source code associated with the Git commit recorded in this document.
+### LABRV Minter Assignment
 
-All contracts were compiled using the build environment documented in build-environment.md.
+| Field | Record |
+|---|---|
+| LABRV contract | `0x833242E933c675846D8f8982048FecA95B8e435A` |
+| Assigned minter | `0xd1CD6C0B6f1F709A52908B40C07D3C54649e323C` |
+| Transaction | `0x7768e6344a44b53b371c753c81379dcbfcc9abd96342a3d37fb6e324de69b074` |
+| Timestamp | June 23, 2026, 09:03:38 UTC |
+| Result | Successful |
 
-All contract addresses, deployment transactions, verification records, and constructor arguments have been archived.
+### LABRV Minter Lock and Ownership Renunciation
 
-Final Launch Approved: True
+| Field | Record |
+|---|---|
+| Transaction | `0x30bad6d15a7aed4ec7ae8e30423ac10efe679f36549bb5f7fb81fa5baf42e6a4` |
+| Timestamp | June 23, 2026, 09:45:32 UTC |
+| Minter locked | Yes |
+| Ownership renounced | Yes |
 
-Date: 2026-06-24
+---
 
-Signature / Maintainer: The LaborCoin Creator
+## 7. Exchange Retirement and LABR Recovery Ledger
+
+Retired exchanges remain immutable historical contracts on Polygon. A retirement designation means the contract must no longer be presented or used as the active LaborCoin exchange.
+
+LABR recovery was performed through each contract’s public `buy(uint256 minTokensOut)` function. This was an ordinary exchange interaction, not an administrative token withdrawal. Small residual balances remain because attempting to consume the exact final token unit could revert due to price conversion and integer rounding.
+
+### 7.1 Retirement Summary
+
+| Version | Contract address | Recovery transaction | LABR recovered | Residual LABR | Status |
+|---|---|---|---:|---:|---|
+| V2 | `0xD0692ec758bb852421B702B187b6439f74f8Bf3b` | `0x45f2e3c0f56b9cd3b66de9817f5643445f7b5e5903e89af2e0882b1b837c8dbf` | `0.50361236` | `0.0002534` | Retired |
+| V3 | `0xE57ba76AED1B7B4142E3DfaBd6cf3E94970b86eA` | `0x0c6b1395af80f439a17847f131663b3abf07c3f2e016ef40474a5698f74c34c4` | `9.9901819422756` | `0.0098180577244` | Retired |
+| V4 | `0x4Cf18cB39203B678f5C26f2338a10a79f9684749` | `0x98083f02852418ad83d3f8a0d4de60b6facc6c68f5d827f8dbe0cd76c2748fbc` | `9.63125642470365` | `0.00184357529635` | Retired |
+
+---
+
+### 7.2 Exchange V2 Retirement
+
+| Field | Record |
+|---|---|
+| Contract address | `0xD0692ec758bb852421B702B187b6439f74f8Bf3b` |
+| Recovery transaction | `0x45f2e3c0f56b9cd3b66de9817f5643445f7b5e5903e89af2e0882b1b837c8dbf` |
+| LABR recovered | `0.50361236 LABR` |
+| Residual dust | `0.0002534 LABR` |
+| DAO treasury received | `0.6572 POL` |
+| Final status | Retired; residual dust only |
+
+No administrative withdrawal function existed on Exchange V2. Its remaining LABR was deemed economically insignificant and left in the retired contract.
+
+---
+
+### 7.3 Exchange V3 Retirement
+
+| Field | Record |
+|---|---|
+| Contract address | `0xE57ba76AED1B7B4142E3DfaBd6cf3E94970b86eA` |
+| Recovery transaction | `0x0c6b1395af80f439a17847f131663b3abf07c3f2e016ef40474a5698f74c34c4` |
+| Transaction status | Success |
+| Block | `89166866` |
+| Caller | `laborcoin.eth` |
+| Function | `buy(uint256 minTokensOut)` |
+| Method ID | `0xd96a094a` |
+| `minTokensOut` | `9990000000000000000` base units (`9.99 LABR`) |
+| POL submitted | `137.56791438 POL` |
+| DAO treasury transfer | `13.756791438 POL` |
+| LABR recovered | `9.9901819422756 LABR` |
+| Transaction fee | `0.15810194591402696 POL` |
+| Residual LABR | `0.0098180577244 LABR` |
+| Final status | **Retired; residual dust only** |
+
+**Explorer:**  
+https://polygonscan.com/tx/0x0c6b1395af80f439a17847f131663b3abf07c3f2e016ef40474a5698f74c34c4
+
+The transaction recovered essentially all remaining economically accessible LABR from Exchange V3. The residual balance is intentionally left as dust.
+
+---
+
+### 7.4 Exchange V4 Retirement
+
+| Field | Record |
+|---|---|
+| Contract address | `0x4Cf18cB39203B678f5C26f2338a10a79f9684749` |
+| Recovery transaction | `0x98083f02852418ad83d3f8a0d4de60b6facc6c68f5d827f8dbe0cd76c2748fbc` |
+| Transaction status | Success |
+| Block | `89517970` |
+| Caller | `0xEC811ecE6aF2Aae2Fa5337c40850BdA4F1d1D6cc` |
+| Function | `buy(uint256 minTokensOut)` |
+| Method ID | `0xd96a094a` |
+| `minTokensOut` | `0` |
+| POL submitted | `133.98144849 POL` |
+| DAO treasury transfer | `13.398144849 POL` |
+| LABR recovered | `9.63125642470365 LABR` |
+| Transaction fee | `0.234972062858888992 POL` |
+| Residual LABR | `0.00184357529635 LABR` |
+| Final status | **Retired; residual dust only** |
+
+**Explorer:**  
+https://polygonscan.com/tx/0x98083f02852418ad83d3f8a0d4de60b6facc6c68f5d827f8dbe0cd76c2748fbc
+
+The transaction began from a recorded Exchange V4 LABR balance of `9.6331 LABR` and recovered `9.63125642470365 LABR`. The remaining `0.00184357529635 LABR` is economically negligible and intentionally remains in the retired contract.
+
+---
+
+## 8. Verification Checklist
+
+- [x] LaborVoteV7 verified
+- [x] LaborCoinRegistrationV4 verified
+- [x] LaborCoinTreasuryModuleV1 verified
+- [x] LaborCoinGovernanceV13 verified
+- [x] LaborCoinExchangeV4 verified
+- [x] Verification links archived
+- [x] Constructor arguments archived
+- [x] Exchange V3 retirement transaction recorded
+- [x] Exchange V4 retirement transaction recorded
+
+---
+
+## 9. Functional Validation Record
+
+- [x] Registration test successful
+- [x] Signature-expiry and replay-protection test successful
+- [x] LABRV mint test successful
+- [x] Governance proposal test successful
+- [x] Governance vote test successful
+- [x] Treasury execution test successful
+- [x] Exchange V4 buy test successful before retirement
+- [x] Exchange V4 sell test successful before retirement
+- [ ] Multi-wallet test recorded as complete
+
+The successful Exchange V4 tests are historical validation results and do not change its current retired status.
+
+---
+
+## 10. Archived Artifacts
+
+| Artifact | Archived |
+|---|---:|
+| `LaborVoteV7.json` | Yes |
+| `LaborCoinRegistrationV4.json` | Yes |
+| `LaborCoinTreasuryModuleV1.json` | Yes |
+| `LaborCoinGovernanceV13.json` | Yes |
+| `LaborCoinExchangeV4.json` | Yes |
+| Metadata files | Yes |
+
+**Artifact location:** `final-launch/artifacts/`
+
+Artifact and metadata hashes are recorded in [`release-record.md`](release-record.md).
+
+---
+
+## 11. Deployment Record Certification
+
+The deployments, configuration actions, verification records, validation results, and retirement events listed here are the authoritative lifecycle record for the identified contracts.
+
+Inclusion in this document does not imply that a contract remains active. The **Current lifecycle status** column and the retirement ledger control that determination.
+
+| Field | Record |
+|---|---|
+| Deployment records archived | Yes |
+| Constructor arguments archived | Yes |
+| Verification records archived | Yes |
+| Exchange V3 retired | Yes |
+| Exchange V4 retired | Yes |
+| Current active exchange recorded | No; successor deployment must be added separately |
+| Maintainer | The LaborCoin Creator |
+| Revision date | July 2, 2026 |
