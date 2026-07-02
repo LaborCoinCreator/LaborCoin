@@ -446,6 +446,12 @@ Final LABR balance:
 Status:
 Decommissioned / residual dust only
 
+Old Exchange V4:
+0x4Cf18cB39203B678f5C26f2338a10a79f9684749
+
+Residual LABR dust: 0.00184357529635 LABR
+
+Status: Economically negligible and intentionally left in the retired exchange after recovery.
 ---
 
 ## LaborCoinTreasuryModuleV1
