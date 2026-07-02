@@ -1,0 +1,4 @@
+Address,Label,Evidence,Action
+0x4cf18cb39203b678f5c26f2338a10a79f9684749,Exchange candidate (sent DAO deposit),sent native POL deposit to DAO,Remove from token AMM/trading/dividend exemptions unless final Exchange V3/Vfinal
+0xd0692ec758bb852421b702b187b6439f74f8bf3b,Exchange V2 (old/historical),sent native POL deposit to DAO; deployer wallet buy interaction; deployer wallet sell interaction,Remove from token AMM/trading/dividend exemptions unless final Exchange V3/Vfinal
+0xe57ba76aed1b7b4142e3dfabd6cf3e94970b86ea,Exchange candidate (sent DAO deposit / buy tests),sent native POL deposit to DAO; deployer wallet buy interaction,Remove from token AMM/trading/dividend exemptions unless final Exchange V3/Vfinal

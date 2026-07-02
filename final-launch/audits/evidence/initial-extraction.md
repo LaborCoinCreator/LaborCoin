@@ -1,0 +1,366 @@
+# LaborCoin Launch Provenance Audit - Initial Extraction
+
+Source files inspected: Aragon transaction/action JSON plus Polygonscan normal, internal, and ERC-20 CSV exports for deployer and DAO treasury.
+
+## Immediate Finding
+
+- Parsed **45 grant/revoke permission events** from Aragon action JSON.
+- Reconstructed **21 permission tuples still active from the uploaded action history**, subject to final on-chain `isGranted` confirmation.
+- Identified **3 exchange / exchange-candidate addresses** from DAO deposits and deployer buy/sell interactions.
+- Identified **85 contract deployment candidates** from the deployer wallet export.
+
+## Revocation Checklist
+
+- [HIGH] Aragon plugin helper/manager candidate `0x8cbf8cec3f1762e614e6ed4d569998aa19dafb8b`
+  - where: `0xd9a660fad6fe13c5a88bcf3156f9e3200340152b`
+  - permissionId: `0x8c433a4cd6b51969eca37f974940894297b9fcf4b282a213fea5cd8f85289c90`
+  - grant tx: `0xf5e3c173828c1b058cfe727343626631b4a68efb836976d35cf65149f598cabd`
+  - action: Revoke unless this is Governance V13 or an intended final module
+  - tuple: `revoke(0xd9a660fad6fe13c5a88bcf3156f9e3200340152b, 0x8cbf8cec3f1762e614e6ed4d569998aa19dafb8b, 0x8c433a4cd6b51969eca37f974940894297b9fcf4b282a213fea5cd8f85289c90)`
+
+- [HIGH] Unclassified permission holder `0x556fceb6d1ab85f7bf588843d93da960d6028093`
+  - where: `0x0c2e5679153593b82a84eab5ca90895bb291cec4`
+  - permissionId: `0xf281525e53675515a6ba7cc7bea8a81e649b3608423ee2d73be1752cea887889`
+  - grant tx: `0x5e6438e741b09b4ca854be045fae9864ffaf32d32759db12cbc71607e888dc57`
+  - action: Revoke unless this is Governance V13 or an intended final module
+  - tuple: `revoke(0x0c2e5679153593b82a84eab5ca90895bb291cec4, 0x556fceb6d1ab85f7bf588843d93da960d6028093, 0xf281525e53675515a6ba7cc7bea8a81e649b3608423ee2d73be1752cea887889)`
+
+- [HIGH] Unclassified permission holder `0xb43cc57d4a67f3995211f0f5d630e34ba60123b8`
+  - where: `0x0c2e5679153593b82a84eab5ca90895bb291cec4`
+  - permissionId: `0xf281525e53675515a6ba7cc7bea8a81e649b3608423ee2d73be1752cea887889`
+  - grant tx: `0x3ecaeb5f645a5d7edd80719621e3fb2315864debdc3cfa9a3abbf9a699532cd4`
+  - action: Revoke unless this is Governance V13 or an intended final module
+  - tuple: `revoke(0x0c2e5679153593b82a84eab5ca90895bb291cec4, 0xb43cc57d4a67f3995211f0f5d630e34ba60123b8, 0xf281525e53675515a6ba7cc7bea8a81e649b3608423ee2d73be1752cea887889)`
+
+- [HIGH] Unclassified permission holder `0x43de58067f46217263a36848f948dc4d3cacc49f`
+  - where: `0x0c2e5679153593b82a84eab5ca90895bb291cec4`
+  - permissionId: `0xf281525e53675515a6ba7cc7bea8a81e649b3608423ee2d73be1752cea887889`
+  - grant tx: `0x5f79d64a17068039b6c4d69842cee0b6584921b988d527463150ace192d28456`
+  - action: Revoke unless this is Governance V13 or an intended final module
+  - tuple: `revoke(0x0c2e5679153593b82a84eab5ca90895bb291cec4, 0x43de58067f46217263a36848f948dc4d3cacc49f, 0xf281525e53675515a6ba7cc7bea8a81e649b3608423ee2d73be1752cea887889)`
+
+- [HIGH] Unclassified permission holder `0x63066b0dd3a0e52212b934f7602056082c187e4b`
+  - where: `0x0c2e5679153593b82a84eab5ca90895bb291cec4`
+  - permissionId: `0xf281525e53675515a6ba7cc7bea8a81e649b3608423ee2d73be1752cea887889`
+  - grant tx: `0x247e8c34c6100136eb786e3e46ab41ab7e35265bb0ed4ae17140498e142b1e29`
+  - action: Revoke unless this is Governance V13 or an intended final module
+  - tuple: `revoke(0x0c2e5679153593b82a84eab5ca90895bb291cec4, 0x63066b0dd3a0e52212b934f7602056082c187e4b, 0xf281525e53675515a6ba7cc7bea8a81e649b3608423ee2d73be1752cea887889)`
+
+- [HIGH] Unclassified permission holder `0xe4fd8127ad01c2691c8955cb240d2062d1731020`
+  - where: `0x0c2e5679153593b82a84eab5ca90895bb291cec4`
+  - permissionId: `0xf281525e53675515a6ba7cc7bea8a81e649b3608423ee2d73be1752cea887889`
+  - grant tx: `0xb64cce3adb987c08167c2ae9b89a663cdf33121c669029c3d6eeaceb1f21332f`
+  - action: Revoke unless this is Governance V13 or an intended final module
+  - tuple: `revoke(0x0c2e5679153593b82a84eab5ca90895bb291cec4, 0xe4fd8127ad01c2691c8955cb240d2062d1731020, 0xf281525e53675515a6ba7cc7bea8a81e649b3608423ee2d73be1752cea887889)`
+
+- [HIGH] Unclassified permission holder `0xab7cfc38f65b79a4c7bd92810c70e78eaf2670ac`
+  - where: `0x0c2e5679153593b82a84eab5ca90895bb291cec4`
+  - permissionId: `0xf281525e53675515a6ba7cc7bea8a81e649b3608423ee2d73be1752cea887889`
+  - grant tx: `0x2b55bc16f389d20f32c1a8b05fdc33fff7567e47a94fab93c05c146d61111da4`
+  - action: Revoke unless this is Governance V13 or an intended final module
+  - tuple: `revoke(0x0c2e5679153593b82a84eab5ca90895bb291cec4, 0xab7cfc38f65b79a4c7bd92810c70e78eaf2670ac, 0xf281525e53675515a6ba7cc7bea8a81e649b3608423ee2d73be1752cea887889)`
+
+- [HIGH] Unclassified permission holder `0x232bd1c5fd0917df766eedb713ca47bba9e44bc5`
+  - where: `0x0c2e5679153593b82a84eab5ca90895bb291cec4`
+  - permissionId: `0xf281525e53675515a6ba7cc7bea8a81e649b3608423ee2d73be1752cea887889`
+  - grant tx: `0x305a6052f1da280966fee8f646b19337d6cb2347c29870fbab17c5ed96e2fab0`
+  - action: Revoke unless this is Governance V13 or an intended final module
+  - tuple: `revoke(0x0c2e5679153593b82a84eab5ca90895bb291cec4, 0x232bd1c5fd0917df766eedb713ca47bba9e44bc5, 0xf281525e53675515a6ba7cc7bea8a81e649b3608423ee2d73be1752cea887889)`
+
+- [HIGH] Unclassified permission holder `0x6cabeb549db04e82d79045f348b32418bd99b726`
+  - where: `0x0c2e5679153593b82a84eab5ca90895bb291cec4`
+  - permissionId: `0xf281525e53675515a6ba7cc7bea8a81e649b3608423ee2d73be1752cea887889`
+  - grant tx: `0x06e55e806204a5de01332299a5dffc12c7c187bf99c9596acc8d220ac3e9b9df`
+  - action: Revoke unless this is Governance V13 or an intended final module
+  - tuple: `revoke(0x0c2e5679153593b82a84eab5ca90895bb291cec4, 0x6cabeb549db04e82d79045f348b32418bd99b726, 0xf281525e53675515a6ba7cc7bea8a81e649b3608423ee2d73be1752cea887889)`
+
+- [HIGH] Unclassified permission holder `0x232bd1c5fd0917df766eedb713ca47bba9e44bc5`
+  - where: `0x0c2e5679153593b82a84eab5ca90895bb291cec4`
+  - permissionId: `0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d`
+  - grant tx: `0x8c236306b8ab7776c9655abf22efafff2bb650e1cb7ff764a841040142c1c2cb`
+  - action: Revoke unless this is Governance V13 or an intended final module
+  - tuple: `revoke(0x0c2e5679153593b82a84eab5ca90895bb291cec4, 0x232bd1c5fd0917df766eedb713ca47bba9e44bc5, 0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d)`
+
+- [HIGH] Unclassified permission holder `0x6cabeb549db04e82d79045f348b32418bd99b726`
+  - where: `0x0c2e5679153593b82a84eab5ca90895bb291cec4`
+  - permissionId: `0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d`
+  - grant tx: `0xbdd927cf81f327b72073dbcd98aeec25719a7592383c7e142d77fada08e74a06`
+  - action: Revoke unless this is Governance V13 or an intended final module
+  - tuple: `revoke(0x0c2e5679153593b82a84eab5ca90895bb291cec4, 0x6cabeb549db04e82d79045f348b32418bd99b726, 0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d)`
+
+- [HIGH] Unclassified permission holder `0x52419b9977f50918eb98558f39bb40abafb4ed2a`
+  - where: `0x0c2e5679153593b82a84eab5ca90895bb291cec4`
+  - permissionId: `0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d`
+  - grant tx: `0xe2f29e13efe76ff484b65adafecf2855f85361c3e900ea951a876cdcc6abf172`
+  - action: Revoke unless this is Governance V13 or an intended final module
+  - tuple: `revoke(0x0c2e5679153593b82a84eab5ca90895bb291cec4, 0x52419b9977f50918eb98558f39bb40abafb4ed2a, 0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d)`
+
+- [HIGH] Unclassified permission holder `0xcaf66c6f4f168625e732032b88e903b39cc8ecde`
+  - where: `0x0c2e5679153593b82a84eab5ca90895bb291cec4`
+  - permissionId: `0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d`
+  - grant tx: `0xaf1edc59d602546196959dc10b2d1b09001ee977da27563477a328c30ed9b6f0`
+  - action: Revoke unless this is Governance V13 or an intended final module
+  - tuple: `revoke(0x0c2e5679153593b82a84eab5ca90895bb291cec4, 0xcaf66c6f4f168625e732032b88e903b39cc8ecde, 0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d)`
+
+- [HIGH] Unclassified permission holder `0x4d4bc3d4039b6a9fcd9a9d0c2cff655a52bb4516`
+  - where: `0x0c2e5679153593b82a84eab5ca90895bb291cec4`
+  - permissionId: `0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d`
+  - grant tx: `0xb5d7ddd6e160c2ae8642cdcde5aaadfb0a35fd09afe04605e2e388267a3a1a30`
+  - action: Revoke unless this is Governance V13 or an intended final module
+  - tuple: `revoke(0x0c2e5679153593b82a84eab5ca90895bb291cec4, 0x4d4bc3d4039b6a9fcd9a9d0c2cff655a52bb4516, 0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d)`
+
+- [HIGH] Unclassified permission holder `0x286292f67a6ac9a6ea1c894cf64f6dd8cdd76436`
+  - where: `0x0c2e5679153593b82a84eab5ca90895bb291cec4`
+  - permissionId: `0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d`
+  - grant tx: `0x56ca00de9aa8746cda81041a7f57851b99505ca3b47ea706a9e1790898aa3d6b`
+  - action: Revoke unless this is Governance V13 or an intended final module
+  - tuple: `revoke(0x0c2e5679153593b82a84eab5ca90895bb291cec4, 0x286292f67a6ac9a6ea1c894cf64f6dd8cdd76436, 0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d)`
+
+- [HIGH] Unclassified permission holder `0xefbb3f8f873282a5d6789e6ae11409b43fc18910`
+  - where: `0x0c2e5679153593b82a84eab5ca90895bb291cec4`
+  - permissionId: `0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d`
+  - grant tx: `0x10432f69242e952b73a5724b298829a27a6698d1569e459f66b852994779ace1`
+  - action: Revoke unless this is Governance V13 or an intended final module
+  - tuple: `revoke(0x0c2e5679153593b82a84eab5ca90895bb291cec4, 0xefbb3f8f873282a5d6789e6ae11409b43fc18910, 0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d)`
+
+- [HIGH] Unclassified permission holder `0x84ac5be86e2102496949862f59aceb5d7dc3df77`
+  - where: `0x0c2e5679153593b82a84eab5ca90895bb291cec4`
+  - permissionId: `0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d`
+  - grant tx: `0x13209a8a5f73486928eb983dceae4258aea127ba85dd40c31fd32ded8e1853c1`
+  - action: Revoke unless this is Governance V13 or an intended final module
+  - tuple: `revoke(0x0c2e5679153593b82a84eab5ca90895bb291cec4, 0x84ac5be86e2102496949862f59aceb5d7dc3df77, 0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d)`
+
+- [HIGH] Governance V12 (known old) `0x499b32e9e5a8b9865a9d69480d590252a56fa78f`
+  - where: `0x0c2e5679153593b82a84eab5ca90895bb291cec4`
+  - permissionId: `0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d`
+  - grant tx: `0xec6638a618299672fcb4d166086e8f58b223e9923797d2efd29dec2158c5e90f`
+  - action: Revoke unless this is Governance V13 or an intended final module
+  - tuple: `revoke(0x0c2e5679153593b82a84eab5ca90895bb291cec4, 0x499b32e9e5a8b9865a9d69480d590252a56fa78f, 0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d)`
+
+- [VERIFY] Treasury Module V1 (known final module) `0x0b018e45e4cb71e222c345a5341bdbaee519c623`
+  - where: `0x0c2e5679153593b82a84eab5ca90895bb291cec4`
+  - permissionId: `0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d`
+  - grant tx: `0x974cb10ead303aa901678d7b908b6a2ca65e054294630fcd5c95e45fa4e3bbf4`
+  - action: Verify if Treasury Module V1 should keep this permission; if not, revoke
+  - tuple: `revoke(0x0c2e5679153593b82a84eab5ca90895bb291cec4, 0x0b018e45e4cb71e222c345a5341bdbaee519c623, 0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d)`
+
+- [HIGH] Governance/Executor candidate (execute permission granted Jun 24) `0x8238105d31f6bb26897d8ab270a0a521fef03e8c`
+  - where: `0x0c2e5679153593b82a84eab5ca90895bb291cec4`
+  - permissionId: `0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d`
+  - grant tx: `0x1e9bc8d427a417ad84b1d52fd08a3592fa682c9ebf51213096ea38e2a6e591fd`
+  - action: Revoke unless this is Governance V13 or an intended final module
+  - tuple: `revoke(0x0c2e5679153593b82a84eab5ca90895bb291cec4, 0x8238105d31f6bb26897d8ab270a0a521fef03e8c, 0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d)`
+
+- [HIGH] Governance/Executor candidate (execute permission granted Jun 24) `0x10f2798ef055950b897af4b3a8ae90de34f6c56c`
+  - where: `0x0c2e5679153593b82a84eab5ca90895bb291cec4`
+  - permissionId: `0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d`
+  - grant tx: `0x2e34480efe13043df5318d77242b11c078a02dc0bba3a5aa7cfdf61f91fc45b0`
+  - action: Revoke unless this is Governance V13 or an intended final module
+  - tuple: `revoke(0x0c2e5679153593b82a84eab5ca90895bb291cec4, 0x10f2798ef055950b897af4b3a8ae90de34f6c56c, 0xbf04b4486c9663d805744005c3da000eda93de6e3308a4a7a812eb565327b78d)`
+
+
+## Exchange Cleanup Candidates
+
+- `0x4cf18cb39203b678f5c26f2338a10a79f9684749` - Exchange candidate (sent DAO deposit)
+  - evidence: sent native POL deposit to DAO
+  - action: Remove from token AMM/trading/dividend exemptions unless final Exchange V3/Vfinal
+
+- `0xd0692ec758bb852421b702b187b6439f74f8bf3b` - Exchange V2 (old/historical)
+  - evidence: sent native POL deposit to DAO; deployer wallet buy interaction; deployer wallet sell interaction
+  - action: Remove from token AMM/trading/dividend exemptions unless final Exchange V3/Vfinal
+
+- `0xe57ba76aed1b7b4142e3dfabd6cf3e94970b86ea` - Exchange candidate (sent DAO deposit / buy tests)
+  - evidence: sent native POL deposit to DAO; deployer wallet buy interaction
+  - action: Remove from token AMM/trading/dividend exemptions unless final Exchange V3/Vfinal
+
+
+## DAO Deposit Senders
+
+- `0x4Cf18cB39203B678f5C26f2338a10a79f9684749` sent `1.5` POL, tx `0x18aa24b6629a9dd461d32775e43039635feefe0767191f943c85831656e397f4`
+
+- `0xE57ba76AED1B7B4142E3DfaBd6cf3E94970b86eA` sent `13.756791438` POL, tx `0x0c6b1395af80f439a17847f131663b3abf07c3f2e016ef40474a5698f74c34c4`
+
+- `0xD0692ec758bb852421B702B187b6439f74f8Bf3b` sent `0.6572` POL, tx `0x45f2e3c0f56b9cd3b66de9817f5643445f7b5e5903e89af2e0882b1b837c8dbf`
+
+- `0x015b6D0990E56D908c876474C6A30eBa2b8A0CFB` sent `1.0` POL, tx `0xd98ce67530b2a6fa96674c6a27e6d3e6556bb5e38983145ae1f6f84b916922bf`
+
+
+## Deployment Candidates
+
+- `0x060a5f0c523d860a8d2c40a09b22a20fa2fa87f6` - Unclassified deployment from deployer wallet - deployed 2026-04-12 02:19:13 - tx `0xb5331ffdcd1f62b6dfc1d055f8965e79e94734fd90a799c071aa85733cd79bc1`
+
+- `0xf7003162b3e3e74b91f03147df3b77e5b176f3cd` - Unclassified deployment from deployer wallet - deployed 2026-04-12 07:11:57 - tx `0xd0414697350e29e3234354bd07eb9f295f761187313e97c82736df9224ff20f7`
+
+- `0xa93c8b03e5efe2d777b948ff629a82ed05d2c071` - Unclassified deployment from deployer wallet - deployed 2026-04-13 09:28:41 - tx `0x86cf1b3e7f602f6d754c6f7d1e11661012aac73076866b0c75b0c71a5d255ecf`
+
+- `0xc2ac26d60f5b228f9b0c47fb8e1c7cf273da35f4` - Unclassified deployment from deployer wallet - deployed 2026-04-14 08:04:23 - tx `0x9d044c2ed874f24146c8b8bba2eecbb3b970d089ef849de9551b185c7362e141`
+
+- `0x4bdddd18670a41813015713394465106793d58a6` - Unclassified deployment from deployer wallet - deployed 2026-04-15 03:12:00 - tx `0x8f4b19de5e40f108853f156450404108ef2f33a1df4e3c53e7b43c55081c2c18`
+
+- `0x375ca1cf515b59dcee8829ab4e9a45bc2f274331` - Unclassified deployment from deployer wallet - deployed 2026-04-15 06:09:44 - tx `0x0dce43f71b33680041bbc9e1c0545238d56996bbf32daeccd7df94265eb93200`
+
+- `0x3586b123191be1944dbda623079ced5b6c8d03fe` - Unclassified deployment from deployer wallet - deployed 2026-04-15 06:29:04 - tx `0x1a3f4d7ced7f5496673169574dfd847e692d5c253d96c729c79c69842cffe04f`
+
+- `0x440a756e16d4b42a015ec61258759037a454ec79` - Unclassified deployment from deployer wallet - deployed 2026-04-15 07:50:48 - tx `0x7de1e00c84493cb1284c6ff411a9ea7cb8e8bca86be5221922fdf52b032adaa4`
+
+- `0xa361cb84422452bdef5a04a447492ad176b09c0b` - Unclassified deployment from deployer wallet - deployed 2026-04-15 07:54:44 - tx `0x4d50361e64e854d36b6a25300151d840fe275c3f4e8e0e07afe8280b2143ae23`
+
+- `0x5a0c3d5f6a814dda121fe174ffd963451e9fca4f` - Unclassified deployment from deployer wallet - deployed 2026-04-15 08:34:22 - tx `0xad4a50f56295f198a5b39db66b6c16f9c6c4449c49a9ab42437d39c3a57406bb`
+
+- `0xd9210de64a369c0b89b82949a84efe170801f79d` - Unclassified deployment from deployer wallet - deployed 2026-04-23 09:57:22 - tx `0x487a19d78dc8defc7f5b5e9c2a0476cbbf8fb7a702a0fadf54b55e60534d4430`
+
+- `0xed8c432fdfba629387eed06c1dc5ca6087c1c09b` - Unclassified deployment from deployer wallet - deployed 2026-04-25 11:08:20 - tx `0x53084be60370f0ebdeea146532871c3d457c5834dffb02bd73ea17ff80931f4c`
+
+- `0xd0692ec758bb852421b702b187b6439f74f8bf3b` - Exchange V2 (old/historical) - deployed 2026-04-26 21:13:40 - tx `0xc86f3bdc6bd72c34e88e29245a3b07b3f2d6365a7aa492db5dea743067170b3c`
+
+- `0x4fd4fc509e83f011a509f0b3406d35652169b8ff` - Unclassified deployment from deployer wallet - deployed 2026-04-27 08:43:10 - tx `0x2608c1b98198b0a11eb1f887c1acd8a9c37fb0c7245fe22da5f21cda554c9798`
+
+- `0x60118f7ebdd03bab0266732d1087078de2cbe67e` - Unclassified deployment from deployer wallet - deployed 2026-05-03 08:01:02 - tx `0xb1f06800e8a660633c930e31d732608e93b2ce213b9a9e249b80b5ca3690429b`
+
+- `0x113579220515cd59b884ea2379b4c369025246e2` - Unclassified deployment from deployer wallet - deployed 2026-05-03 08:41:38 - tx `0xa46b06de8a0b182a6fa71b9d45ad6e53a44b0ee035d7294bbc65a6fe18c17e00`
+
+- `0xffc3499a71b806c3919f4b54d236b151cfdcb453` - Unclassified deployment from deployer wallet - deployed 2026-05-04 19:59:30 - tx `0xcfde61ccf57d2d91c0eee6e1b078fbce5721b67a8e5c4b6cb530edf2ca9a7d4c`
+
+- `0xb936d1a9ec0ee2abb2d26e56f85097476a5dcd0a` - Unclassified deployment from deployer wallet - deployed 2026-05-04 20:20:30 - tx `0x51d36cae1e79ee5652862f2cb7d58f42e028b90c18d0de9522e914b62cfecf16`
+
+- `0x1c01bd6ccc2c9acfb59f37f7877a7a2718167abe` - Unclassified deployment from deployer wallet - deployed 2026-05-04 20:27:16 - tx `0xbbf811a60e138019f8a444062da7bcd92ee5bf8a73e858896000fab5ee81f939`
+
+- `0xf80d9ea4c9bbb393d390b5568f04c81931a8f599` - Unclassified deployment from deployer wallet - deployed 2026-05-15 06:55:26 - tx `0x2dc6a3edcdde3aa641b145c4c139b16f9023168d23016d54988cdcdfc42e206a`
+
+- `0xd9c423357e4420db9a1932fd8713a7d066ea9884` - Unclassified deployment from deployer wallet - deployed 2026-05-15 07:04:14 - tx `0x85509242f8e4cbcab65d5683648e1d143cfd44f65392601378a63678ebac2f2f`
+
+- `0x716452cf3d183bc2392f80cfaca3f9d88ccb6882` - Unclassified deployment from deployer wallet - deployed 2026-05-15 07:16:26 - tx `0x31a1bb34a42c09e43e201e8f35a14e579eb32854742da987a227911febdf3ada`
+
+- `0x99f90e3da7b40988fe808e77b0aec51dafdff1cc` - Unclassified deployment from deployer wallet - deployed 2026-05-19 05:47:25 - tx `0x1792724a0d4122158e989593ca6e00ca4cfb8628655fea20197b26168b6e1262`
+
+- `0xdbdd4040442965cf6498eedc0df140a5fac275a7` - Unclassified deployment from deployer wallet - deployed 2026-05-19 06:04:17 - tx `0x45cf7d591bd3e707d935ef2913dfe913ba1ee0dc67294be49dea3d1bffa413d6`
+
+- `0xe2a791fd057bba5aea0efcfb8b97f9de74cc7c06` - Unclassified deployment from deployer wallet - deployed 2026-05-19 16:02:17 - tx `0x6e73cec02741580cea313d25561c4c0917a2751d5c54e8e1fdcfb39ef77967a2`
+
+- `0x3edfa4be01e7a244357198260f2432094690ab65` - Unclassified deployment from deployer wallet - deployed 2026-05-19 16:07:11 - tx `0xad2786d1dc3049a693d8279d70297d47babdbf6b5ae9451a65b40f506bb83d3e`
+
+- `0x260e5c1da01a51a3059fdb2163914ac9ff83c0f7` - Unclassified deployment from deployer wallet - deployed 2026-05-19 16:12:54 - tx `0xc6ea1a0a4b17eda789a109ff09b2e41e2fdfe2fa567414247e98dd552a067014`
+
+- `0x428f21d77c2774badf14cd13bfa4fc18d62184b2` - Unclassified deployment from deployer wallet - deployed 2026-05-19 20:48:17 - tx `0x03154b7aa6c1a159b073cc7de8a8c7369c3b7a194f9bbba124eedcaf03a49c75`
+
+- `0xc481b181efe184f06aef999c928921859fc7f483` - Unclassified deployment from deployer wallet - deployed 2026-05-19 21:05:51 - tx `0xed6a35cdafed82211a7338b9d72c77e8d9619c540c3028656b6aa8614746f18f`
+
+- `0x9310f6eca828fdff05c16220cbb21eeca0d6f77d` - Unclassified deployment from deployer wallet - deployed 2026-05-19 21:08:23 - tx `0x4ca5ee024b79e0fc2189481f7b0756f4c9320e778fe336fcaa62bc8e8b64e6bd`
+
+- `0xa0060e934377d3e9d74699d48d46a491aeb976b9` - Unclassified deployment from deployer wallet - deployed 2026-05-20 19:47:02 - tx `0x5e90ffaa11e0aa16b4838c8faff311adaeabbb1cdea43588aee4b696355b581c`
+
+- `0x858212375299ba9ed198cdc5ab525dc45e08593b` - Unclassified deployment from deployer wallet - deployed 2026-05-20 20:43:02 - tx `0x6fa363d39cb4fafc0353bbd9762954ce3a5fbe54dd92ae0fb21f84ced2333d22`
+
+- `0x94c83d82bd04947c3ec426b99c316d49da977af2` - Unclassified deployment from deployer wallet - deployed 2026-05-20 21:08:57 - tx `0xe504ba83ad195bcc160d01cd1d1d99ff998c045a1ba714e82c7a808d2a63cb71`
+
+- `0x69b3317d3d742afa6cd770f7ca29eeeacdda073d` - Unclassified deployment from deployer wallet - deployed 2026-05-20 21:12:29 - tx `0xff308db0641b510baeb9b148f8da3c181f18f3fa6bd173be54e49b2fa868fc13`
+
+- `0x8ceb1cc33ff4f1ec30901fc5795b57a5b175a12e` - Unclassified deployment from deployer wallet - deployed 2026-05-21 08:08:44 - tx `0x5e58935409447db2f06b5b658f2db6182c0d56af1380194f54e8dae4b479fc47`
+
+- `0x8840368d41b93db9c718e9a9039b625028b23b0b` - Unclassified deployment from deployer wallet - deployed 2026-05-21 08:17:50 - tx `0xe74ba7a324579746dd3949d7f0ef1ecd1d94c3671b429005dc749cfb0ebe50c3`
+
+- `0x7a9ed74239b880aa3c287e022995f40cd1e3896e` - Unclassified deployment from deployer wallet - deployed 2026-05-21 09:31:06 - tx `0xc55902ff80f05a7b01be275dcd5f0ab47d5653d6f916b67bde74cebc72e7e519`
+
+- `0xfe2ec98952950d25ed98788811b4b64141a2410c` - Unclassified deployment from deployer wallet - deployed 2026-05-21 09:33:12 - tx `0xd26aa53f66d1eb747144304af1e4e1379f0beab9fab6200fc241b37594141349`
+
+- `0xee7a568a43c0e653f3ccbf9448691ba57176d977` - Unclassified deployment from deployer wallet - deployed 2026-05-21 20:54:57 - tx `0xb76e6d0c65f10e082c130d1fa96e797225afb7ae1bc915d18eb27fe7e05123c0`
+
+- `0x4879b8dda14c3023bf61f50953eb777676980e13` - Unclassified deployment from deployer wallet - deployed 2026-05-22 07:55:50 - tx `0xfa929f9a101e47b39808c9e35bb139b1822ab23b2f6a5f34bac6787530e034e2`
+
+- `0x3be23d34086d1e1ca83a9d847d2f5b2e947e3677` - Unclassified deployment from deployer wallet - deployed 2026-05-22 08:25:31 - tx `0x108b8fa4539b0dce488ce705e11cd0287b9879536ec366e9b6169b27af691d0c`
+
+- `0x5f20325bd7c0c12b240552abd0f197cb3f9c4079` - Unclassified deployment from deployer wallet - deployed 2026-05-22 09:09:53 - tx `0x4800cb4b445275c653020f584f445a688184de0ecc07749b9244e3cfe53e6fd1`
+
+- `0xd594d97bbeb6a02253613b48c68bf1524be1d5c2` - Unclassified deployment from deployer wallet - deployed 2026-05-22 09:26:01 - tx `0x4c61011a1c9c23446e339b010b61c63c93cdd8c723fc3ff58d2026fb7d3862c4`
+
+- `0x1198607c796fb417cf35fed088dbfde6da40b388` - Unclassified deployment from deployer wallet - deployed 2026-05-22 19:40:04 - tx `0xf2152c2e34cdb868ffb0bdc0c9f9dbcbb1fb8741bf81df9e39020fa95607d6fe`
+
+- `0x26d83f19eae411bfcea2ab92834fc66f3bfad843` - Unclassified deployment from deployer wallet - deployed 2026-05-22 19:54:44 - tx `0x73a9c753d27b4cfe7773681f7167635b58386e54ca40f6fcd538ea1dfe138793`
+
+- `0xb9d1cfb2cf328c620579642a2cf5b427594588b7` - Unclassified deployment from deployer wallet - deployed 2026-05-22 20:18:32 - tx `0xe75efcfede4f2642c990952f1344739ba381b1411529c87112c98cfb034a4e64`
+
+- `0xefd26afa3a3f91ef371b22a596a3502e7745212c` - Unclassified deployment from deployer wallet - deployed 2026-05-23 06:42:09 - tx `0xd6c6bdde43bf1a3308ca79442b0d7f17f595c21776e6e5c4b54d349a4a531d3a`
+
+- `0x357e8574e6046411717946485fd7edbed0066150` - Unclassified deployment from deployer wallet - deployed 2026-05-23 06:59:21 - tx `0xcf2a9309ea07a687d6fbcf0bb70c2a3cf0f2dae299f28cbd70b5a33a6f916b4e`
+
+- `0xf07ee15d24478e9e1768b65e69cbe98530331776` - Unclassified deployment from deployer wallet - deployed 2026-05-23 19:10:39 - tx `0xb78da512776e82173ea375e90537bd06f36087e8bd5a10fd8ff34af450045559`
+
+- `0x538ce3aa6b6e3b600e470ea09e8a82684e06fd1b` - Unclassified deployment from deployer wallet - deployed 2026-05-23 19:11:31 - tx `0x768b8401b9dcaa91bd497879ba15ac79020dc7bd7204d1bccb6638da2db714e9`
+
+- `0xe09a5991ea220833969ace3930e4a3bad1e217f2` - Unclassified deployment from deployer wallet - deployed 2026-05-23 19:33:13 - tx `0xc00a65f0737bd9f6ebb94331429ab04ef5d2d67ae0ec873434bcdab2b0722211`
+
+- `0x05ca5a39a9405f65c4627b6dd31fba2dccd33a29` - Unclassified deployment from deployer wallet - deployed 2026-05-23 19:34:57 - tx `0x06e0765f3a1323e261d6d30b1d647e677e4ed941f399361ea065025f6e51980e`
+
+- `0x63a55bd2c7e7d473a8dd74c1e568fb415ba38a76` - Unclassified deployment from deployer wallet - deployed 2026-05-24 18:39:12 - tx `0x80bff4504f17dc45d0f30c27190db3f614ce3d2f6f8ac728ad1bc294e36896d1`
+
+- `0xbf06aa27bd4b327ec0b36dcd3d2aa1e72bcac9e8` - Unclassified deployment from deployer wallet - deployed 2026-05-24 18:40:41 - tx `0x93779aa670a08aba3fd0ce56f394f77375a909a672f2587ca98e592237373e3a`
+
+- `0xa7d0c092c2391379046cacdc56bebde5a0cbd113` - Unclassified deployment from deployer wallet - deployed 2026-05-24 19:23:53 - tx `0x98090a9bdccb0b518a8a007dce363aa340c9e04957506e0b5d8e7d5953b789d7`
+
+- `0xfbc9cddad41367b092636373f3aae35750ac55bf` - Unclassified deployment from deployer wallet - deployed 2026-05-25 19:11:58 - tx `0xca0cb23600e3127e10be0305756811c69ae58356e28138af70f6e711df39f3f6`
+
+- `0xdc5a21f349315d8024e3a66639bbcdc586843679` - Unclassified deployment from deployer wallet - deployed 2026-05-25 19:26:40 - tx `0x61215197841539ddc8a5f886ad871e2b01736f801e53cc27a72805680c8724a4`
+
+- `0x1daf4d6867a85506c020ad1f13cce517f3cb62cc` - Unclassified deployment from deployer wallet - deployed 2026-05-25 19:31:34 - tx `0xd07af0d0f8fd848111987bcb42c5094ff5e945e1faf6c640cae7e554027a91b5`
+
+- `0x556fceb6d1ab85f7bf588843d93da960d6028093` - Unclassified deployment from deployer wallet - deployed 2026-05-26 06:00:41 - tx `0x7438eb4deeb4d87ee88fef5ca1454c39e80a562e8975202c3ab0cf9b0d53a481`
+
+- `0xd1669d878bdc7739e15fe06cdafa373745fd6a1f` - Unclassified deployment from deployer wallet - deployed 2026-05-26 06:08:15 - tx `0x5f13928530aebe5c02aa6cd1851449a201729d323e86ae62e08579bd99891fa0`
+
+- `0x769d02aaec96967d9d075eb9e79caf95e84385ab` - Unclassified deployment from deployer wallet - deployed 2026-05-26 06:10:19 - tx `0xb4a1624aab5bda65d1a1a1c00897d5c8912713cfdfa1e15eae176fc13bcb8085`
+
+- `0xb43cc57d4a67f3995211f0f5d630e34ba60123b8` - Unclassified deployment from deployer wallet - deployed 2026-05-26 19:52:18 - tx `0xf94c3c6af862a786e948f97f14c79528a97827174c5a75b88d46f52ad29389aa`
+
+- `0x7dfb64cb3602fff5bc810e9a36ca9f74472cb2fb` - Unclassified deployment from deployer wallet - deployed 2026-05-26 19:53:37 - tx `0xeeb3b6c7cb7756e71a202c7ac1bee6178978f0ee1be17c065d14eb69d0946196`
+
+- `0x43de58067f46217263a36848f948dc4d3cacc49f` - Unclassified deployment from deployer wallet - deployed 2026-05-27 20:38:33 - tx `0x20bc871110f709d5ce232060532e9ecb30a55a43f599b12b730871999efee268`
+
+- `0xafba253828f8b6e5f5783fa74fd21e10cd0ef3f3` - Unclassified deployment from deployer wallet - deployed 2026-05-27 20:39:41 - tx `0x5cd80a5592ab46b3612318d4efcd7e9e4ea7df0addffc1f89c3b7b66e57cf23c`
+
+- `0x63066b0dd3a0e52212b934f7602056082c187e4b` - Unclassified deployment from deployer wallet - deployed 2026-05-27 21:00:55 - tx `0xcefab4f5d9ea079719267a73a4c28eb18a604a0385d989f8fd403a658a3c1e61`
+
+- `0x1496ac5a6c3125e063df225a118bb7f7430475de` - Unclassified deployment from deployer wallet - deployed 2026-05-27 21:01:53 - tx `0x4e6ee0a025b8bea5d141b87e22a10433e4ed1158c85dd0b287934521cc2d7420`
+
+- `0xe4fd8127ad01c2691c8955cb240d2062d1731020` - Unclassified deployment from deployer wallet - deployed 2026-05-28 07:39:49 - tx `0xea36079a6910a3a52f84c658b325d63bb5d302e83f83873d3299606d547892da`
+
+- `0xab7cfc38f65b79a4c7bd92810c70e78eaf2670ac` - Unclassified deployment from deployer wallet - deployed 2026-05-28 09:54:36 - tx `0x8cc88583c52e0cbdd77d854c85fc10ad538e82720ba250c0ee5b6c8d2c803f1f`
+
+- `0x6cabeb549db04e82d79045f348b32418bd99b726` - Unclassified deployment from deployer wallet - deployed 2026-05-28 20:34:29 - tx `0x5863f20277dd4e9d8b1614a27ce8a623ecb5f793792230af6a504f2b555f97ba`
+
+- `0x232bd1c5fd0917df766eedb713ca47bba9e44bc5` - Unclassified deployment from deployer wallet - deployed 2026-05-28 20:53:46 - tx `0x79201c75917515f70b3ec64e399a8d71bddf94f90ecb9572309dc0d98a5c6526`
+
+- `0xcaf66c6f4f168625e732032b88e903b39cc8ecde` - Unclassified deployment from deployer wallet - deployed 2026-06-04 08:52:42 - tx `0xcb688e7e21793f40fd51c21ed17e729e9f84db7778af8dc7c06efd803871eefe`
+
+- `0x52419b9977f50918eb98558f39bb40abafb4ed2a` - Unclassified deployment from deployer wallet - deployed 2026-06-04 08:54:24 - tx `0x06a443dd4e9d6db93128204e12d89260f31487e550621fefd020acd6f5849437`
+
+- `0x286292f67a6ac9a6ea1c894cf64f6dd8cdd76436` - Unclassified deployment from deployer wallet - deployed 2026-06-05 23:50:34 - tx `0x668563f36596d3f50b07a009524c78d61ea566c46b00a726acfce3132222ad9b`
+
+- `0x4d4bc3d4039b6a9fcd9a9d0c2cff655a52bb4516` - Unclassified deployment from deployer wallet - deployed 2026-06-05 23:51:55 - tx `0xbf9a2f04a3b718313a072ff15e4a7cc2e21ceb703ba124a4791fe5172106f7fd`
+
+- `0x84ac5be86e2102496949862f59aceb5d7dc3df77` - Unclassified deployment from deployer wallet - deployed 2026-06-07 01:20:15 - tx `0xdb8b75b6c9b62ded50d0069c9d662d7ad3c2b4800746241ce1e9b56f4658d43e`
+
+- `0xefbb3f8f873282a5d6789e6ae11409b43fc18910` - Unclassified deployment from deployer wallet - deployed 2026-06-07 01:22:01 - tx `0xec6c19a1e79c16ea589ae729bc9f92a60f5e69d0153aa1e689687a6944352f85`
+
+- `0x0b018e45e4cb71e222c345a5341bdbaee519c623` - Treasury Module V1 (known final module) - deployed 2026-06-07 02:23:42 - tx `0xb8ed88e7d3d1e39f81767cbaebfed4f14b1c3c0ab927da591f023c6ed2a97486`
+
+- `0x499b32e9e5a8b9865a9d69480d590252a56fa78f` - Governance V12 (known old) - deployed 2026-06-07 02:25:03 - tx `0x5d0b727e5fa852c052a6ad541b97ba9552b93be4c41c7813e6bf027efbe6d53f`
+
+- `0x833242e933c675846d8f8982048feca95b8e435a` - LABRV V7 - deployed 2026-06-16 08:22:48 - tx `0x83f241f7c3d3442d9a4a1d56c38d3354fb1803a5bb3bae05c6e22c547a143db7`
+
+- `0xd1cd6c0b6f1f709a52908b40c07d3c54649e323c` - Registration V4 - deployed 2026-06-23 08:01:55 - tx `0xbe8c2a8cc7f9322a36b9a6a1726d7f830531b601941f17324bffe1b995bc10fe`
+
+- `0xe57ba76aed1b7b4142e3dfabd6cf3e94970b86ea` - Exchange candidate (sent DAO deposit / buy tests) - deployed 2026-06-24 03:02:19 - tx `0x7eafc77c8e5a0e5f2d2c6f83f2cd1fd4e104f963dca1c0325e2b93d563c9d876`
+
+- `0x10f2798ef055950b897af4b3a8ae90de34f6c56c` - Governance/Executor candidate (execute permission granted Jun 24) - deployed 2026-06-24 06:45:32 - tx `0x6817331673fa3d178b78c9a7d4499a36a28913728767c870ffce5c2bb9a84cb8`
+
+- `0x8238105d31f6bb26897d8ab270a0a521fef03e8c` - Governance/Executor candidate (execute permission granted Jun 24) - deployed 2026-06-24 20:15:38 - tx `0xabd669c27e4bc94471241d433432e8c66375d258a0a6fa5413772d2aef0fbc6e`
+
+- `0x4cf18cb39203b678f5c26f2338a10a79f9684749` - Exchange candidate (sent DAO deposit) - deployed 2026-06-25 09:08:01 - tx `0xa5d1b14cd13c6aeaf7408878e4dddde141908dab12e27022ee565f5d207025fc`
+
+
+## Additional data needed
+
+- Current final Governance V13 address, if different from the two June 24 candidates, so it can be excluded from revocation.
+- For each active permission tuple, call DAO `isGranted(where, who, permissionId, 0x)` to verify current status.
+- For every deployment candidate, open Polygonscan Contract -> Read Contract and record `owner()`, `minter()`, `governance()`, `dao()`, `treasuryModule()`, or equivalent fields where available.
+- For LABR token, check current AMM/trading/dividend exclusion status for all exchange cleanup candidates.
