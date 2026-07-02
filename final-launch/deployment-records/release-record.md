@@ -231,6 +231,17 @@ DAO Treasury Received:
 
 No administrative withdrawal function existed on Exchange V2. The remaining dust balance was deemed economically insignificant and retained as a retired contract balance.
 
+LaborCoinExchangeV4
+
+Address: 0x4Cf18cB39203B678f5C26f2338a10a79f9684749
+
+Dust Recovery Transaction:
+0x98083f02852418ad83d3f8a0d4de60b6facc6c68f5d827f8dbe0cd76c2748fbc
+
+Residual LABR dust: 0.00184357529635 LABR
+
+Status: Economically negligible and intentionally left in the retired exchange after recovery.
+
 ---
 
 ### LaborCoinTreasuryModuleV1.sol
