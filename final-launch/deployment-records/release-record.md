@@ -231,6 +231,16 @@ DAO Treasury Received:
 
 No administrative withdrawal function existed on Exchange V2. The remaining dust balance was deemed economically insignificant and retained as a retired contract balance.
 
+Old Exchange V3: 
+0xE57ba76AED1B7B4142E3DfaBd6cf3E94970b86eA
+
+Dust recovery Transaction: 
+0x0c6b1395af80f439a17847f131663b3abf07c3f2e016ef40474a5698f74c34c4
+
+Final LABR balance: 0.0098180577244 LABR
+
+Status: Decommissioned / residual dust only
+
 LaborCoinExchangeV4
 
 Address: 0x4Cf18cB39203B678f5C26f2338a10a79f9684749
