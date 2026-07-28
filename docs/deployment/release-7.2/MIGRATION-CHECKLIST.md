@@ -1,0 +1,23 @@
+# Revision 7.2 Repository Migration Checklist
+
+- [ ] Work on a dedicated local branch or a new clean public repository.
+- [ ] Preserve `.git` only when retaining the existing private repository history is intentional.
+- [ ] Never copy local secrets, `.env` files, keystores, or deployment keys.
+- [ ] Replace the public working tree with the current-only package.
+- [ ] Confirm `archive/` and `release/superseded-revision-6/` are absent.
+- [ ] Confirm the active sources are the seven Revision 7.2 contracts.
+- [ ] Confirm `release/revision-7.2-source-freeze/` mirrors the active sources.
+- [ ] Confirm LABR is `LaborCoinV4`, Exchange is `LaborCoinExchangeV7`, and both use the Revision 7.2 restricted-transfer compatibility ID.
+- [ ] Confirm peer transfers, direct deposits to Exchange, arbitrary approvals, and third-party `transferFrom` calls are rejected.
+- [ ] Confirm Exchange-initiated purchases and sales remain the only permitted postlaunch LABR movements.
+- [ ] Review the equal-holder, identity, protocol-only transfer, wallet-recovery, and residual Sybil-risk documentation.
+- [ ] Run `python release/revision-7.2-source-freeze/tests/run_source_checks.py`.
+- [ ] Run `python tests/assurance/run_python_tests.py`.
+- [ ] Run `git diff --check` and resolve every reported issue.
+- [ ] Commit and push the source freeze before compilation.
+- [ ] Record the full source commit with `git rev-parse HEAD`.
+- [ ] In `LaborCoin-Compilation-Records`, run `python set_source_commit.py <FULL_40_CHARACTER_SOURCE_COMMIT>`.
+- [ ] Run `python VERIFY_RELEASE.py`; before artifacts are recorded, `PRECOMPILATION PENDING` is the required state.
+- [ ] Commit and push the bound precompilation record before compiling.
+- [ ] Record the full compilation-record commit with `git rev-parse HEAD`.
+- [ ] Do not mark Revision 7.2 compiled, tested, deployment-ready, or deployed until every corresponding gate passes.

@@ -1,0 +1,18 @@
+{
+  "language": "Solidity",
+  "compiler": "0.8.36+commit.8a079791",
+  "optimizer": {
+    "enabled": true,
+    "runs": 200
+  },
+  "evmVersion": "prague",
+  "viaIR": false,
+  "metadata": {
+    "bytecodeHash": "ipfs"
+  },
+  "openzeppelin": "5.6.1",
+  "network": {
+    "name": "Polygon Mainnet",
+    "chainId": 137
+  }
+}

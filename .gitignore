@@ -1,0 +1,14 @@
+# Local environment and generated files
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db
+
+# Solidity tool output
+out/
+cache/
+broadcast/
+node_modules/
