@@ -2,7 +2,9 @@
 
 ## Source status
 
-The Revision 7.2 files in this repository are source candidates. No successful Solidity compilation is claimed by this package.
+The seven Revision 7.2 contracts were compiled under the frozen profile and recorded in the `LaborCoin-Compilation-Records` repository. The source records, loose artifact sets, bytecode commitments, compilation records, and deterministic sealed ZIP contents passed structural and cryptographic verification.
+
+Deployment testing, Polygon-fork rehearsal, mainnet deployment, and on-chain runtime verification remain pending.
 
 ## Frozen compiler profile
 
@@ -15,7 +17,7 @@ Via IR false
 Metadata bytecode hash ipfs
 ```
 
-## Required record for each contract
+## Recorded compilation evidence for each contract
 
 - exact normal source;
 - exact Remix source with pinned imports;
