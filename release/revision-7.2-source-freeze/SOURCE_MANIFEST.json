@@ -138,13 +138,13 @@
     },
     {
       "path": "07-governance/LaborCoinGovernanceV15.sol",
-      "size": 50296,
-      "sha256": "e3ac031b02e817724bcd38f5069158fe02089bca28dacf6227acd9e68a6c5436"
+      "size": 52706,
+      "sha256": "b0d8c8e914002bb741a6f7837a01dec521be9b7e66ca70bebc6caa99884f1e6d"
     },
     {
       "path": "07-governance/LaborCoinGovernanceV15_Remix.sol",
-      "size": 50359,
-      "sha256": "407d315a4dfc0b24d221155d08e633c56e7d2a39db6d48104430ab3ddddcbbfd"
+      "size": 52769,
+      "sha256": "f13396b14dd0e8eafaaee57bfdb1aab02667fb0de1e5205984283cc1204dfc00"
     },
     {
       "path": "07-governance/compiler-settings.json",

@@ -572,103 +572,212 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
         bytes32 expectedLABRVCodeHash,
         bytes32 expectedRegistrationCodeHash
     ) private view {
+        _validateMembershipToken(
+            labrv_,
+            registration_,
+            expectedRegistrationCodeHash
+        );
+        _validateRegistrationContract(
+            registration_,
+            labrv_,
+            expectedLABRVCodeHash,
+            expectedRegistrationCodeHash
+        );
+        _validateMembershipLABRBinding(
+            labrv_,
+            registration_
+        );
+    }
+
+    function _validateMembershipToken(
+        address labrv_,
+        address registration_,
+        bytes32 expectedRegistrationCodeHash
+    ) private view {
         ILaborVoteV9_1ForGovernance membershipToken =
             ILaborVoteV9_1ForGovernance(labrv_);
-        ILaborCoinRegistrationV6_1ForGovernance registry =
-            ILaborCoinRegistrationV6_1ForGovernance(registration_);
 
-        address reportedRegistration = membershipToken.registration();
-        if (reportedRegistration != registration_) {
-            revert InvalidLABRVRegistration(reportedRegistration);
+        {
+            address reportedRegistration =
+                membershipToken.registration();
+            if (reportedRegistration != registration_) {
+                revert InvalidLABRVRegistration(
+                    reportedRegistration
+                );
+            }
         }
+
         if (!membershipToken.minterFinalized()) {
             revert InvalidLABRVMinterState();
         }
 
-        address voteOwner = membershipToken.owner();
-        if (voteOwner != address(0)) {
-            revert InvalidLABRVOwner(voteOwner);
+        {
+            address voteOwner = membershipToken.owner();
+            if (voteOwner != address(0)) {
+                revert InvalidLABRVOwner(voteOwner);
+            }
         }
 
-        uint256 voteUnit = membershipToken.MEMBERSHIP_UNIT();
-        if (voteUnit != MEMBERSHIP_UNIT) {
-            revert InvalidLABRVMembershipUnit(voteUnit);
+        {
+            uint256 voteUnit =
+                membershipToken.MEMBERSHIP_UNIT();
+            if (voteUnit != MEMBERSHIP_UNIT) {
+                revert InvalidLABRVMembershipUnit(voteUnit);
+            }
         }
 
-        bytes32 voteCompatibility =
-            membershipToken.REGISTRATION_COMPATIBILITY_ID();
-        if (voteCompatibility != MEMBERSHIP_COMPATIBILITY_ID) {
-            revert InvalidLABRVCompatibility(voteCompatibility);
+        {
+            bytes32 voteCompatibility =
+                membershipToken.REGISTRATION_COMPATIBILITY_ID();
+            if (
+                voteCompatibility
+                    != MEMBERSHIP_COMPATIBILITY_ID
+            ) {
+                revert InvalidLABRVCompatibility(
+                    voteCompatibility
+                );
+            }
         }
 
-        bytes32 voteRegistrationCodeHash =
-            membershipToken.expectedRegistrationRuntimeCodeHash();
-        if (voteRegistrationCodeHash != expectedRegistrationCodeHash) {
-            revert InvalidLABRVRegistrationCodeHash(
+        {
+            bytes32 voteRegistrationCodeHash =
+                membershipToken
+                    .expectedRegistrationRuntimeCodeHash();
+            if (
                 voteRegistrationCodeHash
+                    != expectedRegistrationCodeHash
+            ) {
+                revert InvalidLABRVRegistrationCodeHash(
+                    voteRegistrationCodeHash
+                );
+            }
+        }
+    }
+
+    function _validateRegistrationContract(
+        address registration_,
+        address labrv_,
+        bytes32 expectedLABRVCodeHash,
+        bytes32 expectedRegistrationCodeHash
+    ) private view {
+        ILaborCoinRegistrationV6_1ForGovernance registry =
+            ILaborCoinRegistrationV6_1ForGovernance(
+                registration_
             );
+
+        {
+            address reportedLABRV = registry.LABRV();
+            if (reportedLABRV != labrv_) {
+                revert InvalidRegistrationLABRV(
+                    reportedLABRV
+                );
+            }
         }
 
-        address reportedLABRV = registry.LABRV();
-        if (reportedLABRV != labrv_) {
-            revert InvalidRegistrationLABRV(reportedLABRV);
-        }
         if (!registry.registrationReady()) {
             revert InvalidRegistrationState();
         }
 
-        uint256 registryMembers = registry.totalMembers();
-        uint256 historicalMembers =
-            registry.totalMembersBefore(type(uint256).max);
-        if (historicalMembers != registryMembers) {
-            revert InvalidHistoricalElectorate(
-                historicalMembers,
-                registryMembers
-            );
+        {
+            uint256 registryMembers =
+                registry.totalMembers();
+            uint256 historicalMembers =
+                registry.totalMembersBefore(
+                    type(uint256).max
+                );
+            if (historicalMembers != registryMembers) {
+                revert InvalidHistoricalElectorate(
+                    historicalMembers,
+                    registryMembers
+                );
+            }
         }
 
-        uint256 registryUnit = registry.MEMBERSHIP_UNIT();
-        if (registryUnit != MEMBERSHIP_UNIT) {
-            revert InvalidRegistrationMembershipUnit(registryUnit);
+        {
+            uint256 registryUnit =
+                registry.MEMBERSHIP_UNIT();
+            if (registryUnit != MEMBERSHIP_UNIT) {
+                revert InvalidRegistrationMembershipUnit(
+                    registryUnit
+                );
+            }
         }
 
-        bytes32 registryCompatibility = registry.COMPATIBILITY_ID();
-        if (registryCompatibility != MEMBERSHIP_COMPATIBILITY_ID) {
-            revert InvalidRegistrationCompatibility(
+        {
+            bytes32 registryCompatibility =
+                registry.COMPATIBILITY_ID();
+            if (
                 registryCompatibility
-            );
+                    != MEMBERSHIP_COMPATIBILITY_ID
+            ) {
+                revert InvalidRegistrationCompatibility(
+                    registryCompatibility
+                );
+            }
         }
 
-        bytes32 registryLABRVCodeHash =
-            registry.expectedLABRVRuntimeCodeHash();
-        if (registryLABRVCodeHash != expectedLABRVCodeHash) {
-            revert InvalidRegistrationLABRVCodeHash(
+        {
+            bytes32 registryLABRVCodeHash =
+                registry.expectedLABRVRuntimeCodeHash();
+            if (
                 registryLABRVCodeHash
-            );
+                    != expectedLABRVCodeHash
+            ) {
+                revert InvalidRegistrationLABRVCodeHash(
+                    registryLABRVCodeHash
+                );
+            }
         }
 
-        bytes32 registryCommittedCodeHash =
-            registry.expectedRegistrationRuntimeCodeHash();
-        if (registryCommittedCodeHash != expectedRegistrationCodeHash) {
-            revert InvalidRegistrationCommittedCodeHash(
+        {
+            bytes32 registryCommittedCodeHash =
+                registry
+                    .expectedRegistrationRuntimeCodeHash();
+            if (
                 registryCommittedCodeHash
+                    != expectedRegistrationCodeHash
+            ) {
+                revert InvalidRegistrationCommittedCodeHash(
+                    registryCommittedCodeHash
+                );
+            }
+        }
+    }
+
+    function _validateMembershipLABRBinding(
+        address labrv_,
+        address registration_
+    ) private view {
+        ILaborVoteV9_1ForGovernance membershipToken =
+            ILaborVoteV9_1ForGovernance(labrv_);
+        ILaborCoinRegistrationV6_1ForGovernance registry =
+            ILaborCoinRegistrationV6_1ForGovernance(
+                registration_
             );
+
+        {
+            address voteLABR = membershipToken.LABR();
+            address registryLABR = registry.LABR();
+            if (voteLABR != registryLABR) {
+                revert InvalidRegistrationLABR(
+                    registryLABR
+                );
+            }
         }
 
-        address voteLABR = membershipToken.LABR();
-        address registryLABR = registry.LABR();
-        if (voteLABR != registryLABR) {
-            revert InvalidRegistrationLABR(registryLABR);
-        }
-
-        bytes32 voteLABRCodeHash =
-            membershipToken.expectedLABRRuntimeCodeHash();
-        bytes32 registryLABRCodeHash =
-            registry.expectedLABRRuntimeCodeHash();
-        if (voteLABRCodeHash != registryLABRCodeHash) {
-            revert InvalidRegistrationLABRCodeHash(
-                registryLABRCodeHash
-            );
+        {
+            bytes32 voteLABRCodeHash =
+                membershipToken.expectedLABRRuntimeCodeHash();
+            bytes32 registryLABRCodeHash =
+                registry.expectedLABRRuntimeCodeHash();
+            if (
+                voteLABRCodeHash
+                    != registryLABRCodeHash
+            ) {
+                revert InvalidRegistrationLABRCodeHash(
+                    registryLABRCodeHash
+                );
+            }
         }
     }
 
