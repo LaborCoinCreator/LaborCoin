@@ -78,13 +78,13 @@
     },
     {
       "path": "03-exchange/LaborCoinExchangeV7.sol",
-      "size": 38455,
-      "sha256": "26b3eae5c661a7623710379302deca834392f937a1b1e031c874c52131e340f4"
+      "size": 40740,
+      "sha256": "642a06dd386d459b0db1cb0b695e6fe9050eb3bb91fb0b2436c8ad78b0c4b1be"
     },
     {
       "path": "03-exchange/LaborCoinExchangeV7_Remix.sol",
-      "size": 38518,
-      "sha256": "f1e4550d634e5060b71f59c296545e074861e4eea290844eecff317dfecd3fa3"
+      "size": 40803,
+      "sha256": "33c03c3cc7a6111b903ca82cd69710784d85522e7125f7386469c9e7b492e122"
     },
     {
       "path": "03-exchange/compiler-settings.json",

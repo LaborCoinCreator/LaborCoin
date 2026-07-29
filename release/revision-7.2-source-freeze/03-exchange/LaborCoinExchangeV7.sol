@@ -287,115 +287,21 @@ contract LaborCoinExchangeV7 is ReentrancyGuard {
         address identityRegistry_,
         bytes32 expectedIdentityRegistryRuntimeCodeHash_
     ) {
-        if (block.chainid != POLYGON_MAINNET_CHAIN_ID) {
-            revert WrongChain(block.chainid);
-        }
-        if (labr_ == address(0) || identityRegistry_ == address(0)) revert ZeroAddress();
-        if (expectedIdentityRegistryRuntimeCodeHash_ == bytes32(0)) revert ZeroCodeHash();
-        if (labr_.code.length == 0) {
-            revert AddressHasNoCode(labr_);
-        }
-        if (daoTreasury.code.length == 0) {
-            revert AddressHasNoCode(daoTreasury);
-        }
-
-        if (identityRegistry_.code.length == 0) {
-            revert AddressHasNoCode(identityRegistry_);
-        }
-        if (identityRegistry_.codehash != expectedIdentityRegistryRuntimeCodeHash_) {
-            revert InvalidIdentityRuntimeCodeHash(
-                identityRegistry_.codehash,
-                expectedIdentityRegistryRuntimeCodeHash_
-            );
-        }
-        ILaborCoinIdentityRegistryV1ForExchange identity =
-            ILaborCoinIdentityRegistryV1ForExchange(identityRegistry_);
-        bytes32 expectedIdentityCompatibility = keccak256(
-            "LABORCOIN_IDENTITY_V1_SCORE15_PERMANENT_EIP712_V1"
+        _validateDeploymentInputs(
+            labr_,
+            identityRegistry_,
+            expectedIdentityRegistryRuntimeCodeHash_
         );
-        if (identity.COMPATIBILITY_ID() != expectedIdentityCompatibility) {
-            revert InvalidIdentityCompatibility(identity.COMPATIBILITY_ID());
-        }
-        if (identity.MIN_PASSPORT_SCORE() != 15_000) {
-            revert InvalidIdentityThreshold(identity.MIN_PASSPORT_SCORE());
-        }
-        if (!identity.labrFinalized() || identity.LABR() != labr_) {
-            revert InvalidTokenIdentity(identity.LABR());
-        }
-
-        ILaborCoinV4ForExchange token = ILaborCoinV4ForExchange(labr_);
-
-        address reportedTreasury = token.daoTreasury();
-        if (reportedTreasury != daoTreasury) {
-            revert InvalidTokenTreasury(reportedTreasury);
-        }
-
-        address reportedIdentity = token.identityRegistry();
-        if (reportedIdentity != identityRegistry_) {
-            revert InvalidTokenIdentity(reportedIdentity);
-        }
-        bytes32 reportedIdentityCodeHash =
-            token.expectedIdentityRegistryRuntimeCodeHash();
-        if (reportedIdentityCodeHash != expectedIdentityRegistryRuntimeCodeHash_) {
-            revert InvalidTokenIdentityCodeHash(reportedIdentityCodeHash);
-        }
-
-        bytes32 reportedCompatibility =
-            token.EXCHANGE_COMPATIBILITY_ID();
-        if (reportedCompatibility != COMPATIBILITY_ID) {
-            revert InvalidTokenCompatibility(
-                reportedCompatibility
-            );
-        }
-
-        uint256 reportedSupply = token.TOTAL_SUPPLY();
-        if (reportedSupply != MAX_SUPPLY) {
-            revert InvalidTokenSupply(reportedSupply);
-        }
-
-        uint256 reportedWalletLimit = token.MAX_WALLET();
-        if (reportedWalletLimit != MAX_EXCHANGE_WALLET) {
-            revert InvalidTokenWalletLimit(
-                reportedWalletLimit
-            );
-        }
-
-        uint256 reportedTransactionLimit =
-            token.MAX_TRANSACTION();
-        if (
-            reportedTransactionLimit
-                != MAX_EXCHANGE_TRANSACTION
-        ) {
-            revert InvalidTokenTransactionLimit(
-                reportedTransactionLimit
-            );
-        }
-
-        uint256 reportedCooldown = token.TRADE_COOLDOWN();
-        if (reportedCooldown != TRADE_COOLDOWN) {
-            revert InvalidTokenCooldown(reportedCooldown);
-        }
-
-        uint256 buyTreasuryBps =
-            token.BUY_TREASURY_BPS();
-        uint256 sellTreasuryBps =
-            token.SELL_TREASURY_BPS();
-        uint256 sellDividendBps =
-            token.SELL_DIVIDEND_BPS();
-
-        if (
-            buyTreasuryBps != BUY_TREASURY_BPS
-                || sellTreasuryBps
-                    != SELL_TREASURY_BPS
-                || sellDividendBps
-                    != SELL_DIVIDEND_BPS
-        ) {
-            revert InvalidTokenTaxConfiguration(
-                buyTreasuryBps,
-                sellTreasuryBps,
-                sellDividendBps
-            );
-        }
+        _validateIdentityConfiguration(
+            labr_,
+            identityRegistry_,
+            expectedIdentityRegistryRuntimeCodeHash_
+        );
+        _validateTokenConfiguration(
+            labr_,
+            identityRegistry_,
+            expectedIdentityRegistryRuntimeCodeHash_
+        );
 
         LABR = labr_;
         identityRegistry = identityRegistry_;
@@ -1022,6 +928,202 @@ contract LaborCoinExchangeV7 is ReentrancyGuard {
     /*//////////////////////////////////////////////////////////////
                            INTERNAL VALIDATION
     //////////////////////////////////////////////////////////////*/
+
+    function _validateDeploymentInputs(
+        address labr_,
+        address identityRegistry_,
+        bytes32 expectedIdentityRegistryRuntimeCodeHash_
+    ) private view {
+        if (block.chainid != POLYGON_MAINNET_CHAIN_ID) {
+            revert WrongChain(block.chainid);
+        }
+        if (
+            labr_ == address(0)
+                || identityRegistry_ == address(0)
+        ) {
+            revert ZeroAddress();
+        }
+        if (
+            expectedIdentityRegistryRuntimeCodeHash_
+                == bytes32(0)
+        ) {
+            revert ZeroCodeHash();
+        }
+        if (labr_.code.length == 0) {
+            revert AddressHasNoCode(labr_);
+        }
+        if (daoTreasury.code.length == 0) {
+            revert AddressHasNoCode(daoTreasury);
+        }
+        if (identityRegistry_.code.length == 0) {
+            revert AddressHasNoCode(identityRegistry_);
+        }
+    }
+
+    function _validateIdentityConfiguration(
+        address labr_,
+        address identityRegistry_,
+        bytes32 expectedIdentityRegistryRuntimeCodeHash_
+    ) private view {
+        bytes32 actualRuntimeCodeHash =
+            identityRegistry_.codehash;
+        if (
+            actualRuntimeCodeHash
+                != expectedIdentityRegistryRuntimeCodeHash_
+        ) {
+            revert InvalidIdentityRuntimeCodeHash(
+                actualRuntimeCodeHash,
+                expectedIdentityRegistryRuntimeCodeHash_
+            );
+        }
+
+        ILaborCoinIdentityRegistryV1ForExchange identity =
+            ILaborCoinIdentityRegistryV1ForExchange(
+                identityRegistry_
+            );
+
+        bytes32 expectedCompatibility = keccak256(
+            "LABORCOIN_IDENTITY_V1_SCORE15_PERMANENT_EIP712_V1"
+        );
+        bytes32 actualCompatibility =
+            identity.COMPATIBILITY_ID();
+        if (actualCompatibility != expectedCompatibility) {
+            revert InvalidIdentityCompatibility(
+                actualCompatibility
+            );
+        }
+
+        uint256 actualThreshold =
+            identity.MIN_PASSPORT_SCORE();
+        if (actualThreshold != 15_000) {
+            revert InvalidIdentityThreshold(
+                actualThreshold
+            );
+        }
+
+        address reportedLABR = identity.LABR();
+        if (
+            !identity.labrFinalized()
+                || reportedLABR != labr_
+        ) {
+            revert InvalidTokenIdentity(reportedLABR);
+        }
+    }
+
+    function _validateTokenConfiguration(
+        address labr_,
+        address identityRegistry_,
+        bytes32 expectedIdentityRegistryRuntimeCodeHash_
+    ) private view {
+        ILaborCoinV4ForExchange token =
+            ILaborCoinV4ForExchange(labr_);
+
+        _validateTokenBindings(
+            token,
+            identityRegistry_,
+            expectedIdentityRegistryRuntimeCodeHash_
+        );
+        _validateTokenLimits(token);
+        _validateTokenTaxes(token);
+    }
+
+    function _validateTokenBindings(
+        ILaborCoinV4ForExchange token,
+        address identityRegistry_,
+        bytes32 expectedIdentityRegistryRuntimeCodeHash_
+    ) private view {
+        address reportedTreasury = token.daoTreasury();
+        if (reportedTreasury != daoTreasury) {
+            revert InvalidTokenTreasury(reportedTreasury);
+        }
+
+        address reportedIdentity = token.identityRegistry();
+        if (reportedIdentity != identityRegistry_) {
+            revert InvalidTokenIdentity(reportedIdentity);
+        }
+
+        bytes32 reportedIdentityCodeHash =
+            token.expectedIdentityRegistryRuntimeCodeHash();
+        if (
+            reportedIdentityCodeHash
+                != expectedIdentityRegistryRuntimeCodeHash_
+        ) {
+            revert InvalidTokenIdentityCodeHash(
+                reportedIdentityCodeHash
+            );
+        }
+
+        bytes32 reportedCompatibility =
+            token.EXCHANGE_COMPATIBILITY_ID();
+        if (reportedCompatibility != COMPATIBILITY_ID) {
+            revert InvalidTokenCompatibility(
+                reportedCompatibility
+            );
+        }
+    }
+
+    function _validateTokenLimits(
+        ILaborCoinV4ForExchange token
+    ) private view {
+        uint256 reportedSupply = token.TOTAL_SUPPLY();
+        if (reportedSupply != MAX_SUPPLY) {
+            revert InvalidTokenSupply(reportedSupply);
+        }
+
+        uint256 reportedWalletLimit = token.MAX_WALLET();
+        if (
+            reportedWalletLimit
+                != MAX_EXCHANGE_WALLET
+        ) {
+            revert InvalidTokenWalletLimit(
+                reportedWalletLimit
+            );
+        }
+
+        uint256 reportedTransactionLimit =
+            token.MAX_TRANSACTION();
+        if (
+            reportedTransactionLimit
+                != MAX_EXCHANGE_TRANSACTION
+        ) {
+            revert InvalidTokenTransactionLimit(
+                reportedTransactionLimit
+            );
+        }
+
+        uint256 reportedCooldown =
+            token.TRADE_COOLDOWN();
+        if (reportedCooldown != TRADE_COOLDOWN) {
+            revert InvalidTokenCooldown(
+                reportedCooldown
+            );
+        }
+    }
+
+    function _validateTokenTaxes(
+        ILaborCoinV4ForExchange token
+    ) private view {
+        uint256 buyTreasuryBps =
+            token.BUY_TREASURY_BPS();
+        uint256 sellTreasuryBps =
+            token.SELL_TREASURY_BPS();
+        uint256 sellDividendBps =
+            token.SELL_DIVIDEND_BPS();
+
+        if (
+            buyTreasuryBps != BUY_TREASURY_BPS
+                || sellTreasuryBps
+                    != SELL_TREASURY_BPS
+                || sellDividendBps
+                    != SELL_DIVIDEND_BPS
+        ) {
+            revert InvalidTokenTaxConfiguration(
+                buyTreasuryBps,
+                sellTreasuryBps,
+                sellDividendBps
+            );
+        }
+    }
 
     function _requireDirectWallet() private view {
         if (
