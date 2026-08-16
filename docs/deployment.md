@@ -2,17 +2,17 @@
 
 ## Prohibition
 
-Do not deploy from this source package until all seven contracts compile under the frozen profile, all artifacts are recorded, all tests pass, and an independent review is complete.
+Do not deploy from this source package until all seven current contracts have valid compilation evidence under the frozen profile, all required artifacts are recorded, all tests pass, and an independent review is complete. For the changed Policy/Governance pair, freeze and commit the exact source and bind the Compilation Records repository to that source commit before replacement compilation.
 
 ## Compile order
 
-1. Proposal Text Policy V1.0.1
+1. Proposal Text Policy V1.1.1
 2. Identity Registry V1.0.1
 3. Exchange V7.0.0
 4. LABR V4.0.0
 5. LaborVote V9.1.1
 6. Registration V6.1.1
-7. Governance V15.1.1
+7. Governance V15.2.0
 
 Record creation bytecode, runtime template, metadata, build-info, diagnostics, source hashes, compiler settings, and runtime hashes for every contract.
 
@@ -66,7 +66,7 @@ expected Registration runtime hash
 
 No constructor arguments.
 
-### Governance V15.1
+### Governance V15.2
 
 ```text
 LABRV address
@@ -92,8 +92,8 @@ expected Proposal Text Policy runtime hash
 11. Call `LaborVote.finalizeMinter(Registration)` and verify owner zero.
 12. Verify Registration readiness, zero members, and `totalMembersBefore(0) == 0`.
 13. Deploy Governance with final membership, registration, policy, and hashes.
-14. Grant Aragon DAO execute permission to Governance V15.1.
-15. Verify `governanceReady` and run a complete fork rehearsal including a member who registers after proposal creation but before its deadline, plus post-deadline registration stability.
+14. Grant Aragon DAO execute permission to Governance V15.2.
+15. Verify `governanceReady`, Structured Treasury Proposal Schema V1 and Proposal Text Policy compatibility, recipient contract-code enforcement, content-hash/call-ID binding, and run a complete fork rehearsal including a member who registers after proposal creation but before its deadline, plus post-deadline registration stability.
 16. Revoke Governance V13, Governance V12, Treasury Module V1, and every obsolete LaborCoin executor permission.
 17. Update verifier environment, website config, address registries, deployment records, and whitepaper appendices.
 18. Perform end-to-end identity, buy, dividend, sell, registration, proposal, vote, execution, and certificate tests.

@@ -1,10 +1,10 @@
-# LaborCoin Technical Whitepaper v3.2 Candidate
+# LaborCoin Technical Whitepaper v3.3 Candidate
 
 ## Revision 7.2 equal-holder and deadline-electorate architecture
 
 **Status:** Precompilation source candidate, not deployed<br>
 **Network:** Polygon mainnet, chain ID 137<br>
-**Document date:** July 27, 2026
+**Document date:** August 15, 2026
 
 ---
 
@@ -14,7 +14,7 @@ LaborCoin is experimental public infrastructure intended to support working-clas
 
 LaborCoin does not promise financial returns, price stability, liquidity, uninterrupted availability, favorable legal or tax treatment, successful labor outcomes, identity-provider availability, or freedom from smart-contract, network, governance, interface, key-management, and operational risk.
 
-Revision 7.2 has not yet been compiled under the frozen profile, completed every unit, fuzz, invariant, fork, integration, and independent-review requirement, or been deployed. All replacement addresses and runtime commitments are pending. Nothing in this paper is legal, investment, tax, or financial advice.
+Revision 7.2 has not yet completed the final frozen-source compilation, testing, integration, and independent-review sequence and has not been deployed. Five unchanged contracts - Identity Registry V1.0.1, Exchange V7.0.0, LABR V4.0.0, LaborVote V9.1.1, and Registration V6.1.1 - retain recorded predeployment compilation evidence. Proposal Text Policy V1.1.1 and Governance V15.2.0 supersede their preceding compiled candidates and require a controlled precompilation refreeze and replacement compilation records. All replacement deployment addresses and final deployed-runtime commitments remain pending. Nothing in this paper is legal, investment, tax, or financial advice.
 
 ---
 
@@ -51,8 +51,8 @@ The candidate consists of seven custom contracts:
 3. **LaborCoin Exchange V7.0.0**, which provides identity-gated exact-token buying and selling through a direct-POL integral bonding curve.
 4. **LaborVote V9.1.1**, which provides one permanent nontransferable LABRV membership unit per registrant.
 5. **LaborCoin Registration V6.1.1**, which reuses the shared identity status, records historical member-count checkpoints, and mints membership after a 1 LABR threshold.
-6. **Proposal Text Policy V1.0.1**, which applies fixed proposal-description rules.
-7. **LaborCoin Governance V15.1.1**, which lets every member registered before a proposal deadline vote while voting is active and fixes final participation against that deadline electorate.
+6. **Proposal Text Policy V1.1.1**, which applies immutable validation to the short human-entered fields and verification URI of Structured Treasury Proposal Schema V1.
+7. **LaborCoin Governance V15.2.0**, which enforces Structured Treasury Proposal Schema V1, lets every member registered before a proposal deadline vote while voting is active, and fixes final participation against that deadline electorate.
 
 The existing Aragon DAO remains the treasury custodian. Governance does not hold proposal funds. A successful proposal can request exactly one native-POL transfer from the DAO to the approved recipient. Governance cannot change tokenomics, mint LABR, alter thresholds, pause trading, execute arbitrary calldata, upgrade contracts, or recover recipient funds.
 
@@ -211,9 +211,9 @@ POL --> Exchange V7 --> LABR V4 inventory and curve reserve
              |                 +--> equal-holder dividend accounting
              +--> Aragon DAO treasury
 
-Registration V6.1 --> LaborVote V9.1 --> Governance V15.1
-Proposal Text Policy V1 ---------> Governance V15.1
-Governance V15.1 --> Aragon DAO --> approved recipient
+Registration V6.1 --> LaborVote V9.1 --> Governance V15.2
+Proposal Text Policy V1.1.1 -------> Governance V15.2
+Governance V15.2 --> Aragon DAO --> approved recipient
 ```
 
 ## 4.2 Economic layer
@@ -234,7 +234,7 @@ Registration requires verified status and at least 1 LABR. LaborVote then mints 
 
 ## 4.5 Governance layer
 
-Governance is the decision-making path for treasury aid. It uses Registration and LABRV state, a fixed proposal-text policy, fixed voting thresholds, and the existing Aragon DAO's execute permission. A successful proposal can execute only one native-POL transfer with empty calldata to the approved recipient.
+Governance is the decision-making path for treasury aid. It uses Registration and LABRV state, Structured Treasury Proposal Schema V1, the immutable Proposal Text Policy, fixed voting thresholds, and the existing Aragon DAO's execute permission. A successful proposal can execute only one native-POL transfer with empty calldata to the approved recipient contract.
 
 Governance cannot operate the Exchange, rewrite token rules, or use the DAO for arbitrary contract calls.
 
@@ -253,8 +253,8 @@ The protocol therefore distinguishes between rules enforced by deployed contract
 | Exchange | V7.0.0 | `DEPLOYMENT_PENDING` | None |
 | LaborVote | V9.1.1 | `DEPLOYMENT_PENDING` | Registration only may mint |
 | Registration | V6.1.1 | `DEPLOYMENT_PENDING` | None |
-| Text Policy | V1.0.1 | `DEPLOYMENT_PENDING` | None |
-| Governance | V15.1.1 | `DEPLOYMENT_PENDING` | Aragon execute permission only |
+| Text Policy | V1.1.1 | `DEPLOYMENT_PENDING` | None |
+| Governance | V15.2.0 | `DEPLOYMENT_PENDING` | Aragon execute permission only |
 | Aragon DAO | Existing | `0x0C2e5679153593b82a84eAB5CA90895BB291Cec4` | DAO permission registry |
 
 ---
@@ -823,29 +823,36 @@ The site can generate a US Letter membership certificate from confirmed on-chain
 
 ---
 
-# 10. Proposal Text Policy V1
+# 10. Proposal Text Policy V1.1.1
 
 ## 10.1 Purpose
 
-Proposal descriptions are permanent public data. Governance calls an exact immutable policy before storing description text. This prevents the official Governance contract from accepting categories of links, markup, encodings, and disallowed terms selected at launch.
+Structured treasury proposals intentionally avoid an unrestricted description field. Proposal Text Policy V1.1.1 validates the limited human-entered portions that remain and separately constrains the single external verification reference. Governance commits to the Policy's exact runtime code hash, compatibility ID, lexicon commitment, and field limits.
 
-## 10.2 Fixed properties
+## 10.2 Short-text fields
 
-- maximum 1,000 bytes;
-- fixed ASCII and character constraints;
-- fixed link, markup, and encoding restrictions;
-- fixed hashed lexicon commitment;
-- no administrator or update path.
+The policy validates two required single-line printable-ASCII fields:
 
-## 10.3 Limitations
+- requesting organization/group: maximum 96 bytes;
+- worker group/campaign: maximum 128 bytes.
 
-A fixed policy can produce false positives, false negatives, and future linguistic mismatch. It cannot understand intent. Since it is immutable, correction requires a replacement governance deployment and new Aragon permission migration.
+The fields cannot begin or end with spaces, contain HTML-style angle-bracket markup or URL markers, or consist only of unreadable punctuation. They are screened by the fixed hashed lexicon and obfuscation rules. The substantive lexicon remains committed by the same 143 blocked-token hashes, 18 blocked-phrase hashes, and lexicon commitment used by the preceding candidate.
+
+## 10.3 Verification URI
+
+The required verification source is validated through a separate path. It is limited to 256 ASCII bytes and accepts only constrained `https://` or `ipfs://` references. HTTPS references require a normal dotted hostname without embedded credentials or an explicit port. IPFS references require a canonical CID root before any path, query, or fragment: CIDv0 must be the 46-character `Qm...` base58btc form, while CIDv1 is limited to lowercase base32 (`b...`) or base36 (`k...`) roots of 32 to 128 characters. This prevents the ordinary short-text rules from being weakened merely to accommodate links and prevents punctuation-only or trivially short strings from masquerading as IPFS identifiers.
+
+The on-chain CID check is intentionally structural rather than a full multiformats decoder. An accepted URI is not an endorsement of the referenced material and does not cryptographically prove that every accepted CID-shaped string resolves. The contract cannot determine whether external content is truthful, appropriate, available forever, or unchanged at a mutable HTTPS location.
+
+## 10.4 Limitations
+
+A fixed lexical policy can produce false positives, false negatives, and future linguistic mismatch. It cannot understand intent. The structured schema reduces this exposure by making purpose, contact method, and distribution plan closed enums rather than prose, but the two short text labels and external verification material still require human judgment. Since the Policy and Governance are immutable, changing these rules after launch would require replacement contracts and a new Aragon permission migration.
 
 ---
 
-# 11. Governance V15.1
+# 11. Governance V15.2
 
-Governance V15.1 has one narrow purpose: allow registered participants to decide whether the Aragon DAO should send a specified amount of POL to a specified recipient. It is not a general protocol administration system.
+Governance V15.2 has one narrow purpose: allow registered participants to decide whether the Aragon DAO should send a specified amount of POL to a specified recipient contract under a fixed structured proposal. It is not a general protocol administration system.
 
 ## 11.1 One-member-one-vote
 
@@ -853,22 +860,38 @@ A wallet is eligible when it holds exactly one LABRV and has a matching Registra
 
 ## 11.2 Activation
 
-Proposal creation remains unavailable until at least 50 registered members exist. This prevents the final treasury-transfer process from being activated by a very small founding group and creates a minimum community base before collective funds can be directed through Governance V15.1.
+Proposal creation remains unavailable until at least 50 registered members exist. This prevents the final treasury-transfer process from being activated by a very small founding group and creates a minimum community base before collective funds can be directed through Governance V15.2.
 
 ## 11.3 Proposal creation
 
-A registered direct wallet may have one active proposal at a time. The proposal title is fixed as `Treasury Transfer`. The description must pass Policy. Recipient cannot be zero, the DAO, the current protocol contracts, or listed superseded protocol addresses. Amount must be positive and at most 5% of the DAO's current native-POL balance.
+A registered direct wallet may have one active proposal at a time. The proposal title is fixed as `Treasury Transfer`. There is no unrestricted description. Governance accepts only Structured Treasury Proposal Schema V1.
+
+The required proposal content is:
+
+- requesting organization/group: short Policy-validated text, maximum 96 ASCII bytes;
+- treasury recipient: a deployed contract address;
+- worker group/campaign: short Policy-validated text, maximum 128 ASCII bytes;
+- requested native-POL amount;
+- purpose: one required closed enum value;
+- verification source: one Policy-validated HTTPS/IPFS URI, maximum 256 ASCII bytes;
+- contact method: one required closed enum value;
+- distribution plan: one required closed enum value.
+
+Purpose includes strike/work-stoppage support, organizing/unionization, worker mutual aid/emergency relief, legal defense/representation, direct action/demonstration, worker cooperative/workplace democracy, education/outreach/communications, and other worker-led collective action.
+
+Distribution plans include direct worker payments, needs-based worker relief, shared strike/mutual-aid funds, organizing/campaign operations, legal/professional expenses, supplies/equipment/logistics, **Democratic Worker Enterprise Development**, mixed use, and other collective use. Selecting an `Other` category does not create a free-text field.
+
+The recipient cannot be zero, the DAO, current or superseded protected LaborCoin protocol addresses, or an ordinary EOA. Governance requires deployed contract code at the recipient. This prevents direct transfer to a personal wallet without hard-coding Aragon as the required recipient technology; it does not prove that every contract treasury is worker-controlled. The amount must be positive and at most 5% of the DAO's current native-POL balance.
 
 The proposal records:
 
+- all structured proposal fields;
+- a deterministic `contentHash` committing to the complete proposal content;
 - creation-time member count for transparency;
 - treasury balance at creation;
 - creator;
-- recipient;
-- amount;
-- description and hash;
 - start and end time;
-- deterministic call ID.
+- deterministic call ID bound to proposal ID, recipient, amount, and `contentHash`.
 
 ## 11.4 Deadline electorate
 
@@ -1000,7 +1023,7 @@ Identity commits to LABR runtime. LABR commits to Identity and Exchange runtimes
 
 ## 13.6 Source freeze
 
-Any source edit after compilation invalidates affected artifacts and all downstream commitments. A comment-only edit can change metadata and bytecode. The final source tree must therefore be frozen before record creation.
+Any source edit after compilation invalidates affected artifacts and all downstream commitments. A comment-only edit can change metadata and bytecode. The final source tree must therefore be synchronized into the authoritative source freeze, checked, and committed before compilation-record binding or replacement compilation begins.
 
 ## 13.7 Evidence chain from source to deployed runtime
 
@@ -1079,13 +1102,13 @@ Network: Polygon mainnet, chain ID 137
 
 ## 14.2 Compile order
 
-1. Proposal Text Policy V1.0.1
+1. Proposal Text Policy V1.1.1
 2. Identity Registry V1.0.1
 3. Exchange V7.0.0
 4. LABR V4.0.0
 5. LaborVote V9.1.1
 6. Registration V6.1.1
-7. Governance V15.1.1
+7. Governance V15.2.0
 
 ## 14.3 Deploy and finalize identity/economic cycle
 
@@ -1291,9 +1314,9 @@ The site may generate a US Letter membership certificate, but the on-chain Regis
 
 ## 17.8 Proposing and voting on aid
 
-After 50 members, eligible participants may create treasury-transfer proposals and vote. A proposal identifies one recipient, one POL amount, and a public description that passes the fixed text policy. A person who learns about an active proposal may complete verification, acquire at least 1 LABR, register, receive LABRV, and vote before the voting deadline. The provisional participation target may rise as new members join, and the final electorate is fixed when voting closes.
+After 50 members, eligible participants may create structured treasury-transfer proposals and vote. A proposal identifies a requesting organization/group, worker group/campaign, contract treasury recipient, POL amount, fixed purpose, one verification source, fixed contact-method category, and fixed distribution plan. The two short text fields and verification URI must pass the immutable Policy; there is no unrestricted description. A person who learns about an active proposal may complete verification, acquire at least 1 LABR, register, receive LABRV, and vote before the voting deadline. The provisional participation target may rise as new members join, and the final electorate is fixed when voting closes.
 
-Before voting, members are expected to investigate whether the recipient represents the affected workers or cause, whether the address is controlled safely, and whether the proposed distribution plan is credible. The contract cannot perform that social verification.
+Before voting, members are expected to inspect the verification source, investigate whether the requesting group and recipient contract represent the affected workers or cause, confirm that the treasury contract is controlled safely, and judge whether the selected purpose and distribution plan are credible. The contract can enforce structure and recipient bytecode presence but cannot perform that social verification.
 
 A successful proposal executes through the Aragon DAO within the fixed window. The completed transfer is public and irreversible.
 
@@ -1432,7 +1455,7 @@ At modest scale, LaborCoin may help people find and fund a strike that would oth
 
 The design does not claim to solve identity, governance, labor organization, or economic inequality in general. It addresses a specific problem: economic retaliation can break collective action, while public support is often fragmented and difficult to direct. LaborCoin provides one possible bridge between those who want to help and those taking the risk.
 
-Revision 7.2 is ready for compilation review only when the source package, documentation, site, verifier, and compilation-record scaffold agree. It is ready for deployment only after the seven contracts compile exactly, all runtime commitments are sealed, the equal-holder accounting survives intensive tests, the Aragon permission migration is rehearsed, and independent review is complete.
+Revision 7.2 is ready for replacement compilation review only when the source package, documentation, site, verifier, and compilation-record scaffold agree. Policy V1.1.1 and Governance V15.2.0 supersede their preceding compiled candidates. Their exact active sources must first be synchronized into the authoritative source freeze, checked and committed, and that source commit must be bound into the Compilation Records repository before replacement compilation begins. The other five unchanged contracts retain their recorded Revision 7.2 predeployment compilation evidence. Revision 7.2 is ready for deployment only after the current seven-contract evidence set is internally consistent, all required runtime commitments are sealed, the equal-holder accounting and structured governance rules survive intensive tests, the Aragon permission migration is rehearsed, and independent review is complete.
 
 The technical standard must remain uncompromising because the final system is intended to operate without a founder, administrator, or upgrade authority. The political standard is equally important: the infrastructure should be judged by whether it expands the working class's ability to organize solidarity, withstand retaliation, and sustain collective action.
 
@@ -1465,7 +1488,11 @@ The technical standard must remain uncompromising because the final system is in
 | Participation | ceiling 25% of members registered before the voting deadline |
 | Approval | ceiling 67% of votes cast |
 | Proposal transfer cap | 5% of current DAO POL balance |
-| Description maximum | 1,000 bytes |
+| Organization/group maximum | 96 ASCII bytes |
+| Worker group/campaign maximum | 128 ASCII bytes |
+| Verification URI maximum | 256 ASCII bytes |
+| Proposal description | Not permitted; structured schema only |
+| Proposal recipient | Deployed contract address required |
 
 # Appendix B. Address Registry
 
@@ -1495,15 +1522,15 @@ Treasury Module V1:    0x0B018E45E4cB71E222C345a5341BdbaeE519c623
 
 # Appendix C. Runtime Commitment Status
 
-| Contract | Source status | Compilation status | Runtime hash |
+| Contract | Source status | Compilation status | Runtime-template commitment status |
 |---|---|---|---|
-| Identity Registry V1 | Candidate | Pending | `PENDING_COMPILATION` |
-| LABR V4 | Candidate | Pending | `PENDING_COMPILATION` |
-| Exchange V7 | Candidate | Pending | `PENDING_COMPILATION` |
-| LaborVote V9.1 | Candidate | Pending | `PENDING_COMPILATION` |
-| Registration V6.1 | Candidate | Pending | `PENDING_COMPILATION` |
-| Text Policy V1.0.1 | Candidate source preserved | Must be re-recorded in Revision 7.2 manifest | `PENDING_COMPILATION_RECORD` |
-| Governance V15.1 | Candidate | Pending | `PENDING_FINAL_IMMUTABLE_VALUES` |
+| Identity Registry V1.0.1 | Active source unchanged | Recorded Revision 7.2 predeployment compilation retained | Recorded; final deployed runtime still depends on deployment/finalization values |
+| LABR V4.0.0 | Active source unchanged | Recorded Revision 7.2 predeployment compilation retained | Recorded; final deployed runtime still depends on deployment/finalization values |
+| Exchange V7.0.0 | Active source unchanged | Recorded Revision 7.2 predeployment compilation retained | Recorded; final deployed runtime still depends on deployment values |
+| LaborVote V9.1.1 | Active source unchanged | Recorded Revision 7.2 predeployment compilation retained | Recorded; final deployed runtime still depends on deployment/finalization values |
+| Registration V6.1.1 | Active source unchanged | Recorded Revision 7.2 predeployment compilation retained | Recorded; final deployed runtime still depends on deployment values |
+| Text Policy V1.1.1 | Active source changed; precompilation refreeze required | Replacement compilation record pending | Replacement runtime-template record pending |
+| Governance V15.2.0 | Active structured-governance source changed; precompilation refreeze required | Replacement compilation record pending | Replacement runtime-template record pending; final immutable values also pending |
 
 # Appendix D. Authority Matrix
 
@@ -1591,6 +1618,7 @@ Nonexistent
 - [ ] Identity EIP-712 parity tests pass.
 - [ ] Historical member-count binary-search tests pass at zero, exact timestamps, repeated timestamps, and large membership counts.
 - [ ] Governance tests prove pre-deadline joiners can vote and post-deadline registrations cannot change a closed result.
+- [ ] Structured proposal tests cover every enum, short-text boundary, URI rule, contract-recipient rule, `contentHash`, and execution `callId` binding.
 - [ ] Membership and governance tests pass.
 - [ ] Polygon-fork deployment rehearsal passes.
 - [ ] Governance deployed runtime reconstructed from immutables.

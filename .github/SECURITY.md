@@ -15,10 +15,10 @@ The active review target is the Revision 7.2 precompilation source candidate:
 - Exchange V7.0.0
 - LaborVote V9.1.1
 - Registration V6.1.1
-- Proposal Text Policy V1.0.1
-- Governance V15.1.1
+- Proposal Text Policy V1.1.1
+- Governance V15.2.0
 
-Revision 7.2 is not compiled or deployed. Revision 6 and historical deployments are preserved as superseded evidence only.
+Revision 7.2 has not been deployed. Identity Registry, LABR, Exchange, LaborVote, and Registration retain recorded Revision 7.2 predeployment compilation evidence because their active sources are unchanged. Proposal Text Policy V1.1.1 and Governance V15.2.0 supersede their preceding compiled candidates and require a controlled precompilation source refreeze followed by replacement compilation records. Revision 6 and historical deployments are preserved as superseded evidence only.
 
 ## Highest-priority review areas
 
@@ -28,7 +28,9 @@ Revision 7.2 is not compiled or deployed. Revision 6 and historical deployments 
 - LABR, Exchange, and Identity Registry launch-binding cycle
 - fixed wallet, transaction, and cooldown rules
 - Registration and LaborVote minter finalization
-- Governance thresholds, proposal-state transitions, recipient restrictions, and Aragon permission handling
+- Structured Treasury Proposal Schema V1, closed enum boundaries, and proposal `contentHash`
+- Proposal Text Policy short-text screening and HTTPS/IPFS verification-reference validation
+- Governance thresholds, proposal-state transitions, contract-recipient restrictions, execution `callId`, and Aragon permission handling
 
 ## Disclosure status
 

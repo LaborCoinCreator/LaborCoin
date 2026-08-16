@@ -6,6 +6,10 @@
 - [ ] Replace the public working tree with the current-only package.
 - [ ] Confirm `archive/` and `release/superseded-revision-6/` are absent.
 - [ ] Confirm the active sources are the seven Revision 7.2 contracts.
+- [ ] Confirm Proposal Text Policy is V1.1.1 and Governance is V15.2.0.
+- [ ] Confirm Policy V1.1.1 rejects malformed IPFS roots and accepts only canonical CIDv0 base58btc or CIDv1 base32/base36 roots before any path/query/fragment.
+- [ ] Confirm Governance enforces Structured Treasury Proposal Schema V1 with no unrestricted description field.
+- [ ] Confirm the structured proposal enums, `DemocraticWorkerEnterpriseDevelopment`, contract-recipient requirement, `contentHash`, and execution `callId` binding match the reviewed source.
 - [ ] Confirm `release/revision-7.2-source-freeze/` mirrors the active sources.
 - [ ] Confirm LABR is `LaborCoinV4`, Exchange is `LaborCoinExchangeV7`, and both use the Revision 7.2 restricted-transfer compatibility ID.
 - [ ] Confirm peer transfers, direct deposits to Exchange, arbitrary approvals, and third-party `transferFrom` calls are rejected.

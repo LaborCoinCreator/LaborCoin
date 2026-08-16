@@ -25,4 +25,4 @@ flowchart TD
 7. Claim available POL dividends from the Exchange page.
 8. Optionally register for governance while holding at least 1 LABR.
 9. Receive one nontransferable LABRV and permanent member number.
-10. After 50 members, participate in constrained treasury proposals and votes. A participant who joins during an active proposal may vote before its deadline; the final participation denominator is fixed when voting closes.
+10. After 50 members, participate in structured treasury proposals and votes. Proposals use fixed categories, short screened identity/campaign fields, one verification source, and a contract treasury recipient rather than unrestricted descriptive prose. A participant who joins during an active proposal may vote before its deadline; the final participation denominator is fixed when voting closes.

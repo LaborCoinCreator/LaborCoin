@@ -72,15 +72,41 @@ interface ILaborCoinRegistrationV6_1ForGovernance {
 }
 
 interface ILaborCoinProposalTextPolicyV1ForGovernance {
-    function validateDescription(
-        string calldata description
+    function validateOrganizationName(
+        string calldata organizationName
     ) external pure returns (bytes32 contentHash);
 
-    function isDescriptionAllowed(
-        string calldata description
+    function validateWorkerGroupOrCampaign(
+        string calldata workerGroupOrCampaign
+    ) external pure returns (bytes32 contentHash);
+
+    function validateVerificationURI(
+        string calldata verificationURI
+    ) external pure returns (bytes32 contentHash);
+
+    function isOrganizationNameAllowed(
+        string calldata organizationName
     ) external pure returns (bool);
 
-    function MAX_DESCRIPTION_BYTES()
+    function isWorkerGroupOrCampaignAllowed(
+        string calldata workerGroupOrCampaign
+    ) external pure returns (bool);
+
+    function isVerificationURIAllowed(
+        string calldata verificationURI
+    ) external pure returns (bool);
+
+    function MAX_ORGANIZATION_NAME_BYTES()
+        external
+        pure
+        returns (uint256);
+
+    function MAX_WORKER_GROUP_OR_CAMPAIGN_BYTES()
+        external
+        pure
+        returns (uint256);
+
+    function MAX_VERIFICATION_URI_BYTES()
         external
         pure
         returns (uint256);
@@ -127,11 +153,13 @@ interface IAragonDAOForGovernance {
         returns (bytes32);
 }
 
-/// @title LaborCoin Governance V15.1
+/// @title LaborCoin Governance V15.2
 /// @notice Immutable one-member-one-vote treasury governance with an electorate fixed at the voting deadline.
-/// @dev Proposal descriptions must pass the exact immutable Proposal Text
-/// Policy V1 runtime committed during deployment. Direct callers cannot bypass
-/// the policy enforced by the official frontend.
+/// @dev Treasury proposals use a permanently structured schema. The two short
+/// human-authored labels and the verification URI must pass the exact immutable
+/// Proposal Text Policy V1 runtime committed during deployment. Purpose,
+/// contact method, and distribution plan are closed on-chain enums, so direct
+/// callers cannot bypass the structure enforced by the official frontend.
 /// @dev
 /// - Governance eligibility is possession of exactly one nontransferable LABRV
 ///   and a matching permanent Registration V6.1 record.
@@ -146,7 +174,9 @@ interface IAragonDAOForGovernance {
 /// - Successful proposals execute exactly one native-POL transfer directly
 ///   from the existing Aragon DAO to the approved recipient.
 /// - Proposal type is permanently fixed as "Treasury Transfer"; arbitrary
-///   user-supplied titles are not accepted or stored.
+///   user-supplied titles and unrestricted descriptions are not accepted or stored.
+/// - Treasury recipients must be deployed contracts; direct transfers to EOAs
+///   cannot be proposed.
 /// - There is no owner, pause, setter, recovery, upgrade, arbitrary action,
 ///   arbitrary calldata, moderation administrator, or treasury-module dependency.
 contract LaborCoinGovernanceV15 is ReentrancyGuard {
@@ -167,7 +197,9 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
     uint256 public constant APPROVAL_BPS = 6_700;
     uint256 public constant MAX_TRANSFER_BPS = 500;
 
-    uint256 public constant MAX_DESCRIPTION_BYTES = 1_000;
+    uint256 public constant MAX_ORGANIZATION_NAME_BYTES = 96;
+    uint256 public constant MAX_WORKER_GROUP_OR_CAMPAIGN_BYTES = 128;
+    uint256 public constant MAX_VERIFICATION_URI_BYTES = 256;
 
     string public constant PROPOSAL_TITLE =
         "Treasury Transfer";
@@ -212,22 +244,30 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
 
     bytes32 public constant TEXT_POLICY_COMPATIBILITY_ID =
         keccak256(
-            "LABORCOIN_PROPOSAL_TEXT_POLICY_V1_ASCII_HASHED_LEXICON"
+            "LABORCOIN_PROPOSAL_TEXT_POLICY_V1_STRUCTURED_ASCII_HASHED_LEXICON_HTTPS_IPFS_V1"
         );
 
     bytes32 public constant TEXT_POLICY_LEXICON_COMMITMENT =
         0x46c24360a194d5e60f247daaee4f554032282ae90098a4b35662395bf4a3d2a6;
 
+    bytes32 public constant PROPOSAL_SCHEMA_ID =
+        keccak256(
+            "LABORCOIN_STRUCTURED_TREASURY_PROPOSAL_SCHEMA_V1"
+        );
+
     bytes32 public constant GOVERNANCE_COMPATIBILITY_ID =
         keccak256(
-            "LABORCOIN_GOVERNANCE_V15_1_DEADLINE_ELECTORATE_DIRECT_DAO_POL_TEXT_POLICY_V1"
+            "LABORCOIN_GOVERNANCE_V15_2_STRUCTURED_TREASURY_DEADLINE_ELECTORATE_DIRECT_DAO_POL_TEXT_POLICY_V1"
         );
 
     bytes32 private constant _CALL_ID_PREFIX =
-        keccak256("LABORCOIN_GOVERNANCE_V15_1_PROPOSAL_EXECUTION");
+        keccak256("LABORCOIN_GOVERNANCE_V15_2_PROPOSAL_EXECUTION");
+
+    string public constant PROPOSAL_SCHEMA_VERSION =
+        "LaborCoin Structured Treasury Proposal Schema V1";
 
     string public constant CONTRACT_VERSION =
-        "LaborCoin Governance V15.1.1";
+        "LaborCoin Governance V15.2.0";
 
     /*//////////////////////////////////////////////////////////////
                                   ENUMS
@@ -242,15 +282,68 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
         Expired
     }
 
+    enum Purpose {
+        Unset,
+        StrikeOrWorkStoppage,
+        OrganizingOrUnionization,
+        WorkerMutualAidOrEmergencyRelief,
+        LegalDefenseOrRepresentation,
+        DirectActionOrDemonstration,
+        WorkerCooperativeOrWorkplaceDemocracy,
+        EducationOutreachOrCommunications,
+        OtherWorkerLedCollectiveAction
+    }
+
+    enum ContactMethod {
+        Unset,
+        OrganizationWebsite,
+        Email,
+        Signal,
+        Matrix,
+        SocialMedia,
+        UnionOrWorkerOrganizationChannel,
+        VerificationSourceOnly,
+        OtherPublicChannel
+    }
+
+    enum DistributionPlan {
+        Unset,
+        DirectWorkerPayments,
+        NeedsBasedWorkerRelief,
+        SharedStrikeOrMutualAidFund,
+        OrganizingOrCampaignOperations,
+        LegalOrProfessionalExpenses,
+        SuppliesEquipmentOrLogistics,
+        DemocraticWorkerEnterpriseDevelopment,
+        MixedUse,
+        OtherCollectiveUse
+    }
+
     /*//////////////////////////////////////////////////////////////
                                  STRUCTS
     //////////////////////////////////////////////////////////////*/
 
-    struct Proposal {
-        string description;
-        bytes32 descriptionHash;
+    struct ProposalInput {
+        string organizationName;
         address payable recipient;
+        string workerGroupOrCampaign;
         uint256 amount;
+        Purpose purpose;
+        string verificationURI;
+        ContactMethod contactMethod;
+        DistributionPlan distributionPlan;
+    }
+
+    struct Proposal {
+        string organizationName;
+        address payable recipient;
+        string workerGroupOrCampaign;
+        uint256 amount;
+        Purpose purpose;
+        string verificationURI;
+        ContactMethod contactMethod;
+        DistributionPlan distributionPlan;
+        bytes32 contentHash;
         uint256 yesVotes;
         uint256 noVotes;
         uint256 startTime;
@@ -269,7 +362,10 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
         uint256 treasuryBalance;
         uint256 startTime;
         uint256 endTime;
-        bytes32 descriptionHash;
+        bytes32 organizationNameHash;
+        bytes32 workerGroupOrCampaignHash;
+        bytes32 verificationURIHash;
+        bytes32 contentHash;
     }
 
     /*//////////////////////////////////////////////////////////////
@@ -285,7 +381,7 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
     /// @notice Final Registration V6.1 address.
     address public immutable registration;
 
-    /// @notice Exact immutable proposal-description policy.
+    /// @notice Exact immutable structured-proposal text and URI policy.
     address public immutable proposalTextPolicy;
 
     bytes32 public immutable expectedLABRRuntimeCodeHash;
@@ -351,7 +447,9 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
 
     error InvalidTextPolicyCompatibility(bytes32 actual);
     error InvalidTextPolicyLexicon(bytes32 actual);
-    error InvalidTextPolicyDescriptionLimit(uint256 actual);
+    error InvalidTextPolicyOrganizationNameLimit(uint256 actual);
+    error InvalidTextPolicyWorkerGroupLimit(uint256 actual);
+    error InvalidTextPolicyVerificationURILimit(uint256 actual);
 
     error GovernanceNotReady();
     error GovernanceNotActivated(uint256 members, uint256 minimum);
@@ -367,7 +465,11 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
     error ProposalDoesNotExist(uint256 proposalId);
     error ActiveProposalExists(address creator, uint256 proposalId);
     error InvalidRecipient(address recipient);
+    error RecipientHasNoCode(address recipient);
     error InvalidAmount();
+    error PurposeRequired();
+    error ContactMethodRequired();
+    error DistributionPlanRequired();
     error EmptyTreasury();
     error TransferExceedsLimit(uint256 amount, uint256 maximum);
 
@@ -396,7 +498,8 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
         uint256 endTime,
         bytes32 callId,
         bytes32 proposalType,
-        bytes32 descriptionHash
+        bytes32 proposalSchemaId,
+        bytes32 contentHash
     );
 
     event VoteCast(
@@ -557,11 +660,36 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
             revert InvalidTextPolicyLexicon(lexicon);
         }
 
-        uint256 descriptionLimit =
-            policy.MAX_DESCRIPTION_BYTES();
-        if (descriptionLimit != MAX_DESCRIPTION_BYTES) {
-            revert InvalidTextPolicyDescriptionLimit(
-                descriptionLimit
+        uint256 organizationNameLimit =
+            policy.MAX_ORGANIZATION_NAME_BYTES();
+        if (
+            organizationNameLimit
+                != MAX_ORGANIZATION_NAME_BYTES
+        ) {
+            revert InvalidTextPolicyOrganizationNameLimit(
+                organizationNameLimit
+            );
+        }
+
+        uint256 workerGroupLimit =
+            policy.MAX_WORKER_GROUP_OR_CAMPAIGN_BYTES();
+        if (
+            workerGroupLimit
+                != MAX_WORKER_GROUP_OR_CAMPAIGN_BYTES
+        ) {
+            revert InvalidTextPolicyWorkerGroupLimit(
+                workerGroupLimit
+            );
+        }
+
+        uint256 verificationURILimit =
+            policy.MAX_VERIFICATION_URI_BYTES();
+        if (
+            verificationURILimit
+                != MAX_VERIFICATION_URI_BYTES
+        ) {
+            revert InvalidTextPolicyVerificationURILimit(
+                verificationURILimit
             );
         }
     }
@@ -822,33 +950,20 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
     //////////////////////////////////////////////////////////////*/
 
     function createProposal(
-        string calldata description,
-        address payable recipient,
-        uint256 amount
+        ProposalInput calldata input
     ) external returns (uint256 proposalId) {
         _requireGovernanceReady();
 
         ProposalCreationCache memory cache =
-            _prepareProposalCreation(
-                description,
-                recipient,
-                amount
-            );
+            _prepareProposalCreation(input);
 
-        proposalId = _storeProposal(
-            description,
-            recipient,
-            amount,
-            cache
-        );
+        proposalId = _storeProposal(input, cache);
 
         _emitProposalCreated(proposalId);
     }
 
     function _prepareProposalCreation(
-        string calldata description,
-        address payable recipient,
-        uint256 amount
+        ProposalInput calldata input
     )
         private
         view
@@ -880,13 +995,39 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
             );
         }
 
-        cache.descriptionHash =
+        ILaborCoinProposalTextPolicyV1ForGovernance policy =
             ILaborCoinProposalTextPolicyV1ForGovernance(
                 proposalTextPolicy
-            ).validateDescription(description);
+            );
 
-        _validateRecipient(recipient);
-        if (amount == 0) revert InvalidAmount();
+        cache.organizationNameHash =
+            policy.validateOrganizationName(
+                input.organizationName
+            );
+        cache.workerGroupOrCampaignHash =
+            policy.validateWorkerGroupOrCampaign(
+                input.workerGroupOrCampaign
+            );
+        cache.verificationURIHash =
+            policy.validateVerificationURI(
+                input.verificationURI
+            );
+
+        if (input.purpose == Purpose.Unset) {
+            revert PurposeRequired();
+        }
+        if (input.contactMethod == ContactMethod.Unset) {
+            revert ContactMethodRequired();
+        }
+        if (
+            input.distributionPlan
+                == DistributionPlan.Unset
+        ) {
+            revert DistributionPlanRequired();
+        }
+
+        _validateRecipient(input.recipient);
+        if (input.amount == 0) revert InvalidAmount();
 
         cache.treasuryBalance = DAO.balance;
         if (cache.treasuryBalance == 0) {
@@ -896,24 +1037,50 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
         uint256 maximumAmount =
             (cache.treasuryBalance * MAX_TRANSFER_BPS)
                 / BPS_DENOMINATOR;
-        if (amount > maximumAmount) {
+        if (input.amount > maximumAmount) {
             revert TransferExceedsLimit(
-                amount,
+                input.amount,
                 maximumAmount
             );
         }
 
         _assertMembershipSupply();
 
+        cache.contentHash = _proposalContentHash(
+            input,
+            cache.organizationNameHash,
+            cache.workerGroupOrCampaignHash,
+            cache.verificationURIHash
+        );
+
         cache.startTime = block.timestamp;
         cache.endTime =
             cache.startTime + PROPOSAL_DURATION;
     }
 
+    function _proposalContentHash(
+        ProposalInput calldata input,
+        bytes32 organizationNameHash,
+        bytes32 workerGroupOrCampaignHash,
+        bytes32 verificationURIHash
+    ) private pure returns (bytes32) {
+        return keccak256(
+            abi.encode(
+                PROPOSAL_SCHEMA_ID,
+                organizationNameHash,
+                input.recipient,
+                workerGroupOrCampaignHash,
+                input.amount,
+                input.purpose,
+                verificationURIHash,
+                input.contactMethod,
+                input.distributionPlan
+            )
+        );
+    }
+
     function _storeProposal(
-        string calldata description,
-        address payable recipient,
-        uint256 amount,
+        ProposalInput calldata input,
         ProposalCreationCache memory cache
     ) private returns (uint256 proposalId) {
         proposalId = proposalCount + 1;
@@ -921,15 +1088,22 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
 
         bytes32 callId = _proposalCallId(
             proposalId,
-            recipient,
-            amount
+            input.recipient,
+            input.amount,
+            cache.contentHash
         );
 
         Proposal storage proposal = _proposals[proposalId];
-        proposal.description = description;
-        proposal.descriptionHash = cache.descriptionHash;
-        proposal.recipient = recipient;
-        proposal.amount = amount;
+        proposal.organizationName = input.organizationName;
+        proposal.workerGroupOrCampaign =
+            input.workerGroupOrCampaign;
+        proposal.verificationURI = input.verificationURI;
+        proposal.contentHash = cache.contentHash;
+        proposal.recipient = input.recipient;
+        proposal.amount = input.amount;
+        proposal.purpose = input.purpose;
+        proposal.contactMethod = input.contactMethod;
+        proposal.distributionPlan = input.distributionPlan;
         proposal.startTime = cache.startTime;
         proposal.endTime = cache.endTime;
         proposal.creator = cache.creator;
@@ -957,7 +1131,8 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
             proposal.endTime,
             proposal.callId,
             PROPOSAL_TYPE,
-            proposal.descriptionHash
+            PROPOSAL_SCHEMA_ID,
+            proposal.contentHash
         );
     }
 
@@ -1321,10 +1496,39 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
             return false;
         }
 
-        try policy.MAX_DESCRIPTION_BYTES() returns (
-            uint256 descriptionLimit
+        try policy.MAX_ORGANIZATION_NAME_BYTES() returns (
+            uint256 organizationNameLimit
         ) {
-            if (descriptionLimit != MAX_DESCRIPTION_BYTES) {
+            if (
+                organizationNameLimit
+                    != MAX_ORGANIZATION_NAME_BYTES
+            ) {
+                return false;
+            }
+        } catch {
+            return false;
+        }
+
+        try policy.MAX_WORKER_GROUP_OR_CAMPAIGN_BYTES() returns (
+            uint256 workerGroupLimit
+        ) {
+            if (
+                workerGroupLimit
+                    != MAX_WORKER_GROUP_OR_CAMPAIGN_BYTES
+            ) {
+                return false;
+            }
+        } catch {
+            return false;
+        }
+
+        try policy.MAX_VERIFICATION_URI_BYTES() returns (
+            uint256 verificationURILimit
+        ) {
+            if (
+                verificationURILimit
+                    != MAX_VERIFICATION_URI_BYTES
+            ) {
                 return false;
             }
         } catch {
@@ -1453,8 +1657,8 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
                 && registeredAt < proposal.endTime;
     }
 
-    function validateProposalDescription(
-        string calldata description
+    function isOrganizationNameAllowed(
+        string calldata organizationName
     ) external view returns (bool) {
         if (
             proposalTextPolicy.codehash
@@ -1466,7 +1670,7 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
         try
             ILaborCoinProposalTextPolicyV1ForGovernance(
                 proposalTextPolicy
-            ).isDescriptionAllowed(description)
+            ).isOrganizationNameAllowed(organizationName)
         returns (bool allowed) {
             return allowed;
         } catch {
@@ -1474,19 +1678,86 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
         }
     }
 
-    /// @notice Returns immutable proposal content and transfer identity.
-    /// @dev Split from vote and execution data to keep the legacy compiler
-    /// ABI encoder below its stack limit without enabling Via IR.
+    function isWorkerGroupOrCampaignAllowed(
+        string calldata workerGroupOrCampaign
+    ) external view returns (bool) {
+        if (
+            proposalTextPolicy.codehash
+                != expectedProposalTextPolicyRuntimeCodeHash
+        ) {
+            return false;
+        }
+
+        try
+            ILaborCoinProposalTextPolicyV1ForGovernance(
+                proposalTextPolicy
+            ).isWorkerGroupOrCampaignAllowed(
+                workerGroupOrCampaign
+            )
+        returns (bool allowed) {
+            return allowed;
+        } catch {
+            return false;
+        }
+    }
+
+    function isVerificationURIAllowed(
+        string calldata verificationURI
+    ) external view returns (bool) {
+        if (
+            proposalTextPolicy.codehash
+                != expectedProposalTextPolicyRuntimeCodeHash
+        ) {
+            return false;
+        }
+
+        try
+            ILaborCoinProposalTextPolicyV1ForGovernance(
+                proposalTextPolicy
+            ).isVerificationURIAllowed(verificationURI)
+        returns (bool allowed) {
+            return allowed;
+        } catch {
+            return false;
+        }
+    }
+
+    /// @notice Returns the exact human-authored structured content and its commitment.
     function proposalContent(
         uint256 proposalId
     )
         external
         view
         returns (
-            string memory description,
-            bytes32 descriptionHash,
+            string memory organizationName,
+            string memory workerGroupOrCampaign,
+            string memory verificationURI,
+            bytes32 contentHash
+        )
+    {
+        Proposal storage proposal =
+            _requireProposal(proposalId);
+
+        return (
+            proposal.organizationName,
+            proposal.workerGroupOrCampaign,
+            proposal.verificationURI,
+            proposal.contentHash
+        );
+    }
+
+    /// @notice Returns executable transfer terms and fixed proposal categories.
+    function proposalTerms(
+        uint256 proposalId
+    )
+        external
+        view
+        returns (
             address recipient,
             uint256 amount,
+            Purpose purpose,
+            ContactMethod contactMethod,
+            DistributionPlan distributionPlan,
             address creator
         )
     {
@@ -1494,10 +1765,11 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
             _requireProposal(proposalId);
 
         return (
-            proposal.description,
-            proposal.descriptionHash,
             proposal.recipient,
             proposal.amount,
+            proposal.purpose,
+            proposal.contactMethod,
+            proposal.distributionPlan,
             proposal.creator
         );
     }
@@ -1669,6 +1941,9 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
         ) {
             revert InvalidRecipient(recipient);
         }
+        if (recipient.code.length == 0) {
+            revert RecipientHasNoCode(recipient);
+        }
     }
 
     function _requireProposal(
@@ -1683,7 +1958,8 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
     function _proposalCallId(
         uint256 proposalId,
         address recipient,
-        uint256 amount
+        uint256 amount,
+        bytes32 contentHash
     ) private view returns (bytes32) {
         return keccak256(
             abi.encode(
@@ -1692,7 +1968,8 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
                 address(this),
                 proposalId,
                 recipient,
-                amount
+                amount,
+                contentHash
             )
         );
     }

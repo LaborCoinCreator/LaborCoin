@@ -24,8 +24,27 @@ EXPECTED_MARKERS = {
     "LaborCoinExchangeV7.sol": ["_requireVerified(msg.sender)", "MAX_EXCHANGE_WALLET = 10_000 ether", "MAX_EXCHANGE_TRANSACTION = 5_000 ether"],
     "LaborVoteV9.sol": ["TransfersDisabled", "MEMBERSHIP_UNIT = 1 ether"],
     "LaborCoinRegistrationV6.sol": ["IdentityVerificationRequired", "function register()"],
-    "LaborCoinProposalTextPolicyV1.sol": ["MAX_DESCRIPTION_BYTES"],
-    "LaborCoinGovernanceV15.sol": ["MINIMUM_REGISTERED_USERS = 50", "APPROVAL_BPS = 6_700", "MAX_TRANSFER_BPS = 500", "totalMembersBefore(proposal.endTime)", "registeredAt < proposal.endTime"],
+    "LaborCoinProposalTextPolicyV1.sol": [
+    "MAX_ORGANIZATION_NAME_BYTES = 96",
+    "MAX_WORKER_GROUP_OR_CAMPAIGN_BYTES = 128",
+    "MAX_VERIFICATION_URI_BYTES = 256",
+    "LaborCoin Proposal Text Policy V1.1.1",
+    "validateOrganizationName",
+    "validateWorkerGroupOrCampaign",
+    "validateVerificationURI",
+],
+"LaborCoinGovernanceV15.sol": [
+    "MINIMUM_REGISTERED_USERS = 50",
+    "APPROVAL_BPS = 6_700",
+    "MAX_TRANSFER_BPS = 500",
+    "totalMembersBefore(proposal.endTime)",
+    "registeredAt < proposal.endTime",
+    "LABORCOIN_STRUCTURED_TREASURY_PROPOSAL_SCHEMA_V1",
+    "LaborCoin Governance V15.2.0",
+    "struct ProposalInput",
+    "RecipientHasNoCode",
+    "contentHash",
+],
 }
 
 

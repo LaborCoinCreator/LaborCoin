@@ -71,6 +71,66 @@ class SourceGuards(unittest.TestCase):
             self.assertIn(marker, governance)
         self.assertNotIn("MemberJoinedAfterSnapshot", governance)
 
+
+    def test_structured_treasury_proposal_policy(self):
+        policy = (C / "LaborCoinProposalTextPolicyV1.sol").read_text()
+        governance = (C / "LaborCoinGovernanceV15.sol").read_text()
+        for marker in [
+            "MAX_ORGANIZATION_NAME_BYTES = 96",
+            "MAX_WORKER_GROUP_OR_CAMPAIGN_BYTES = 128",
+            "MAX_VERIFICATION_URI_BYTES = 256",
+            "validateOrganizationName",
+            "validateWorkerGroupOrCampaign",
+            "validateVerificationURI",
+            "TOKEN_HASH_COUNT = 143",
+            "PHRASE_HASH_COUNT = 18",
+        ]:
+            self.assertIn(marker, policy)
+        for forbidden in [
+            "MAX_DESCRIPTION_BYTES",
+            "validateDescription",
+            "isDescriptionAllowed",
+        ]:
+            self.assertNotIn(forbidden, policy)
+        for marker in [
+            "LABORCOIN_STRUCTURED_TREASURY_PROPOSAL_SCHEMA_V1",
+            "struct ProposalInput",
+            "enum Purpose",
+            "enum ContactMethod",
+            "enum DistributionPlan",
+            "DemocraticWorkerEnterpriseDevelopment",
+            "bytes32 contentHash",
+            "RecipientHasNoCode",
+            "recipient.code.length == 0",
+            "validateOrganizationName",
+            "validateWorkerGroupOrCampaign",
+            "validateVerificationURI",
+        ]:
+            self.assertIn(marker, governance)
+        for forbidden in [
+            "string description",
+            "descriptionHash",
+            "validateProposalDescription",
+        ]:
+            self.assertNotIn(forbidden, governance)
+
+
+    def test_proposal_text_policy_canonical_ipfs_roots(self):
+        policy = (C / "LaborCoinProposalTextPolicyV1.sol").read_text()
+        for marker in [
+            "_CID_V0_LENGTH = 46",
+            "_MIN_CANONICAL_CID_V1_LENGTH = 32",
+            "_MAX_CID_ROOT_LENGTH = 128",
+            "_validCIDv0Root",
+            "_validCIDv1Base32Root",
+            "_validCIDv1Base36Root",
+            "raw[rootStart] == 0x51",
+            "raw[rootStart] == 0x62",
+            "raw[rootStart] == 0x6b",
+        ]:
+            self.assertIn(marker, policy)
+        self.assertNotIn("first != 0x2f", policy)
+
     def test_versions(self):
         expected = {
             "LaborCoinIdentityRegistryV1.sol": "V1.0.1",
@@ -78,8 +138,8 @@ class SourceGuards(unittest.TestCase):
             "LaborCoinExchangeV7.sol": "V7.0.0",
             "LaborVoteV9.sol": "V9.1.1",
             "LaborCoinRegistrationV6.sol": "V6.1.1",
-            "LaborCoinProposalTextPolicyV1.sol": "V1.0.1",
-            "LaborCoinGovernanceV15.sol": "V15.1.1",
+            "LaborCoinProposalTextPolicyV1.sol": "V1.1.1",
+            "LaborCoinGovernanceV15.sol": "V15.2.0",
         }
         for filename, version in expected.items():
             self.assertIn(version, (C / filename).read_text())

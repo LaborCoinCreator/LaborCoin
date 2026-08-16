@@ -2,36 +2,50 @@
 pragma solidity 0.8.36;
 
 /// @title LaborCoin Proposal Text Policy V1
-/// @notice Immutable lexical policy for permanent LaborCoin proposal text.
+/// @notice Immutable validation policy for human-authored fields in structured LaborCoin treasury proposals.
 /// @dev
 /// This contract is deliberately deterministic and administrator-free.
-/// It rejects non-ASCII text, markup delimiters, obvious URL schemes,
-/// prohibited normalized tokens, prohibited two- and three-token phrases,
-/// punctuation-separated spellings, common numerical substitutions, and
-/// sequences composed of separated single letters.
+/// Short proposal labels are limited to single-line printable ASCII, reject
+/// markup and URL markers, and are screened against the committed hashed
+/// lexical denylist using the same normalization and obfuscation defenses as
+/// the original policy candidate. Verification references are validated
+/// separately and may use only the exact `https://` or `ipfs://` schemes.
+/// IPFS references are restricted to a canonical CID root: CIDv0 base58btc
+/// (`Qm...`) or CIDv1 base32/base36 (`b...` / `k...`) before any path,
+/// query, or fragment.
 ///
-/// It is a lexical safeguard, not a semantic language model. No finite
-/// immutable denylist can recognize every hateful implication or every novel
-/// obfuscation. The exact policy and its limitations are publicly committed.
+/// It is a lexical and structural safeguard, not a semantic language model.
+/// No finite immutable denylist can recognize every hateful implication or
+/// every novel obfuscation. External verification content is not and cannot be
+/// authenticated or moderated by this contract.
 contract LaborCoinProposalTextPolicyV1 {
-    uint256 public constant MIN_DESCRIPTION_BYTES = 1;
-    uint256 public constant MAX_DESCRIPTION_BYTES = 1_000;
+    uint256 public constant MIN_ORGANIZATION_NAME_BYTES = 1;
+    uint256 public constant MAX_ORGANIZATION_NAME_BYTES = 96;
+
+    uint256 public constant MIN_WORKER_GROUP_OR_CAMPAIGN_BYTES = 1;
+    uint256 public constant MAX_WORKER_GROUP_OR_CAMPAIGN_BYTES = 128;
+
+    uint256 public constant MIN_VERIFICATION_URI_BYTES = 8;
+    uint256 public constant MAX_VERIFICATION_URI_BYTES = 256;
 
     uint256 public constant TOKEN_HASH_COUNT = 143;
     uint256 public constant PHRASE_HASH_COUNT = 18;
 
     bytes32 public constant COMPATIBILITY_ID =
         keccak256(
-            "LABORCOIN_PROPOSAL_TEXT_POLICY_V1_ASCII_HASHED_LEXICON"
+            "LABORCOIN_PROPOSAL_TEXT_POLICY_V1_STRUCTURED_ASCII_HASHED_LEXICON_HTTPS_IPFS_V1"
         );
 
     bytes32 public constant LEXICON_COMMITMENT =
         0x46c24360a194d5e60f247daaee4f554032282ae90098a4b35662395bf4a3d2a6;
 
     string public constant POLICY_VERSION =
-        "LaborCoin Proposal Text Policy V1.0.1";
+        "LaborCoin Proposal Text Policy V1.1.1";
 
     uint256 private constant _NO_INDEX = type(uint256).max;
+    uint256 private constant _CID_V0_LENGTH = 46;
+    uint256 private constant _MIN_CANONICAL_CID_V1_LENGTH = 32;
+    uint256 private constant _MAX_CID_ROOT_LENGTH = 128;
 
     struct ScanContext {
         bytes normalized;
@@ -61,71 +75,182 @@ contract LaborCoinProposalTextPolicyV1 {
     uint8 private constant _URL = 5;
     uint8 private constant _NO_WORDS = 6;
     uint8 private constant _PROHIBITED = 7;
+    uint8 private constant _NON_CANONICAL_SPACING = 8;
+    uint8 private constant _UNSUPPORTED_URI_SCHEME = 9;
+    uint8 private constant _INVALID_URI = 10;
 
-    error EmptyDescription();
-    error DescriptionTooLong(uint256 actual, uint256 maximum);
-    error InvalidCharacter(uint256 index, uint8 character);
-    error ProhibitedMarkup(uint256 index);
-    error ProhibitedURL();
-    error DescriptionHasNoWords();
-    error ProhibitedLanguage();
+    enum TextField {
+        OrganizationName,
+        WorkerGroupOrCampaign
+    }
 
-    /// @notice Reverts unless the description satisfies the permanent policy.
-    /// @return contentHash Keccak-256 of the exact accepted description bytes.
-    function validateDescription(
-        string calldata description
+    error EmptyTextField(TextField field);
+    error TextFieldTooLong(
+        TextField field,
+        uint256 actual,
+        uint256 maximum
+    );
+    error InvalidTextCharacter(
+        TextField field,
+        uint256 index,
+        uint8 character
+    );
+    error ProhibitedMarkup(TextField field, uint256 index);
+    error ProhibitedURL(TextField field);
+    error TextFieldHasNoWords(TextField field);
+    error ProhibitedLanguage(TextField field);
+    error NonCanonicalTextSpacing(TextField field);
+
+    error EmptyVerificationURI();
+    error VerificationURITooLong(uint256 actual, uint256 maximum);
+    error UnsupportedVerificationURIScheme();
+    error InvalidVerificationURICharacter(
+        uint256 index,
+        uint8 character
+    );
+    error InvalidVerificationURI();
+
+    /// @notice Reverts unless `organizationName` satisfies the permanent short-text policy.
+    /// @return contentHash Keccak-256 of the exact accepted field bytes.
+    function validateOrganizationName(
+        string calldata organizationName
     ) external pure returns (bytes32 contentHash) {
-        bytes memory raw = bytes(description);
-        (uint8 code, uint256 detail) = _scan(raw);
+        return
+            _validateShortText(
+                bytes(organizationName),
+                TextField.OrganizationName,
+                MAX_ORGANIZATION_NAME_BYTES
+            );
+    }
 
-        if (code == _EMPTY) revert EmptyDescription();
+    /// @notice Reverts unless `workerGroupOrCampaign` satisfies the permanent short-text policy.
+    /// @return contentHash Keccak-256 of the exact accepted field bytes.
+    function validateWorkerGroupOrCampaign(
+        string calldata workerGroupOrCampaign
+    ) external pure returns (bytes32 contentHash) {
+        return
+            _validateShortText(
+                bytes(workerGroupOrCampaign),
+                TextField.WorkerGroupOrCampaign,
+                MAX_WORKER_GROUP_OR_CAMPAIGN_BYTES
+            );
+    }
+
+    /// @notice Reverts unless `verificationURI` satisfies the permanent URI policy.
+    /// @return contentHash Keccak-256 of the exact accepted URI bytes.
+    function validateVerificationURI(
+        string calldata verificationURI
+    ) external pure returns (bytes32 contentHash) {
+        bytes memory raw = bytes(verificationURI);
+        (uint8 code, uint256 detail) = _scanVerificationURI(raw);
+
+        if (code == _EMPTY) revert EmptyVerificationURI();
         if (code == _TOO_LONG) {
-            revert DescriptionTooLong(
+            revert VerificationURITooLong(
                 raw.length,
-                MAX_DESCRIPTION_BYTES
+                MAX_VERIFICATION_URI_BYTES
             );
         }
         if (code == _INVALID_CHARACTER) {
-            revert InvalidCharacter(
+            revert InvalidVerificationURICharacter(
+                detail,
+                uint8(raw[detail])
+            );
+        }
+        if (code == _UNSUPPORTED_URI_SCHEME) {
+            revert UnsupportedVerificationURIScheme();
+        }
+        if (code == _INVALID_URI) revert InvalidVerificationURI();
+
+        return keccak256(raw);
+    }
+
+    /// @notice Non-reverting organization-name preview for wallets and frontends.
+    function isOrganizationNameAllowed(
+        string calldata organizationName
+    ) external pure returns (bool) {
+        (uint8 code, ) =
+            _scanShortText(
+                bytes(organizationName),
+                MAX_ORGANIZATION_NAME_BYTES
+            );
+        return code == _VALID;
+    }
+
+    /// @notice Non-reverting worker-group/campaign preview for wallets and frontends.
+    function isWorkerGroupOrCampaignAllowed(
+        string calldata workerGroupOrCampaign
+    ) external pure returns (bool) {
+        (uint8 code, ) =
+            _scanShortText(
+                bytes(workerGroupOrCampaign),
+                MAX_WORKER_GROUP_OR_CAMPAIGN_BYTES
+            );
+        return code == _VALID;
+    }
+
+    /// @notice Non-reverting verification-URI preview for wallets and frontends.
+    function isVerificationURIAllowed(
+        string calldata verificationURI
+    ) external pure returns (bool) {
+        (uint8 code, ) =
+            _scanVerificationURI(bytes(verificationURI));
+        return code == _VALID;
+    }
+
+    function _validateShortText(
+        bytes memory raw,
+        TextField field,
+        uint256 maximumLength
+    ) private pure returns (bytes32 contentHash) {
+        (uint8 code, uint256 detail) =
+            _scanShortText(raw, maximumLength);
+
+        if (code == _EMPTY) revert EmptyTextField(field);
+        if (code == _TOO_LONG) {
+            revert TextFieldTooLong(
+                field,
+                raw.length,
+                maximumLength
+            );
+        }
+        if (code == _INVALID_CHARACTER) {
+            revert InvalidTextCharacter(
+                field,
                 detail,
                 uint8(raw[detail])
             );
         }
         if (code == _MARKUP) {
-            revert ProhibitedMarkup(detail);
+            revert ProhibitedMarkup(field, detail);
         }
-        if (code == _URL) revert ProhibitedURL();
+        if (code == _URL) revert ProhibitedURL(field);
         if (code == _NO_WORDS) {
-            revert DescriptionHasNoWords();
+            revert TextFieldHasNoWords(field);
         }
         if (code == _PROHIBITED) {
-            revert ProhibitedLanguage();
+            revert ProhibitedLanguage(field);
+        }
+        if (code == _NON_CANONICAL_SPACING) {
+            revert NonCanonicalTextSpacing(field);
         }
 
         return keccak256(raw);
     }
 
-    /// @notice Non-reverting policy preview for wallets and frontends.
-    function isDescriptionAllowed(
-        string calldata description
-    ) external pure returns (bool) {
-        (uint8 code, ) = _scan(bytes(description));
-        return code == _VALID;
-    }
-
-    function _scan(
-        bytes memory raw
+    function _scanShortText(
+        bytes memory raw,
+        uint256 maximumLength
     ) private pure returns (uint8 code, uint256 detail) {
         uint256 rawLength = raw.length;
-        if (rawLength < MIN_DESCRIPTION_BYTES) {
-            return (_EMPTY, 0);
-        }
-        if (rawLength > MAX_DESCRIPTION_BYTES) {
+        if (rawLength == 0) return (_EMPTY, 0);
+        if (rawLength > maximumLength) {
             return (_TOO_LONG, rawLength);
         }
-        if (_containsURLMarker(raw)) {
-            return (_URL, 0);
+        if (raw[0] == 0x20 || raw[rawLength - 1] == 0x20) {
+            return (_NON_CANONICAL_SPACING, 0);
         }
+        if (_containsURLMarker(raw)) return (_URL, 0);
 
         bytes memory normalized = new bytes(rawLength);
         uint256 writeIndex;
@@ -134,14 +259,8 @@ contract LaborCoinProposalTextPolicyV1 {
         for (uint256 i = 0; i < rawLength; ++i) {
             uint8 character = uint8(raw[i]);
 
-            if (
-                character > 0x7e
-                    || (
-                        character < 0x20
-                            && character != 0x0a
-                            && character != 0x0d
-                    )
-            ) {
+            // Structured labels are deliberately single-line printable ASCII.
+            if (character < 0x20 || character > 0x7e) {
                 return (_INVALID_CHARACTER, i);
             }
 
@@ -159,11 +278,7 @@ contract LaborCoinProposalTextPolicyV1 {
                 continue;
             }
 
-            if (
-                character == 0x20
-                    || character == 0x0a
-                    || character == 0x0d
-            ) {
+            if (character == 0x20) {
                 if (!atBoundary && writeIndex != 0) {
                     normalized[writeIndex] = 0x20;
                     ++writeIndex;
@@ -172,9 +287,7 @@ contract LaborCoinProposalTextPolicyV1 {
                 continue;
             }
 
-            if (_isJoiner(character)) {
-                continue;
-            }
+            if (_isJoiner(character)) continue;
 
             if (!atBoundary && writeIndex != 0) {
                 normalized[writeIndex] = 0x20;
@@ -190,15 +303,252 @@ contract LaborCoinProposalTextPolicyV1 {
             --writeIndex;
         }
 
-        if (writeIndex == 0) {
-            return (_NO_WORDS, 0);
-        }
+        if (writeIndex == 0) return (_NO_WORDS, 0);
 
         if (_containsProhibitedLanguage(normalized, writeIndex)) {
             return (_PROHIBITED, 0);
         }
 
         return (_VALID, 0);
+    }
+
+    function _scanVerificationURI(
+        bytes memory raw
+    ) private pure returns (uint8 code, uint256 detail) {
+        uint256 rawLength = raw.length;
+        if (rawLength == 0) return (_EMPTY, 0);
+        if (rawLength > MAX_VERIFICATION_URI_BYTES) {
+            return (_TOO_LONG, rawLength);
+        }
+
+        for (uint256 i = 0; i < rawLength; ++i) {
+            uint8 character = uint8(raw[i]);
+            if (!_isURICharacter(character)) {
+                return (_INVALID_CHARACTER, i);
+            }
+        }
+
+        if (_startsWith(raw, bytes("https://"))) {
+            if (!_validHTTPSURI(raw)) return (_INVALID_URI, 0);
+            return (_VALID, 0);
+        }
+
+        if (_startsWith(raw, bytes("ipfs://"))) {
+            if (!_validIPFSURI(raw)) return (_INVALID_URI, 0);
+            return (_VALID, 0);
+        }
+
+        return (_UNSUPPORTED_URI_SCHEME, 0);
+    }
+
+    function _validHTTPSURI(
+        bytes memory raw
+    ) private pure returns (bool) {
+        uint256 hostStart = 8; // bytes("https://").length
+        if (raw.length <= hostStart) return false;
+
+        uint256 hostEnd = raw.length;
+        for (uint256 i = hostStart; i < raw.length; ++i) {
+            uint8 character = uint8(raw[i]);
+            if (
+                character == 0x2f // /
+                    || character == 0x3f // ?
+                    || character == 0x23 // #
+            ) {
+                hostEnd = i;
+                break;
+            }
+        }
+
+        if (hostEnd == hostStart) return false;
+
+        bool sawDot;
+        bool labelHasCharacter;
+        uint8 previous;
+
+        for (uint256 i = hostStart; i < hostEnd; ++i) {
+            uint8 character = uint8(raw[i]);
+
+            // User-info and explicit ports are intentionally excluded.
+            if (character == 0x40 || character == 0x3a) {
+                return false;
+            }
+
+            if (character == 0x2e) {
+                if (!labelHasCharacter || previous == 0x2d) {
+                    return false;
+                }
+                sawDot = true;
+                labelHasCharacter = false;
+                previous = character;
+                continue;
+            }
+
+            bool alphanumeric =
+                (character >= 0x30 && character <= 0x39)
+                    || (character >= 0x41 && character <= 0x5a)
+                    || (character >= 0x61 && character <= 0x7a);
+
+            if (!alphanumeric && character != 0x2d) {
+                return false;
+            }
+            if (!labelHasCharacter && character == 0x2d) {
+                return false;
+            }
+
+            labelHasCharacter = true;
+            previous = character;
+        }
+
+        if (!sawDot || !labelHasCharacter || previous == 0x2d) {
+            return false;
+        }
+
+        return true;
+    }
+
+    function _validIPFSURI(
+        bytes memory raw
+    ) private pure returns (bool) {
+        uint256 rootStart = 7; // bytes("ipfs://").length
+        if (raw.length <= rootStart) return false;
+
+        uint256 rootEnd = raw.length;
+        for (uint256 i = rootStart; i < raw.length; ++i) {
+            uint8 character = uint8(raw[i]);
+            if (
+                character == 0x2f // /
+                    || character == 0x3f // ?
+                    || character == 0x23 // #
+            ) {
+                rootEnd = i;
+                break;
+            }
+        }
+
+        uint256 rootLength = rootEnd - rootStart;
+        if (rootLength == 0 || rootLength > _MAX_CID_ROOT_LENGTH) {
+            return false;
+        }
+
+        if (
+            rootLength == _CID_V0_LENGTH
+                && raw[rootStart] == 0x51 // Q
+                && raw[rootStart + 1] == 0x6d // m
+        ) {
+            return _validCIDv0Root(raw, rootStart, rootEnd);
+        }
+
+        if (rootLength < _MIN_CANONICAL_CID_V1_LENGTH) {
+            return false;
+        }
+
+        if (raw[rootStart] == 0x62) { // b = base32 lower
+            return _validCIDv1Base32Root(raw, rootStart, rootEnd);
+        }
+
+        if (raw[rootStart] == 0x6b) { // k = base36 lower
+            return _validCIDv1Base36Root(raw, rootStart, rootEnd);
+        }
+
+        return false;
+    }
+
+    function _validCIDv0Root(
+        bytes memory raw,
+        uint256 start,
+        uint256 end
+    ) private pure returns (bool) {
+        for (uint256 i = start; i < end; ++i) {
+            uint8 character = uint8(raw[i]);
+            bool base58btc =
+                (character >= 0x31 && character <= 0x39) // 1-9
+                    || (character >= 0x41 && character <= 0x48) // A-H
+                    || (character >= 0x4a && character <= 0x4e) // J-N
+                    || (character >= 0x50 && character <= 0x5a) // P-Z
+                    || (character >= 0x61 && character <= 0x6b) // a-k
+                    || (character >= 0x6d && character <= 0x7a); // m-z
+            if (!base58btc) return false;
+        }
+        return true;
+    }
+
+    function _validCIDv1Base32Root(
+        bytes memory raw,
+        uint256 start,
+        uint256 end
+    ) private pure returns (bool) {
+        for (uint256 i = start + 1; i < end; ++i) {
+            uint8 character = uint8(raw[i]);
+            bool base32Lower =
+                (character >= 0x61 && character <= 0x7a) // a-z
+                    || (character >= 0x32 && character <= 0x37); // 2-7
+            if (!base32Lower) return false;
+        }
+        return true;
+    }
+
+    function _validCIDv1Base36Root(
+        bytes memory raw,
+        uint256 start,
+        uint256 end
+    ) private pure returns (bool) {
+        for (uint256 i = start + 1; i < end; ++i) {
+            uint8 character = uint8(raw[i]);
+            bool base36Lower =
+                (character >= 0x30 && character <= 0x39) // 0-9
+                    || (character >= 0x61 && character <= 0x7a); // a-z
+            if (!base36Lower) return false;
+        }
+        return true;
+    }
+
+    function _startsWith(
+        bytes memory value,
+        bytes memory prefix
+    ) private pure returns (bool) {
+        if (value.length < prefix.length) return false;
+        for (uint256 i = 0; i < prefix.length; ++i) {
+            if (value[i] != prefix[i]) return false;
+        }
+        return true;
+    }
+
+    function _isURICharacter(
+        uint8 character
+    ) private pure returns (bool) {
+        if (
+            (character >= 0x30 && character <= 0x39)
+                || (character >= 0x41 && character <= 0x5a)
+                || (character >= 0x61 && character <= 0x7a)
+        ) {
+            return true;
+        }
+
+        return
+            character == 0x21 // !
+                || character == 0x23 // #
+                || character == 0x24 // $
+                || character == 0x25 // %
+                || character == 0x26 // &
+                || character == 0x27 // '
+                || character == 0x28 // (
+                || character == 0x29 // )
+                || character == 0x2a // *
+                || character == 0x2b // +
+                || character == 0x2c // ,
+                || character == 0x2d // -
+                || character == 0x2e // .
+                || character == 0x2f // /
+                || character == 0x3a // :
+                || character == 0x3b // ;
+                || character == 0x3d // =
+                || character == 0x3f // ?
+                || character == 0x40 // @
+                || character == 0x5b // [
+                || character == 0x5d // ]
+                || character == 0x5f // _
+                || character == 0x7e; // ~
     }
 
     function _containsProhibitedLanguage(

@@ -18,7 +18,7 @@ Revision 7.2 is designed to minimize post-launch contract authority, constrain e
 | Verifier replay | Nonce, chain, registry, scorer, score, expiry binding | Verifier-key compromise can authorize bad wallets |
 | Governance wealth capture | One nontransferable LABRV per registrant | Identity system can still admit coordinated participants |
 | Arbitrary DAO action | One native-POL transfer with empty calldata | Recipient misuse cannot be prevented after transfer |
-| Malicious proposal text | Immutable Text Policy | Fixed policy can reject legitimate content or miss undesirable content |
+| Malicious proposal content | Structured on-chain schema, closed enums, short Text-Policy fields, constrained verification URI | Short text can still be inappropriate within policy limits; linked external content remains untrusted |
 | Permission persistence | Explicit Aragon grant and revocation checklist | DAO permission system is external to custom contracts |
 | Frontend compromise | Fail-closed config, pinned dependencies, source review | Domain, host, RPC, CDN, and service worker remain mutable surfaces |
 
@@ -42,7 +42,7 @@ Equal dividends align the economic design with one participant, one share, but t
 
 ## Governance and treasury risks
 
-A valid vote can transfer irreversible POL to an incorrect, compromised, or malicious recipient. The contract cannot evaluate labor legitimacy or recover funds. Participants must perform off-chain diligence. The per-proposal cap does not prevent repeated approved transfers.
+A valid vote can transfer irreversible POL to an incorrect, compromised, or malicious recipient contract. Governance rejects ordinary EOAs but cannot prove that a contract is worker-controlled, safe, or legitimate. Participants must perform off-chain diligence, including verification of recipient control and external supporting material. The per-proposal cap does not prevent repeated approved transfers.
 
 ## Immutable-launch risks
 

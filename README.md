@@ -4,7 +4,7 @@ LaborCoin is a Polygon protocol for building a transparent native-POL treasury a
 
 ## Current release status
 
-**Revision 7.2 is a frozen source candidate. It has not been compiled, audited, deployed, or activated.**
+**Revision 7.2 is in predeployment source revision. It has not been deployed or activated. Proposal Text Policy V1.1.1 and Governance V15.2.0 supersede their previously compiled candidates and require new compilation records before deployment.**
 
 Revision 7.2 corrects the dividend policy, introduces a shared immutable identity layer, and makes LABR permanently non-peer-transferable. The permanent economic and transfer rules are:
 
@@ -14,13 +14,13 @@ The active candidate contains seven contracts:
 
 | Order | Contract | Candidate version | Role |
 |---:|---|---|---|
-| 1 | Proposal Text Policy | V1.0.1 | Immutable proposal-description validation |
+| 1 | Proposal Text Policy | V1.1.1 | Immutable validation for structured proposal text and verification URIs |
 | 2 | Identity Registry | V1.0.1 | Permanent score-15 Human Passport verification |
 | 3 | Exchange | V7.0.0 | Identity-gated POL bonding-curve buys and sells |
 | 4 | LABR | V4.0.0 | Fixed-supply protocol-restricted token and equal-holder dividend accounting |
 | 5 | LaborVote | V9.1.1 | One permanent nontransferable LABRV membership unit |
 | 6 | Registration | V6.1.1 | Shared-identity governance registration |
-| 7 | Governance | V15.1.1 | One-member-one-vote Aragon treasury execution |
+| 7 | Governance | V15.2.0 | Structured one-member-one-vote Aragon treasury execution |
 
 The existing Aragon DAO treasury remains:
 
@@ -78,12 +78,18 @@ All Revision 7.2 replacement contract addresses are `DEPLOYMENT_PENDING`.
 - Approval threshold: ceiling of 67% of votes cast.
 - Maximum transfer: 5% of the DAO native-POL balance.
 - Each registered participant receives exactly one nontransferable LABRV and one vote.
+- Treasury proposals use a fixed structured schema; there is no unrestricted proposal-description field.
+- Requesting organization/group and worker-group/campaign names are short Text-Policy-validated fields.
+- Purpose, contact method, and distribution plan are closed on-chain enums.
+- Verification is one constrained HTTPS/IPFS reference; IPFS roots are limited to canonical CIDv0 base58btc or CIDv1 base32/base36 forms.
+- The executable recipient must be a deployed contract address; ordinary EOAs are rejected.
+- The proposal `contentHash` commits to the complete structured proposal, and the execution `callId` binds that content commitment.
 
 ## Repository authority
 
 ```text
 contracts/                              Active readable Solidity sources
-release/revision-7.2-source-freeze/    Frozen source and compiler-profile hashes
+release/revision-7.2-source-freeze/    Prior recorded freeze; Policy/Governance copies await replacement during the controlled precompilation refreeze
 docs/                                   Architecture, security, deployment, and whitepaper
 tests/                                  Source and model assurance tests
 ```
@@ -107,13 +113,13 @@ Network: Polygon mainnet, chain ID 137
 
 ## Compile order
 
-1. Proposal Text Policy V1.0.1
+1. Proposal Text Policy V1.1.1
 2. Identity Registry V1.0.1
 3. Exchange V7.0.0
 4. LABR V4.0.0
 5. LaborVote V9.1.1
 6. Registration V6.1.1
-7. Governance V15.1.1
+7. Governance V15.2.0
 
 Do not deploy until all seven artifacts are compiled under the frozen profile, independently checked, recorded in `LaborCoin-Compilation-Records`, tested, and sealed.
 

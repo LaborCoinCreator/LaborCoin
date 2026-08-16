@@ -31,7 +31,7 @@ Test all curve boundaries, randomized quote intervals, tranche boundaries, exact
 
 ## Membership and governance
 
-Test one-time registration, shared identity requirement, 1 LABR threshold, LABRV finalization, nontransferability, member-number timestamp indexing, binary-search historical counts, 50-member activation, voting by members who join before an active proposal deadline, exclusion at and after the deadline, final-electorate stability after later registrations, ceiling thresholds, active-proposal restriction, proposal text policy, recipient restrictions, 5% cap, execution window, Aragon permission, repeated execution prevention, and complete state transitions.
+Test one-time registration, shared identity requirement, 1 LABR threshold, LABRV finalization, nontransferability, member-number timestamp indexing, binary-search historical counts, 50-member activation, voting by members who join before an active proposal deadline, exclusion at and after the deadline, final-electorate stability after later registrations, ceiling thresholds, active-proposal restriction, Structured Treasury Proposal Schema V1, all enum values and `Unset` rejection, 96/128-byte short-text limits, HTTPS/IPFS URI validation, preserved lexicon commitment, recipient contract-code requirement, protected-recipient restrictions, deterministic `contentHash`, execution `callId` binding, 5% cap, execution window, Aragon permission, repeated execution prevention, and complete state transitions.
 
 ## Integration
 
@@ -45,5 +45,5 @@ Run local and Polygon-fork tests for:
 6. sell and exit eligibility;
 7. prove transfers to verified wallets, unverified wallets, contracts, and Exchange all revert while official buys and sells succeed;
 8. register and mint LABRV;
-9. create a proposal, register an additional member during voting, vote from that member, close voting, register another member, prove the result is unchanged, and execute;
+9. create a complete structured proposal to a contract treasury, verify every displayed/stored field and `contentHash`, register an additional member during voting, vote from that member, close voting, register another member, prove the result is unchanged, and execute;
 10. confirm website and verifier match exact deployed ABIs and domains.

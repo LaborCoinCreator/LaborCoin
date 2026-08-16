@@ -18,7 +18,7 @@ flowchart TD
     Exchange --> Dividends[Equal-holder dividend pool in LABR]
     LABR --> Dividends
     Registration --> LABRV[LaborVote V9.1]
-    LABRV --> Governance[Governance V15.1]
+    LABRV --> Governance[Governance V15.2]
     Registration --> Governance
     Policy[Proposal Text Policy V1] --> Governance
     Governance --> DAO
@@ -47,13 +47,13 @@ LaborVote mints one nontransferable LABRV to each successful registrant. It has 
 
 Registration reuses the permanent Identity Registry status. It requires at least 1 LABR, prevents duplicate registration, assigns a permanent member number, and asks LaborVote to mint exactly one LABRV.
 
-### Proposal Text Policy V1
+### Proposal Text Policy V1.1.1
 
-The policy is pure and immutable. It validates proposal descriptions against a fixed length, character, encoding, link, markup, and lexicon policy.
+The policy is pure and immutable. It validates the two short human-entered structured proposal fields against fixed ASCII and lexicon rules and validates one constrained HTTPS/IPFS verification URI through a separate URI path, with IPFS roots restricted to canonical CIDv0 base58btc or CIDv1 base32/base36 forms. It does not expose a general proposal-description validator.
 
-### Governance V15.1
+### Governance V15.2
 
-Governance allows every LABRV member registered before an active proposal deadline to vote. Registration provides a bounded historical member-count lookup, so the final electorate is fixed at the deadline and later registrations cannot change the result. Governance applies fixed ceiling-based thresholds and can ask the existing Aragon DAO to execute exactly one native-POL transfer.
+Governance allows every LABRV member registered before an active proposal deadline to vote. Registration provides a bounded historical member-count lookup, so the final electorate is fixed at the deadline and later registrations cannot change the result. Governance accepts only Structured Treasury Proposal Schema V1, requires the executable recipient to contain deployed contract code, commits the complete proposal to `contentHash`, applies fixed ceiling-based thresholds, and can ask the existing Aragon DAO to execute exactly one native-POL transfer.
 
 ## Trust boundaries
 

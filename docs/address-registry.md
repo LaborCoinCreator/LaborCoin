@@ -4,13 +4,13 @@
 
 | Component | Version | Address |
 |---|---|---|
-| Proposal Text Policy | V1.0.1 | `DEPLOYMENT_PENDING` |
+| Proposal Text Policy | V1.1.1 | `DEPLOYMENT_PENDING` |
 | Identity Registry | V1.0.1 | `DEPLOYMENT_PENDING` |
 | Exchange | V7.0.0 | `DEPLOYMENT_PENDING` |
 | LABR | V4.0.0 | `DEPLOYMENT_PENDING` |
 | LaborVote | V9.1.1 | `DEPLOYMENT_PENDING` |
 | Registration | V6.1.1 | `DEPLOYMENT_PENDING` |
-| Governance | V15.1.1 | `DEPLOYMENT_PENDING` |
+| Governance | V15.2.0 | `DEPLOYMENT_PENDING` |
 
 ## Retained infrastructure
 
