@@ -116,13 +116,13 @@
                   },
                   {
                       "path":  "README.md",
-                      "size":  1627,
-                      "sha256":  "95d99cf0ed6b3a66020ffd7e604aca1ca677491fb8eee5840fe30f32bce81fb2"
+                      "size":  1585,
+                      "sha256":  "d69e031f876381076c688ef1bcd6ad52a98f092a34fd89c02476e5fa317834e2"
                   },
                   {
                       "path":  "tests/run_source_checks.py",
-                      "size":  16527,
-                      "sha256":  "d3ad78775d4f07b43aa121304650119065a621bc72897002ebf1885dcd5580cd"
+                      "size":  15925,
+                      "sha256":  "d495eab6985429cbf6986065bbb64435f9131017bff5ed1b501dcb3953698a34"
                   }
               ]
 }
