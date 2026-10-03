@@ -1,0 +1,128 @@
+{
+    "revision":  "7.3",
+    "status":  "PRECOMPILATION_SOURCE_FREEZE",
+    "source_freeze_commit":  "f5a1b200a6f703538b88319d5135b20f36dbae1c",
+    "source_branch":  "revision-7.3",
+    "files":  [
+                  {
+                      "path":  "01-policy/compiler-settings.json",
+                      "size":  317,
+                      "sha256":  "57ea3e0ff3254a51f2195a9d8179e382982f5b441ffc8ac3709d8e29eea713d8"
+                  },
+                  {
+                      "path":  "01-policy/LaborCoinProposalTextPolicyV1.sol",
+                      "size":  40040,
+                      "sha256":  "df41a0e0f6a74510f055d1118c18746c4d731df5265ca39731adc945ee4defad"
+                  },
+                  {
+                      "path":  "01-policy/LaborCoinProposalTextPolicyV1_Remix.sol",
+                      "size":  40040,
+                      "sha256":  "df41a0e0f6a74510f055d1118c18746c4d731df5265ca39731adc945ee4defad"
+                  },
+                  {
+                      "path":  "02-identity-registry/compiler-settings.json",
+                      "size":  317,
+                      "sha256":  "57ea3e0ff3254a51f2195a9d8179e382982f5b441ffc8ac3709d8e29eea713d8"
+                  },
+                  {
+                      "path":  "02-identity-registry/LaborCoinIdentityRegistryV1.sol",
+                      "size":  9146,
+                      "sha256":  "ac25972e24d7bc160db63de062deaf77d8f8a870a7408a48a512c1bb2b398d38"
+                  },
+                  {
+                      "path":  "02-identity-registry/LaborCoinIdentityRegistryV1_Remix.sol",
+                      "size":  9209,
+                      "sha256":  "16a331fd97688d76e3f1d9a4bfb279fbe0f31db2549ea26c2df738106cca5d3c"
+                  },
+                  {
+                      "path":  "03-exchange/compiler-settings.json",
+                      "size":  317,
+                      "sha256":  "57ea3e0ff3254a51f2195a9d8179e382982f5b441ffc8ac3709d8e29eea713d8"
+                  },
+                  {
+                      "path":  "03-exchange/LaborCoinExchangeV7.sol",
+                      "size":  40740,
+                      "sha256":  "807267278cc4925d3307bc99abffb59fd8bd33e203bfa4c6c98b3098f1c8aa1a"
+                  },
+                  {
+                      "path":  "03-exchange/LaborCoinExchangeV7_Remix.sol",
+                      "size":  40803,
+                      "sha256":  "c11ef108984d6ee69aaac4a655448e5f3ae72f0f5fcc5eec23ae01a4b81a00d8"
+                  },
+                  {
+                      "path":  "04-token/compiler-settings.json",
+                      "size":  317,
+                      "sha256":  "57ea3e0ff3254a51f2195a9d8179e382982f5b441ffc8ac3709d8e29eea713d8"
+                  },
+                  {
+                      "path":  "04-token/LaborCoinV4.sol",
+                      "size":  18837,
+                      "sha256":  "91bd9b26c0612bba6959d98b7bc82fe09bdac0bf0865a75fa88c8a5d6df0029e"
+                  },
+                  {
+                      "path":  "04-token/LaborCoinV4_Remix.sol",
+                      "size":  18963,
+                      "sha256":  "481076ab1f82d4e0fe76083c72d8e3f31aed41ae8cedc290e5fc7e4e10d82baa"
+                  },
+                  {
+                      "path":  "05-labrv/compiler-settings.json",
+                      "size":  317,
+                      "sha256":  "57ea3e0ff3254a51f2195a9d8179e382982f5b441ffc8ac3709d8e29eea713d8"
+                  },
+                  {
+                      "path":  "05-labrv/LaborVoteV9.sol",
+                      "size":  6977,
+                      "sha256":  "669a8e59815c91608034ddc54cc35214190933550c4f45e1644c6dc98bdceda7"
+                  },
+                  {
+                      "path":  "05-labrv/LaborVoteV9_Remix.sol",
+                      "size":  7040,
+                      "sha256":  "1e651254c28b5a5cc1aa5afc9c79eee86c97b05c3cde7c5c6092bc103d66cc79"
+                  },
+                  {
+                      "path":  "06-registration/compiler-settings.json",
+                      "size":  317,
+                      "sha256":  "57ea3e0ff3254a51f2195a9d8179e382982f5b441ffc8ac3709d8e29eea713d8"
+                  },
+                  {
+                      "path":  "06-registration/LaborCoinRegistrationV6.sol",
+                      "size":  9805,
+                      "sha256":  "1ea6a752f328e61817a3bb2d1e192b7a96ecb45b86ad4ad8d10f4b247a637a28"
+                  },
+                  {
+                      "path":  "06-registration/LaborCoinRegistrationV6_Remix.sol",
+                      "size":  9868,
+                      "sha256":  "f180a90b1ca4b6c89365c55f3eb6d63aa0215407c0677b644aa72161d2ab9836"
+                  },
+                  {
+                      "path":  "07-governance/compiler-settings.json",
+                      "size":  317,
+                      "sha256":  "57ea3e0ff3254a51f2195a9d8179e382982f5b441ffc8ac3709d8e29eea713d8"
+                  },
+                  {
+                      "path":  "07-governance/LaborCoinGovernanceV16.sol",
+                      "size":  72402,
+                      "sha256":  "7214ad9ead43a000c18fb78ac13e8d427b83bdee705407cef3483238a7bcb9ab"
+                  },
+                  {
+                      "path":  "07-governance/LaborCoinGovernanceV16_Remix.sol",
+                      "size":  72528,
+                      "sha256":  "aa70ef14b8a89385da56e9a91db3cb93e5b87388c3e339b946614575c21a1111"
+                  },
+                  {
+                      "path":  "COMPILER_PROFILE.json",
+                      "size":  317,
+                      "sha256":  "57ea3e0ff3254a51f2195a9d8179e382982f5b441ffc8ac3709d8e29eea713d8"
+                  },
+                  {
+                      "path":  "README.md",
+                      "size":  1627,
+                      "sha256":  "95d99cf0ed6b3a66020ffd7e604aca1ca677491fb8eee5840fe30f32bce81fb2"
+                  },
+                  {
+                      "path":  "tests/run_source_checks.py",
+                      "size":  16527,
+                      "sha256":  "d3ad78775d4f07b43aa121304650119065a621bc72897002ebf1885dcd5580cd"
+                  }
+              ]
+}
