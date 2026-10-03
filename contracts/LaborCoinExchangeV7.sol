@@ -120,7 +120,7 @@ contract LaborCoinExchangeV7 is ReentrancyGuard {
     uint256 public constant TRANCHE_SIZE = 50_000_000 ether;
 
     address public constant daoTreasury =
-        0x0C2e5679153593b82a84eAB5CA90895BB291Cec4;
+        0x928Afe4a4d0978206bD7311548998f0BB1E89230;
 
     bytes32 public constant COMPATIBILITY_ID =
         keccak256(
@@ -128,7 +128,7 @@ contract LaborCoinExchangeV7 is ReentrancyGuard {
         );
 
     string public constant CONTRACT_VERSION =
-        "LaborCoin Exchange V7.0.0";
+        "LaborCoin Exchange V7.1.0";
 
     /*//////////////////////////////////////////////////////////////
                                  STORAGE

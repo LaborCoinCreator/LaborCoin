@@ -2,12 +2,14 @@
 pragma solidity 0.8.36;
 
 import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 
 interface ILaborCoinV4ForGovernance {
     function launchFinalized() external view returns (bool);
     function owner() external view returns (address);
     function officialExchange() external view returns (address);
     function daoTreasury() external view returns (address);
+    function identityRegistry() external view returns (address);
 }
 
 interface ILaborVoteV9_1ForGovernance {
@@ -153,8 +155,8 @@ interface IAragonDAOForGovernance {
         returns (bytes32);
 }
 
-/// @title LaborCoin Governance V15.2
-/// @notice Immutable one-member-one-vote treasury governance with an electorate fixed at the voting deadline.
+/// @title LaborCoin Governance V16
+/// @notice Immutable one-member-one-vote multi-asset treasury governance with an electorate fixed at the voting deadline.
 /// @dev Treasury proposals use a permanently structured schema. The two short
 /// human-authored labels and the verification URI must pass the exact immutable
 /// Proposal Text Policy V1 runtime committed during deployment. Purpose,
@@ -171,15 +173,17 @@ interface IAragonDAOForGovernance {
 ///   the voting deadline. Later registrations cannot change a closed result.
 /// - Quorum and approval calculations use ceiling division rather than
 ///   truncating percentages downward.
-/// - Successful proposals execute exactly one native-POL transfer directly
-///   from the existing Aragon DAO to the approved recipient.
-/// - Proposal type is permanently fixed as "Treasury Transfer"; arbitrary
-///   user-supplied titles and unrestricted descriptions are not accepted or stored.
+/// - Each successful proposal executes exactly one bounded transfer of one asset:
+///   native POL or one strict-transfer-compatible Polygon ERC-20.
+/// - The 5% cap is calculated independently against the selected asset's own
+///   current DAO balance at proposal creation and again at execution.
+/// - Governance constructs the complete DAO action. Proposers can never supply
+///   arbitrary targets, action arrays, calldata, approvals, swaps, or bridges.
 /// - Treasury recipients must be deployed contracts; direct transfers to EOAs
 ///   cannot be proposed.
 /// - There is no owner, pause, setter, recovery, upgrade, arbitrary action,
 ///   arbitrary calldata, moderation administrator, or treasury-module dependency.
-contract LaborCoinGovernanceV15 is ReentrancyGuard {
+contract LaborCoinGovernanceV16 is ReentrancyGuard {
     /*//////////////////////////////////////////////////////////////
                                 CONSTANTS
     //////////////////////////////////////////////////////////////*/
@@ -202,17 +206,22 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
     uint256 public constant MAX_VERIFICATION_URI_BYTES = 256;
 
     string public constant PROPOSAL_TITLE =
-        "Treasury Transfer";
+        "Treasury Asset Transfer";
 
     bytes32 public constant PROPOSAL_TYPE =
-        keccak256("LABORCOIN_TREASURY_TRANSFER");
+        keccak256("LABORCOIN_TREASURY_ASSET_TRANSFER");
 
     address public constant DAO =
-        0x0C2e5679153593b82a84eAB5CA90895BB291Cec4;
+        0x928Afe4a4d0978206bD7311548998f0BB1E89230;
+
+    address private constant FINAL_BOOTSTRAP_ADMIN_PLUGIN =
+        0x518a9850467Fa2C7c18a7ecCA032a0E984399c86;
 
     // Permanently obsolete LaborCoin deployments are invalid treasury
-    // recipients. This prevents approved funds from being trapped in or
-    // recirculated through superseded protocol contracts.
+    // recipients or payout assets. This prevents approved funds from being
+    // trapped in or recirculated through superseded protocol contracts.
+    address private constant LEGACY_DAO =
+        0x0C2e5679153593b82a84eAB5CA90895BB291Cec4;
     address public constant LEGACY_LABR =
         0x460DD873A1D2a41e77410B125cD3027C5FEd2f78;
     address public constant LEGACY_EXCHANGE_V2 =
@@ -233,6 +242,26 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
         0x8238105d31F6Bb26897d8Ab270a0A521FEF03E8c;
     address public constant LEGACY_TREASURY_MODULE_V1 =
         0x0B018E45E4cB71E222C345a5341BdbaeE519c623;
+    address private constant LEGACY_TREASURY_MODULE_V1_LATER =
+        0x10F2798ef055950B897AF4B3A8ae90dE34f6C56C;
+    address private constant LEGACY_GOVERNANCE_A =
+        0x232bd1c5Fd0917DF766Eedb713CA47bBA9E44bc5;
+    address private constant LEGACY_TREASURY_A =
+        0x6CaBeB549Db04E82d79045F348B32418bD99B726;
+    address private constant LEGACY_GOVERNANCE_B =
+        0x52419b9977f50918eb98558F39bb40AbAFb4Ed2A;
+    address private constant LEGACY_TREASURY_B =
+        0xCAf66C6F4F168625E732032B88E903b39cc8ECde;
+    address private constant LEGACY_GOVERNANCE_C =
+        0x4D4bC3D4039B6A9fcd9a9D0C2CFf655a52Bb4516;
+    address private constant LEGACY_TREASURY_C =
+        0x286292f67a6AC9a6eA1c894CF64f6DD8cDD76436;
+    address private constant LEGACY_GOVERNANCE_D =
+        0xEFbb3f8f873282a5d6789E6Ae11409B43FC18910;
+    address private constant LEGACY_TREASURY_D =
+        0x84AC5be86e2102496949862F59aCeB5d7Dc3Df77;
+    address private constant LEGACY_ADMIN_PLUGIN =
+        0xB51Bf5812Fd8FF0c3F1A1AB1e8F24426d497D5CF;
 
     bytes32 public constant EXECUTE_PERMISSION_ID =
         keccak256("EXECUTE_PERMISSION");
@@ -252,22 +281,27 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
 
     bytes32 public constant PROPOSAL_SCHEMA_ID =
         keccak256(
-            "LABORCOIN_STRUCTURED_TREASURY_PROPOSAL_SCHEMA_V1"
+            "LABORCOIN_STRUCTURED_TREASURY_PROPOSAL_SCHEMA_V2_MULTI_ASSET"
         );
 
     bytes32 public constant GOVERNANCE_COMPATIBILITY_ID =
         keccak256(
-            "LABORCOIN_GOVERNANCE_V15_2_STRUCTURED_TREASURY_DEADLINE_ELECTORATE_DIRECT_DAO_POL_TEXT_POLICY_V1"
+            "LABORCOIN_GOVERNANCE_V16_0_STRUCTURED_TREASURY_V2_DEADLINE_ELECTORATE_DIRECT_DAO_MULTI_ASSET_PER_ASSET_CAP_TEXT_POLICY_V1"
         );
 
     bytes32 private constant _CALL_ID_PREFIX =
-        keccak256("LABORCOIN_GOVERNANCE_V15_2_PROPOSAL_EXECUTION");
+        keccak256("LABORCOIN_GOVERNANCE_V16_0_PROPOSAL_EXECUTION");
+
+    bytes4 private constant _ERC20_BALANCE_OF_SELECTOR =
+        0x70a08231;
+    bytes4 private constant _ERC20_TRANSFER_SELECTOR =
+        0xa9059cbb;
 
     string public constant PROPOSAL_SCHEMA_VERSION =
-        "LaborCoin Structured Treasury Proposal Schema V1";
+        "LaborCoin Structured Treasury Proposal Schema V2";
 
     string public constant CONTRACT_VERSION =
-        "LaborCoin Governance V15.2.0";
+        "LaborCoin Governance V16.0.0";
 
     /*//////////////////////////////////////////////////////////////
                                   ENUMS
@@ -325,7 +359,8 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
 
     struct ProposalInput {
         string organizationName;
-        address payable recipient;
+        address asset;
+        address recipient;
         string workerGroupOrCampaign;
         uint256 amount;
         Purpose purpose;
@@ -336,7 +371,8 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
 
     struct Proposal {
         string organizationName;
-        address payable recipient;
+        address asset;
+        address recipient;
         string workerGroupOrCampaign;
         uint256 amount;
         Purpose purpose;
@@ -351,7 +387,7 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
         bool executed;
         address creator;
         uint256 creationElectorateSize;
-        uint256 treasuryBalanceSnapshot;
+        uint256 assetBalanceSnapshot;
         uint256 executedAt;
         bytes32 callId;
     }
@@ -359,13 +395,23 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
     struct ProposalCreationCache {
         address creator;
         uint256 memberCount;
-        uint256 treasuryBalance;
+        uint256 assetBalance;
         uint256 startTime;
         uint256 endTime;
         bytes32 organizationNameHash;
         bytes32 workerGroupOrCampaignHash;
         bytes32 verificationURIHash;
         bytes32 contentHash;
+    }
+
+    struct ProposalExecutionCache {
+        uint256 assetBalanceBefore;
+        uint256 assetBalanceAfter;
+        uint256 recipientBalanceBefore;
+        uint256 recipientBalanceAfter;
+        uint256 daoPOLBalanceBefore;
+        uint256 daoPOLBalanceAfter;
+        bytes32 executionResultHash;
     }
 
     /*//////////////////////////////////////////////////////////////
@@ -466,12 +512,25 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
     error ActiveProposalExists(address creator, uint256 proposalId);
     error InvalidRecipient(address recipient);
     error RecipientHasNoCode(address recipient);
+    error AssetHasNoCode(address asset);
+    error ProtectedProtocolAsset(address asset);
+    error AssetEqualsRecipient(address asset);
+    error AssetBalanceQueryFailed(address asset, address account);
+    error InvalidAssetBalanceReturnData(
+        address asset,
+        address account,
+        uint256 length
+    );
     error InvalidAmount();
     error PurposeRequired();
     error ContactMethodRequired();
     error DistributionPlanRequired();
-    error EmptyTreasury();
-    error TransferExceedsLimit(uint256 amount, uint256 maximum);
+    error EmptyAssetBalance(address asset);
+    error TransferExceedsLimit(
+        address asset,
+        uint256 amount,
+        uint256 maximum
+    );
 
     error VotingNotActive(uint256 proposalId);
     error AlreadyVoted(uint256 proposalId, address voter);
@@ -479,7 +538,43 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
     error ProposalDefeated(uint256 proposalId);
     error ProposalAlreadyExecuted(uint256 proposalId);
     error ExecutionWindowExpired(uint256 proposalId, uint256 deadline);
-    error InsufficientTreasuryBalance(uint256 balance, uint256 amount);
+    error InsufficientAssetBalance(
+        address asset,
+        uint256 balance,
+        uint256 amount
+    );
+
+    error ERC20TransferReturnedFalse(address asset);
+    error InvalidERC20TransferReturnData(
+        address asset,
+        uint256 length
+    );
+    error InvalidERC20TransferReturnValue(
+        address asset,
+        uint256 value
+    );
+    error ERC20TreasuryBalanceDeltaMismatch(
+        address asset,
+        uint256 beforeBalance,
+        uint256 afterBalance,
+        uint256 amount
+    );
+    error ERC20RecipientBalanceDeltaMismatch(
+        address asset,
+        address recipient,
+        uint256 beforeBalance,
+        uint256 afterBalance,
+        uint256 amount
+    );
+    error ERC20NativeBalanceChanged(
+        uint256 beforeBalance,
+        uint256 afterBalance
+    );
+    error NativeTreasuryBalanceDeltaMismatch(
+        uint256 beforeBalance,
+        uint256 afterBalance,
+        uint256 amount
+    );
 
     error DirectPOLDepositRejected();
 
@@ -489,11 +584,12 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
 
     event ProposalCreated(
         uint256 indexed proposalId,
-        address indexed creator,
+        address indexed asset,
         address indexed recipient,
+        address creator,
         uint256 amount,
         uint256 creationElectorateSize,
-        uint256 treasuryBalanceSnapshot,
+        uint256 assetBalanceSnapshot,
         uint256 startTime,
         uint256 endTime,
         bytes32 callId,
@@ -512,12 +608,13 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
 
     event ProposalExecuted(
         uint256 indexed proposalId,
-        address indexed executor,
+        address indexed asset,
         address indexed recipient,
+        address executor,
         uint256 amount,
         bytes32 callId,
-        uint256 treasuryBalanceBefore,
-        uint256 treasuryBalanceAfter,
+        uint256 assetBalanceBefore,
+        uint256 assetBalanceAfter,
         bytes32 executionResultHash
     );
 
@@ -1027,18 +1124,24 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
         }
 
         _validateRecipient(input.recipient);
+        _validateAsset(input.asset, input.recipient);
         if (input.amount == 0) revert InvalidAmount();
 
-        cache.treasuryBalance = DAO.balance;
-        if (cache.treasuryBalance == 0) {
-            revert EmptyTreasury();
+        cache.assetBalance =
+            _assetBalance(input.asset, DAO);
+        if (cache.assetBalance == 0) {
+            revert EmptyAssetBalance(input.asset);
         }
 
         uint256 maximumAmount =
-            (cache.treasuryBalance * MAX_TRANSFER_BPS)
-                / BPS_DENOMINATOR;
+            Math.mulDiv(
+                cache.assetBalance,
+                MAX_TRANSFER_BPS,
+                BPS_DENOMINATOR
+            );
         if (input.amount > maximumAmount) {
             revert TransferExceedsLimit(
+                input.asset,
                 input.amount,
                 maximumAmount
             );
@@ -1068,6 +1171,7 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
             abi.encode(
                 PROPOSAL_SCHEMA_ID,
                 organizationNameHash,
+                input.asset,
                 input.recipient,
                 workerGroupOrCampaignHash,
                 input.amount,
@@ -1088,6 +1192,7 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
 
         bytes32 callId = _proposalCallId(
             proposalId,
+            input.asset,
             input.recipient,
             input.amount,
             cache.contentHash
@@ -1095,6 +1200,7 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
 
         Proposal storage proposal = _proposals[proposalId];
         proposal.organizationName = input.organizationName;
+        proposal.asset = input.asset;
         proposal.workerGroupOrCampaign =
             input.workerGroupOrCampaign;
         proposal.verificationURI = input.verificationURI;
@@ -1108,8 +1214,8 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
         proposal.endTime = cache.endTime;
         proposal.creator = cache.creator;
         proposal.creationElectorateSize = cache.memberCount;
-        proposal.treasuryBalanceSnapshot =
-            cache.treasuryBalance;
+        proposal.assetBalanceSnapshot =
+            cache.assetBalance;
         proposal.callId = callId;
 
         latestProposalByCreator[cache.creator] = proposalId;
@@ -1122,11 +1228,12 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
 
         emit ProposalCreated(
             proposalId,
-            proposal.creator,
+            proposal.asset,
             proposal.recipient,
+            proposal.creator,
             proposal.amount,
             proposal.creationElectorateSize,
-            proposal.treasuryBalanceSnapshot,
+            proposal.assetBalanceSnapshot,
             proposal.startTime,
             proposal.endTime,
             proposal.callId,
@@ -1198,6 +1305,159 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
         Proposal storage proposal =
             _requireProposal(proposalId);
 
+        _validateExecutionState(proposalId, proposal);
+        _validateAsset(proposal.asset, proposal.recipient);
+
+        ProposalExecutionCache memory cache;
+
+        cache.assetBalanceBefore =
+            _assetBalance(proposal.asset, DAO);
+        if (cache.assetBalanceBefore < proposal.amount) {
+            revert InsufficientAssetBalance(
+                proposal.asset,
+                cache.assetBalanceBefore,
+                proposal.amount
+            );
+        }
+
+        uint256 currentMaximum =
+            _maximumTransferAmount(
+                cache.assetBalanceBefore
+            );
+        if (proposal.amount > currentMaximum) {
+            revert TransferExceedsLimit(
+                proposal.asset,
+                proposal.amount,
+                currentMaximum
+            );
+        }
+
+        IAragonDAOForGovernance.Action memory action;
+
+        if (proposal.asset == address(0)) {
+            action = IAragonDAOForGovernance.Action({
+                to: proposal.recipient,
+                value: proposal.amount,
+                data: bytes("")
+            });
+        } else {
+            cache.recipientBalanceBefore =
+                _assetBalance(
+                    proposal.asset,
+                    proposal.recipient
+                );
+            cache.daoPOLBalanceBefore = DAO.balance;
+
+            action = IAragonDAOForGovernance.Action({
+                to: proposal.asset,
+                value: 0,
+                data: abi.encodeWithSelector(
+                    _ERC20_TRANSFER_SELECTOR,
+                    proposal.recipient,
+                    proposal.amount
+                )
+            });
+        }
+
+        bytes memory result =
+            _executeDAOAction(
+                proposal,
+                action
+            );
+
+        cache.executionResultHash =
+            keccak256(result);
+
+        if (proposal.asset == address(0)) {
+            cache.assetBalanceAfter = DAO.balance;
+
+            if (
+                cache.assetBalanceAfter
+                    > cache.assetBalanceBefore
+                    || cache.assetBalanceBefore
+                        - cache.assetBalanceAfter
+                        != proposal.amount
+            ) {
+                revert NativeTreasuryBalanceDeltaMismatch(
+                    cache.assetBalanceBefore,
+                    cache.assetBalanceAfter,
+                    proposal.amount
+                );
+            }
+        } else {
+            _validateERC20TransferResult(
+                proposal.asset,
+                result
+            );
+
+            cache.assetBalanceAfter =
+                _assetBalance(proposal.asset, DAO);
+            cache.recipientBalanceAfter =
+                _assetBalance(
+                    proposal.asset,
+                    proposal.recipient
+                );
+            cache.daoPOLBalanceAfter = DAO.balance;
+
+            if (
+                cache.assetBalanceAfter
+                    > cache.assetBalanceBefore
+                    || cache.assetBalanceBefore
+                        - cache.assetBalanceAfter
+                        != proposal.amount
+            ) {
+                revert ERC20TreasuryBalanceDeltaMismatch(
+                    proposal.asset,
+                    cache.assetBalanceBefore,
+                    cache.assetBalanceAfter,
+                    proposal.amount
+                );
+            }
+
+            if (
+                cache.recipientBalanceAfter
+                    < cache.recipientBalanceBefore
+                    || cache.recipientBalanceAfter
+                        - cache.recipientBalanceBefore
+                        != proposal.amount
+            ) {
+                revert ERC20RecipientBalanceDeltaMismatch(
+                    proposal.asset,
+                    proposal.recipient,
+                    cache.recipientBalanceBefore,
+                    cache.recipientBalanceAfter,
+                    proposal.amount
+                );
+            }
+
+            if (
+                cache.daoPOLBalanceAfter
+                    != cache.daoPOLBalanceBefore
+            ) {
+                revert ERC20NativeBalanceChanged(
+                    cache.daoPOLBalanceBefore,
+                    cache.daoPOLBalanceAfter
+                );
+            }
+        }
+
+        emit ProposalExecuted(
+            proposalId,
+            proposal.asset,
+            proposal.recipient,
+            msg.sender,
+            proposal.amount,
+            proposal.callId,
+            cache.assetBalanceBefore,
+            cache.assetBalanceAfter,
+            cache.executionResultHash
+        );
+    }
+
+    function _validateExecutionState(
+        uint256 proposalId,
+        Proposal storage proposal
+    ) private view {
         if (proposal.executed) {
             revert ProposalAlreadyExecuted(proposalId);
         }
@@ -1219,37 +1479,20 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
                 executionDeadline
             );
         }
+    }
 
-        uint256 treasuryBalanceBefore = DAO.balance;
-        if (treasuryBalanceBefore < proposal.amount) {
-            revert InsufficientTreasuryBalance(
-                treasuryBalanceBefore,
-                proposal.amount
-            );
-        }
-
-        uint256 currentMaximum =
-            (treasuryBalanceBefore * MAX_TRANSFER_BPS)
-                / BPS_DENOMINATOR;
-        if (proposal.amount > currentMaximum) {
-            revert TransferExceedsLimit(
-                proposal.amount,
-                currentMaximum
-            );
-        }
-
+    function _executeDAOAction(
+        Proposal storage proposal,
+        IAragonDAOForGovernance.Action memory action
+    ) private returns (bytes memory result) {
+        bytes32 callId = proposal.callId;
         IAragonDAOForGovernance.Action[] memory actions =
             new IAragonDAOForGovernance.Action[](1);
-
-        actions[0] = IAragonDAOForGovernance.Action({
-            to: proposal.recipient,
-            value: proposal.amount,
-            data: bytes("")
-        });
+        actions[0] = action;
 
         bytes memory executeCalldata = abi.encodeCall(
             IAragonDAOForGovernance.execute,
-            (proposal.callId, actions, 0)
+            (callId, actions, 0)
         );
 
         bool permitted =
@@ -1270,7 +1513,7 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
             bytes[] memory results,
             uint256 failureMap
         ) = IAragonDAOForGovernance(DAO).execute(
-            proposal.callId,
+            callId,
             actions,
             0
         );
@@ -1284,19 +1527,39 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
             );
         }
 
-        uint256 treasuryBalanceAfter = DAO.balance;
-
-        emit ProposalExecuted(
-            proposalId,
-            msg.sender,
-            proposal.recipient,
-            proposal.amount,
-            proposal.callId,
-            treasuryBalanceBefore,
-            treasuryBalanceAfter,
-            keccak256(results[0])
-        );
+        return results[0];
     }
+
+    function _validateERC20TransferResult(
+        address asset,
+        bytes memory result
+    ) private pure {
+        uint256 length = result.length;
+
+        if (length == 0) return;
+        if (length != 32) {
+            revert InvalidERC20TransferReturnData(
+                asset,
+                length
+            );
+        }
+
+        uint256 value;
+        assembly ("memory-safe") {
+            value := mload(add(result, 0x20))
+        }
+
+        if (value == 0) {
+            revert ERC20TransferReturnedFalse(asset);
+        }
+        if (value != 1) {
+            revert InvalidERC20TransferReturnValue(
+                asset,
+                value
+            );
+        }
+    }
+
 
     /*//////////////////////////////////////////////////////////////
                              PROPOSAL RESULTS
@@ -1604,14 +1867,21 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
                 >= MINIMUM_REGISTERED_USERS;
     }
 
-    function maxProposalAmount()
-        external
-        view
-        returns (uint256)
-    {
+    function assetBalance(
+        address asset
+    ) external view returns (uint256) {
+        _validateAssetForView(asset);
+        return _assetBalance(asset, DAO);
+    }
+
+    function maxProposalAmount(
+        address asset
+    ) external view returns (uint256) {
+        _validateAssetForView(asset);
         return
-            (DAO.balance * MAX_TRANSFER_BPS)
-                / BPS_DENOMINATOR;
+            _maximumTransferAmount(
+                _assetBalance(asset, DAO)
+            );
     }
 
     function executionWindow()
@@ -1753,6 +2023,7 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
         external
         view
         returns (
+            address asset,
             address recipient,
             uint256 amount,
             Purpose purpose,
@@ -1765,6 +2036,7 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
             _requireProposal(proposalId);
 
         return (
+            proposal.asset,
             proposal.recipient,
             proposal.amount,
             proposal.purpose,
@@ -1775,7 +2047,7 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
     }
 
     /// @notice Returns vote totals, the creation electorate, the current or
-    /// final deadline electorate, and the creation-time treasury snapshot.
+    /// final deadline electorate, and the selected asset's creation-time balance.
     function proposalVoteData(
         uint256 proposalId
     )
@@ -1786,7 +2058,7 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
             uint256 noVotes,
             uint256 creationElectorateSize,
             uint256 deadlineElectorateSize,
-            uint256 treasuryBalanceSnapshot
+            uint256 assetBalanceSnapshot
         )
     {
         Proposal storage proposal =
@@ -1797,7 +2069,7 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
             proposal.noVotes,
             proposal.creationElectorateSize,
             _electorateSize(proposal),
-            proposal.treasuryBalanceSnapshot
+            proposal.assetBalanceSnapshot
         );
     }
 
@@ -1915,35 +2187,134 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
     function _validateRecipient(
         address recipient
     ) private view {
-        address exchange =
-            ILaborCoinV4ForGovernance(LABR)
-                .officialExchange();
-
         if (
             recipient == address(0)
-                || recipient == DAO
-                || recipient == address(this)
-                || recipient == LABR
-                || recipient == LABRV
-                || recipient == registration
-                || recipient == proposalTextPolicy
-                || recipient == exchange
-                || recipient == LEGACY_LABR
-                || recipient == LEGACY_EXCHANGE_V2
-                || recipient == LEGACY_EXCHANGE_V3
-                || recipient == LEGACY_EXCHANGE_V4
-                || recipient == LEGACY_LABRV_V6
-                || recipient == LEGACY_LABRV_V7
-                || recipient == LEGACY_REGISTRATION_V4
-                || recipient == LEGACY_GOVERNANCE_V12
-                || recipient == LEGACY_GOVERNANCE_V13
-                || recipient == LEGACY_TREASURY_MODULE_V1
+                || _isProtectedProtocolAddress(recipient)
         ) {
             revert InvalidRecipient(recipient);
         }
         if (recipient.code.length == 0) {
             revert RecipientHasNoCode(recipient);
         }
+    }
+
+    function _validateAsset(
+        address asset,
+        address recipient
+    ) private view {
+        _validateAssetForView(asset);
+
+        if (
+            asset != address(0)
+                && asset == recipient
+        ) {
+            revert AssetEqualsRecipient(asset);
+        }
+    }
+
+    function _validateAssetForView(
+        address asset
+    ) private view {
+        if (asset == address(0)) return;
+
+        if (asset.code.length == 0) {
+            revert AssetHasNoCode(asset);
+        }
+        if (_isProtectedProtocolAddress(asset)) {
+            revert ProtectedProtocolAsset(asset);
+        }
+    }
+
+    function _isProtectedProtocolAddress(
+        address account
+    ) private view returns (bool) {
+        ILaborCoinV4ForGovernance token =
+            ILaborCoinV4ForGovernance(LABR);
+
+        address exchange = token.officialExchange();
+        address identity = token.identityRegistry();
+
+        return
+            account == DAO
+                || account == FINAL_BOOTSTRAP_ADMIN_PLUGIN
+                || account == address(this)
+                || account == LABR
+                || account == LABRV
+                || account == registration
+                || account == proposalTextPolicy
+                || account == exchange
+                || account == identity
+                || account == LEGACY_DAO
+                || account == LEGACY_LABR
+                || account == LEGACY_EXCHANGE_V2
+                || account == LEGACY_EXCHANGE_V3
+                || account == LEGACY_EXCHANGE_V4
+                || account == LEGACY_LABRV_V6
+                || account == LEGACY_LABRV_V7
+                || account == LEGACY_REGISTRATION_V4
+                || account == LEGACY_GOVERNANCE_V12
+                || account == LEGACY_GOVERNANCE_V13
+                || account == LEGACY_TREASURY_MODULE_V1
+                || account == LEGACY_TREASURY_MODULE_V1_LATER
+                || account == LEGACY_GOVERNANCE_A
+                || account == LEGACY_TREASURY_A
+                || account == LEGACY_GOVERNANCE_B
+                || account == LEGACY_TREASURY_B
+                || account == LEGACY_GOVERNANCE_C
+                || account == LEGACY_TREASURY_C
+                || account == LEGACY_GOVERNANCE_D
+                || account == LEGACY_TREASURY_D
+                || account == LEGACY_ADMIN_PLUGIN;
+    }
+
+    function _assetBalance(
+        address asset,
+        address account
+    ) private view returns (uint256) {
+        if (asset == address(0)) {
+            return account.balance;
+        }
+
+        if (asset.code.length == 0) {
+            revert AssetHasNoCode(asset);
+        }
+
+        (
+            bool success,
+            bytes memory data
+        ) = asset.staticcall(
+            abi.encodeWithSelector(
+                _ERC20_BALANCE_OF_SELECTOR,
+                account
+            )
+        );
+
+        if (!success) {
+            revert AssetBalanceQueryFailed(
+                asset,
+                account
+            );
+        }
+        if (data.length != 32) {
+            revert InvalidAssetBalanceReturnData(
+                asset,
+                account,
+                data.length
+            );
+        }
+
+        return abi.decode(data, (uint256));
+    }
+
+    function _maximumTransferAmount(
+        uint256 balance
+    ) private pure returns (uint256) {
+        return
+            Math.mulDiv(
+                balance,
+                MAX_TRANSFER_BPS,
+                BPS_DENOMINATOR
+            );
     }
 
     function _requireProposal(
@@ -1957,6 +2328,7 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
 
     function _proposalCallId(
         uint256 proposalId,
+        address asset,
         address recipient,
         uint256 amount,
         bytes32 contentHash
@@ -1967,6 +2339,7 @@ contract LaborCoinGovernanceV15 is ReentrancyGuard {
                 block.chainid,
                 address(this),
                 proposalId,
+                asset,
                 recipient,
                 amount,
                 contentHash

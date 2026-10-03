@@ -51,10 +51,10 @@ contract LaborCoinV4 is ERC20, ReentrancyGuard {
     bytes32 public constant EXCHANGE_COMPATIBILITY_ID = keccak256(
         "LABORCOIN_EXCHANGE_V7_POL_IDENTITY_EQUAL_HOLDER_RESTRICTED_TRANSFER_V1"
     );
-    string public constant CONTRACT_VERSION = "LaborCoin V4.0.0";
+    string public constant CONTRACT_VERSION = "LaborCoin V4.1.0";
 
     address public constant daoTreasury =
-        0x0C2e5679153593b82a84eAB5CA90895BB291Cec4;
+        0x928Afe4a4d0978206bD7311548998f0BB1E89230;
 
     address public identityRegistry;
     bytes32 public expectedIdentityRegistryRuntimeCodeHash;
